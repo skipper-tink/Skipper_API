@@ -3,11 +3,11 @@ package com.backend.tinkoff_backend.entityes;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "InvolvedEmployee")
-public class InvolvedEmployee {
+@Table(name = "DemandEmployee")
+public class DemandEmployee {
 
     @Id
-    @Column(name = "idInvolvedEmployee")
+    @Column(name = "demandEmployeeId")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idInvolvedEmployee;
 }

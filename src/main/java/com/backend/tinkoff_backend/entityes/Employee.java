@@ -16,23 +16,23 @@ public class Employee {
     @JoinColumn(name = "User_userLogin", referencedColumnName = "userLogin", nullable = false)
     private String User_userLogin;
 
-    @Column(name = "freeTimePerWeek")
-    private long freeTimePerWeek;
+    @Column(name = "employeeFreeTimePerWeek")
+    private long employeeFreeTimePerWeek;
 
-    @Column(name = "thisFreeTimeUntilDate")
-    private Date thisFreeTimeUntilDate;
+    @Column(name = "employeeThisFreeTimeUntilDate")
+    private Date employeeThisFreeTimeUntilDate;
 
     public Employee(){
     }
 
     public Employee(long employeeId,
                     String User_userLogin,
-                    long freeTimePerWeek,
-                    Date thisFreeTimeUntilDate) {
+                    long employeeFreeTimePerWeek,
+                    Date employeeThisFreeTimeUntilDate) {
         this.employeeId = employeeId;
         this.User_userLogin = User_userLogin;
-        this.freeTimePerWeek = freeTimePerWeek;
-        this.thisFreeTimeUntilDate = thisFreeTimeUntilDate;
+        this.employeeFreeTimePerWeek = employeeFreeTimePerWeek;
+        this.employeeThisFreeTimeUntilDate = employeeThisFreeTimeUntilDate;
     }
 
     public long getEmployeeId() {
@@ -51,20 +51,20 @@ public class Employee {
         this.User_userLogin = User_userLogin;
     }
 
-    public long getFreeTimePerWeek() {
-        return freeTimePerWeek;
+    public long getEmployeeFreeTimePerWeek() {
+        return employeeFreeTimePerWeek;
     }
 
-    public void setFreeTimePerWeek(long freeTimePerWeek) {
-        this.freeTimePerWeek = freeTimePerWeek;
+    public void setEmployeeFreeTimePerWeek(long employeeFreeTimePerWeek) {
+        this.employeeFreeTimePerWeek = employeeFreeTimePerWeek;
     }
 
-    public Date getThisFreeTimeUntilDate() {
-        return thisFreeTimeUntilDate;
+    public Date getEmployeeThisFreeTimeUntilDate() {
+        return employeeThisFreeTimeUntilDate;
     }
 
-    public void setThisFreeTimeUntilDate(Date thisFreeTimeUntilDate) {
-        this.thisFreeTimeUntilDate = thisFreeTimeUntilDate;
+    public void setEmployeeThisFreeTimeUntilDate(Date employeeThisFreeTimeUntilDate) {
+        this.employeeThisFreeTimeUntilDate = employeeThisFreeTimeUntilDate;
     }
 
     @Override
@@ -72,8 +72,8 @@ public class Employee {
         return "Employee{" +
                 "employeeId=" + employeeId +
                 ", User_userLogin='" + User_userLogin + '\'' +
-                ", freeTimePerWeek=" + freeTimePerWeek +
-                ", thisFreeTimeUntilDate=" + thisFreeTimeUntilDate +
+                ", employeeFreeTimePerWeek=" + employeeFreeTimePerWeek +
+                ", employeeThisFreeTimeUntilDate=" + employeeThisFreeTimeUntilDate +
                 '}';
     }
 }

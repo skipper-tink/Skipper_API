@@ -6,23 +6,23 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 public class User {
 
     @Id
-    @Column(name = "userLogin")
+    @Column(name = "userLogin", nullable = false, unique = true)
     private String userLogin;
 
-    @Column(name = "userPassword")
+    @Column(name = "userPassword", nullable = false)
     private String userPassword;
 
-    @Column(name = "userName")
+    @Column(name = "userName", nullable = false)
     private String userName;
 
-    @Column(name = "userEmail")
+    @Column(name = "userEmail", nullable = false)
     private String userEmail;
 
-    @Column(name = "userPhoneNumber")
+    @Column(name = "userPhoneNumber", nullable = false)
     private String userPhoneNumber;
 
     public User(){}

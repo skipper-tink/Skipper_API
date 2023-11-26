@@ -5,16 +5,16 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "Employee")
 public class Employee {
 
     @Id
-    @Column(name = "idEmployee")
+    @Column(name = "employeeId", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idEmployee;
+    private long employeeId;
 
-    @JoinColumn(name = "user_login", referencedColumnName = "userLogin")
-    private String user_login;
+    @JoinColumn(name = "User_userLogin", referencedColumnName = "userLogin", nullable = false)
+    private String User_userLogin;
 
     @Column(name = "freeTimePerWeek")
     private long freeTimePerWeek;
@@ -25,30 +25,30 @@ public class Employee {
     public Employee(){
     }
 
-    public Employee(long idEmployee,
-                    String userLogin,
+    public Employee(long employeeId,
+                    String User_userLogin,
                     long freeTimePerWeek,
                     Date thisFreeTimeUntilDate) {
-        this.idEmployee = idEmployee;
-        this.user_login = userLogin;
+        this.employeeId = employeeId;
+        this.User_userLogin = User_userLogin;
         this.freeTimePerWeek = freeTimePerWeek;
         this.thisFreeTimeUntilDate = thisFreeTimeUntilDate;
     }
 
-    public long getIdEmployee() {
-        return idEmployee;
+    public long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setIdEmployee(long idEmployee) {
-        this.idEmployee = idEmployee;
+    public void setEmployeeId(long employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getUser_login() {
-        return user_login;
+    public String getUser_userLogin() {
+        return User_userLogin;
     }
 
-    public void setUser_login(String user_login) {
-        this.user_login = user_login;
+    public void setUser_userLogin(String User_userLogin) {
+        this.User_userLogin = User_userLogin;
     }
 
     public long getFreeTimePerWeek() {
@@ -70,8 +70,8 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "idEmployee=" + idEmployee +
-                ", userLogin='" + user_login + '\'' +
+                "employeeId=" + employeeId +
+                ", User_userLogin='" + User_userLogin + '\'' +
                 ", freeTimePerWeek=" + freeTimePerWeek +
                 ", thisFreeTimeUntilDate=" + thisFreeTimeUntilDate +
                 '}';

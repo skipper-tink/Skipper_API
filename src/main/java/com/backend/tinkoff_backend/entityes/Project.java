@@ -7,86 +7,86 @@ import jakarta.persistence.*;
 public class Project {
 
     @Id
-    @Column(name = "idProject")
+    @Column(name = "projectId", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long projectId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "projectName", nullable = false)
+    private String projectName;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "projectDescription", nullable = false)
+    private String projectDescription;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "projectStatus", nullable = false)
+    private String projectStatus;
 
-    @JoinColumn(name = "Employer_IdEmployer",
-            referencedColumnName = "idEmployer")
-    private long idEmployer;
+    @JoinColumn(name = "Employer_employerId",
+            referencedColumnName = "employerId", nullable = false)
+    private long Employer_employerId;
 
     public Project(){
     }
 
-    public Project(long id,
-                   String name,
-                   String description,
-                   String status,
-                   long idEmployer) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.status = status;
-        this.idEmployer = idEmployer;
+    public Project(long projectId,
+                   String projectName,
+                   String projectDescription,
+                   String projectStatus,
+                   long Employer_employerId) {
+        this.projectId = projectId;
+        this.projectName = projectName;
+        this.projectDescription = projectDescription;
+        this.projectStatus = projectStatus;
+        this.Employer_employerId = Employer_employerId;
     }
 
-    public long getId() {
-        return id;
+    public long getProjectId() {
+        return projectId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
     }
 
-    public String getName() {
-        return name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProjectDescription() {
+        return projectDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
     }
 
-    public String getStatus() {
-        return status;
+    public String getProjectStatus() {
+        return projectStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setProjectStatus(String projectStatus) {
+        this.projectStatus = projectStatus;
     }
 
-    public long getIdEmployer() {
-        return idEmployer;
+    public long getEmployer_employerId() {
+        return Employer_employerId;
     }
 
-    public void setIdEmployer(long idEmployer) {
-        this.idEmployer = idEmployer;
+    public void setEmployer_employerIdr(long Employer_employerId) {
+        this.Employer_employerId = Employer_employerId;
     }
 
     @Override
     public String toString() {
         return "Project{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
-                ", idEmployer=" + idEmployer +
+                "projectId=" + projectId +
+                ", projectName='" + projectName + '\'' +
+                ", projectDescription='" + projectDescription + '\'' +
+                ", projectStatus='" + projectStatus + '\'' +
+                ", Employer_employerId=" + Employer_employerId +
                 '}';
     }
 }

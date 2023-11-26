@@ -7,43 +7,43 @@ import jakarta.persistence.*;
 public class Employer {
 
     @Id
-    @Column(name = "idEmployer")
+    @Column(name = "employerId", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idEmployer;
+    private long employerId;
 
-    @JoinColumn(name = "user_login",
-            referencedColumnName = "userLogin")
-    private String user_login;
+    @JoinColumn(name = "User_userLogin",
+            referencedColumnName = "userLogin", nullable = false)
+    private String User_userLogin;
 
     public Employer(){
     }
 
-    public Employer(long idEmployer, String userLogin) {
-        this.idEmployer = idEmployer;
-        this.user_login = userLogin;
+    public Employer(long employerId, String User_userLogin) {
+        this.employerId = employerId;
+        this.User_userLogin = User_userLogin;
     }
 
-    public long getIdEmployer() {
-        return idEmployer;
+    public long getEmployerId() {
+        return employerId;
     }
 
-    public void setIdEmployer(long idEmployer) {
-        this.idEmployer = idEmployer;
+    public void setEmployerId(long employerId) {
+        this.employerId = employerId;
     }
 
-    public String getUser_login() {
-        return user_login;
+    public String getUser_userLogin() {
+        return User_userLogin;
     }
 
-    public void setUser_login(String user_login) {
-        this.user_login = user_login;
+    public void setUser_userLogin(String User_userLogin) {
+        this.User_userLogin = User_userLogin;
     }
 
     @Override
     public String toString() {
         return "Employer{" +
-                "idEmployer=" + idEmployer +
-                ", user_login='" + user_login + '\'' +
+                "employerId=" + employerId +
+                ", User_userLogin='" + User_userLogin + '\'' +
                 '}';
     }
 }

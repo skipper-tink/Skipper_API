@@ -9,11 +9,12 @@ import java.sql.Date;
 public class Demand {
     @Id
     @Column(name = "idDemand")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long idDemand;
 
     @JoinColumn(name = "Project_idProject",
             referencedColumnName = "idProject")
-    private long idProject;
+    private long Project_idProject;
 
     @Column(name = "time consumption")
     private int timeConsumption;
@@ -31,13 +32,13 @@ public class Demand {
     }
 
     public Demand(long idDemand,
-                  long idProject,
+                  long Project_idProject,
                   int timeConsumption,
                   Date date,
                   String specialization,
                   String qualification) {
         this.idDemand = idDemand;
-        this.idProject = idProject;
+        this.Project_idProject = Project_idProject;
         this.timeConsumption = timeConsumption;
         this.date = date;
         this.specialization = specialization;
@@ -53,11 +54,11 @@ public class Demand {
     }
 
     public long getIdProject() {
-        return idProject;
+        return Project_idProject;
     }
 
-    public void setIdProject(long idProject) {
-        this.idProject = idProject;
+    public void setIdProject(long Project_idProject) {
+        this.Project_idProject = Project_idProject;
     }
 
     public int getTimeConsumption() {
@@ -96,7 +97,7 @@ public class Demand {
     public String toString() {
         return "Demand{" +
                 "idDemand=" + idDemand +
-                ", idProject=" + idProject +
+                ", idProject=" + Project_idProject +
                 ", timeConsumption=" + timeConsumption +
                 ", date=" + date +
                 ", specialization='" + specialization + '\'' +

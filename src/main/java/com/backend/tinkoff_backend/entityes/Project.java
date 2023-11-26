@@ -8,6 +8,7 @@ public class Project {
 
     @Id
     @Column(name = "idProject")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "name")

@@ -17,7 +17,8 @@ public class Feedback {
     private String feedbackComment;
 
     @JoinColumn(name = "DemandEmployee_demandEmployeeId",
-    referencedColumnName = "demandEmployeeId", nullable = false)
+            referencedColumnName = "demandEmployeeId",
+            nullable = false)
     private long DemandEmployee_demandEmployeeId;
 
     @Column(name = "feedbackReviewerName", nullable = false)

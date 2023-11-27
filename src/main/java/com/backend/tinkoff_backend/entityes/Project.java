@@ -21,7 +21,8 @@ public class Project {
     private String projectStatus;
 
     @JoinColumn(name = "Employer_employerId",
-            referencedColumnName = "employerId", nullable = false)
+            referencedColumnName = "employerId",
+            nullable = false)
     private long Employer_employerId;
 
     public Project(){

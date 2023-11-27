@@ -12,11 +12,13 @@ public class GradeSkill {
     private long gradeSkillId;
 
     @JoinColumn(name = "Skill_skillId",
-            referencedColumnName = "skillId", nullable = false)
+            referencedColumnName = "skillId",
+            nullable = false)
     private long Skill_skillId;
 
     @JoinColumn(name = "EmployeeGrade_employeeGradeId",
-            referencedColumnName = "employeeGradeId", nullable = false)
+            referencedColumnName = "employeeGradeId",
+            nullable = false)
     private long EmployeeGrade_employeeGradeId;
 
     public GradeSkill() {

@@ -12,7 +12,8 @@ public class Employer {
     private long employerId;
 
     @JoinColumn(name = "User_userLogin",
-            referencedColumnName = "userLogin", nullable = false)
+            referencedColumnName = "userLogin",
+            nullable = false)
     private String User_userLogin;
 
     public Employer(){

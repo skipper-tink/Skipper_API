@@ -13,7 +13,9 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employeeId;
 
-    @JoinColumn(name = "User_userLogin", referencedColumnName = "userLogin", nullable = false)
+    @JoinColumn(name = "User_userLogin",
+            referencedColumnName = "userLogin",
+            nullable = false)
     private String User_userLogin;
 
     @Column(name = "employeeFreeTimePerWeek")

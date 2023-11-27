@@ -12,7 +12,8 @@ public class EmployeeGrade {
     private long employeeGradeId;
 
     @JoinColumn(name = "Employee_employeeId",
-    referencedColumnName = "employeeId", nullable = false)
+            referencedColumnName = "employeeId",
+            nullable = false)
     private long Employee_employeeId;
 
     @Column(name = "employeeGradeSpecialization", nullable = false)

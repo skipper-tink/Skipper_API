@@ -1,4 +1,4 @@
-package com.backend.tinkoff_backend.entityes;
+package com.backend.tinkoff_backend.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

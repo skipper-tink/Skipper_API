@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestParam User user){

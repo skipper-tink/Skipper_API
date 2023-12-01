@@ -24,7 +24,7 @@ public class UserController {
             userService.createUser(user);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (ServiceException e) {
-            return new ResponseEntity<>(HttpStatus.IM_USED);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

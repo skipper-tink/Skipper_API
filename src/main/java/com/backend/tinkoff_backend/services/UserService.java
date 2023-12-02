@@ -15,7 +15,7 @@ public class UserService {
     UserRepository userRepository;
 
     public void createUser(User user) throws ServiceException {
-        Optional<User> userData = userRepository.findByUserLogin(user.getUserLogin());
+        Optional<User> userData = userRepository.findById(user.getUserLogin());
         if (userData.isPresent())
             throw new ServiceException("This login already exists");
         userRepository.save(user);

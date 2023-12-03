@@ -66,16 +66,14 @@ public class ProjectService {
     public void deleteProject(long projectId) throws ServiceException {
         Optional<Project> projectData = projectRepository.findById(projectId);
 
-        if (projectData.isPresent())
+        if (projectData.isPresent()) {
             projectRepository.deleteById(projectId);
+            return;
+        }
         throw new ServiceException("No such project");
     }
 
     public void deleteAllProjects() throws ServiceException {
-        List<Project> projects = projectRepository.findAll();
-
-        if (projects.isEmpty())
-            throw new ServiceException("No projects");
         projectRepository.deleteAll();
     }
 }

@@ -32,7 +32,7 @@ public class EmployerService {
     }
 
     public Employer getEmployerByUserLogin(String userLogin) throws ServiceException {
-        Optional<Employer> employerData = employerRepository.findByUser_userLogin(userLogin);
+        Optional<Employer> employerData = employerRepository.findByUserLogin(userLogin);
 
         if (employerData.isPresent())
             return employerData.get();
@@ -43,7 +43,7 @@ public class EmployerService {
 
         if (employerData.isPresent()) {
             Employer _employer = employerData.get();
-            _employer.setUser_userLogin(employer.getUser_userLogin());
+            _employer.setUserLogin(employer.getUserLogin());
             return employerRepository.save(_employer);
         }
         throw new ServiceException("No such employer");

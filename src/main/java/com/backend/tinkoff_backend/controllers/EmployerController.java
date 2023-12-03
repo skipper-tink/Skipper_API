@@ -5,10 +5,7 @@ import com.backend.tinkoff_backend.services.EmployerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -26,4 +23,24 @@ public class EmployerController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/employers/{id}")
+    public ResponseEntity<Employer> getEmployerById(@PathVariable("id") long employerId) {
+        try {
+            return new ResponseEntity<>(employerService.getEmployerById(employerId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/employers/{id}")
+    public ResponseEntity<Employer> updateEmployer(@PathVariable("id") long employerId,
+                                                   @RequestBody Employer employer) {
+        try {
+            return new ResponseEntity<>(employerService.updateEmployer(employerId, employer), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

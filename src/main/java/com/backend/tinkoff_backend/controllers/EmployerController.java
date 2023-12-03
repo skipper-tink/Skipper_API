@@ -33,6 +33,15 @@ public class EmployerController {
         }
     }
 
+    @GetMapping("/employers/{userLogin}")
+    public ResponseEntity<Employer> getEmployerByUserLogin(@PathVariable("userLogin") String userLogin) {
+        try {
+            return new ResponseEntity<>(employerService.getEmployerByUserLogin(userLogin), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping("/employers/{id}")
     public ResponseEntity<Employer> updateEmployer(@PathVariable("id") long employerId,
                                                    @RequestBody Employer employer) {

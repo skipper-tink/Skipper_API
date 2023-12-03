@@ -31,6 +31,13 @@ public class EmployerService {
         throw new ServiceException("No such employer");
     }
 
+    public Employer getEmployerByUserLogin(String userLogin) throws ServiceException {
+        Optional<Employer> employerData = employerRepository.findByUser_userLogin(userLogin);
+
+        if (employerData.isPresent())
+            return employerData.get();
+        throw new ServiceException("No such employer");
+    }
     public Employer updateEmployer(long employerId, Employer employer) throws ServiceException {
         Optional<Employer> employerData = employerRepository.findById(employerId);
 

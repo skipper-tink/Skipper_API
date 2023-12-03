@@ -15,7 +15,7 @@ public class ProjectService {
     @Autowired
     ProjectRepository projectRepository;
 
-    public void createProject(Project project) throws ServiceException{
+    public void createProject(Project project) throws ServiceException {
         try {
             projectRepository.save(new Project(project.getProjectName(),
                     project.getProjectDescription(), project.getProjectStatus(),
@@ -31,6 +31,14 @@ public class ProjectService {
         if (projectData.isPresent())
             return projectData.get();
         throw new ServiceException("No such project");
+    }
+
+    public List<Project> getProjectsByEmployerId(long employerId) throws ServiceException {
+        List<Project> projects = projectRepository.findAllByEmployerId(employerId);
+
+        if (projects.isEmpty())
+            throw new ServiceException("this employer hasn't projects");
+        return projects;
     }
 
     public Project updateProject(long projectId, Project project) throws ServiceException {

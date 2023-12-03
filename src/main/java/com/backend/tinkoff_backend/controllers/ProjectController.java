@@ -4,11 +4,10 @@ import com.backend.tinkoff_backend.entities.Project;
 import com.backend.tinkoff_backend.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.module.ResolutionException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -36,6 +35,15 @@ public class ProjectController {
         }
     }
 
+    @GetMapping("/projects/{employerId}")
+    public ResponseEntity<List<Project>> getProjectsByEmployerId(@PathVariable("employerId") long employerId) {
+        try {
+            return new ResponseEntity<>(projectService.getProjectsByEmployerId(employerId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable("id") long projectId, @RequestBody Project project) {
         try {
@@ -48,8 +56,8 @@ public class ProjectController {
     @DeleteMapping("/projects/{id}")
     public ResponseEntity<Project> deleteProject(@PathVariable("id") long projectId) {
         try {
-             projectService.deleteProject(projectId);
-             return new ResponseEntity<>(HttpStatus.OK);
+            projectService.deleteProject(projectId);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

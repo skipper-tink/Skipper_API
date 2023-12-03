@@ -67,7 +67,7 @@ public class EmployerController {
     public ResponseEntity<Employer> deleteEmployer(@PathVariable("id") long employerId) {
         try {
             employerService.deleteEmployer(employerId);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

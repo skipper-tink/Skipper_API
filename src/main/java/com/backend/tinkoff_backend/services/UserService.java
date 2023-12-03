@@ -6,6 +6,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.rmi.ServerException;
 import java.util.Optional;
 
 @Service
@@ -35,5 +36,15 @@ public class UserService {
         if (userData.isPresent())
             return userRepository.save(user);
         throw new ServiceException("No such user");
+    }
+
+    public void deleteUser(String userLogin) throws ServerException {
+        Optional<User> userData = userRepository.findById(userLogin);
+
+        if (userData.isPresent()) {
+            userRepository.deleteById(userLogin);
+            return;
+        }
+        throw new ServerException("No such user");
     }
 }

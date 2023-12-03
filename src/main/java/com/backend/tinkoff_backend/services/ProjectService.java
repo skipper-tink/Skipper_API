@@ -23,4 +23,26 @@ public class ProjectService {
             throw new ServiceException(e.getMessage());
         }
     }
+
+    public Project getProjectById(long projectId) throws ServiceException {
+        Optional<Project> projectData = projectRepository.findById(projectId);
+
+        if (projectData.isPresent())
+            return projectData.get();
+        throw new ServiceException("No such project");
+    }
+
+    public Project updateProject(long projectId, Project project) throws ServiceException {
+        Optional<Project> projectData = projectRepository.findById(projectId);
+
+        if (projectData.isPresent()) {
+            Project _project = projectData.get();
+            _project.setProjectName(project.getProjectName());
+            _project.setProjectStatus(project.getProjectStatus());
+            _project.setProjectDescription(project.getProjectDescription());
+            _project.setEmployerId(project.getEmployerId());
+            return projectRepository.save(_project);
+        }
+        throw new ServiceException("No such project");
+    }
 }

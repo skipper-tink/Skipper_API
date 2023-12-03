@@ -74,7 +74,7 @@ public class Project {
         return employerId;
     }
 
-    public void setEmployerIdr(long Employer_employerId) {
+    public void setEmployerId(long Employer_employerId) {
         this.employerId = Employer_employerId;
     }
 

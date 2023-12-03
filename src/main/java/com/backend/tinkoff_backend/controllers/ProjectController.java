@@ -4,11 +4,11 @@ import com.backend.tinkoff_backend.entities.Project;
 import com.backend.tinkoff_backend.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.lang.module.ResolutionException;
 
 @RestController
 @RequestMapping("/api")
@@ -26,4 +26,23 @@ public class ProjectController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/projects/{id}")
+    public ResponseEntity<Project> getProjectById(@PathVariable("id") long projectId) {
+        try {
+            return new ResponseEntity<>(projectService.getProjectById(projectId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("projects/{id}")
+    public ResponseEntity<Project> updateProject(@PathVariable("id") long projectId, @RequestBody Project project) {
+        try {
+            return new ResponseEntity<>(projectService.updateProject(projectId, project), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

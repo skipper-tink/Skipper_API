@@ -6,6 +6,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -38,6 +39,15 @@ public class EmployerService {
             return employerData.get();
         throw new ServiceException("No such employer");
     }
+
+    public List<Employer> getAllEmployers() throws ServiceException {
+        List<Employer> employers = employerRepository.findAll();
+
+        if (employers.isEmpty())
+            throw new ServiceException("No employers");
+        return employers;
+    }
+
     public Employer updateEmployer(long employerId, Employer employer) throws ServiceException {
         Optional<Employer> employerData = employerRepository.findById(employerId);
 

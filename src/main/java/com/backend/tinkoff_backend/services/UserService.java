@@ -35,7 +35,7 @@ public class UserService {
         List<User> users = userRepository.findAll();
 
         if (users.isEmpty())
-            throw new ServiceException("no users");
+            throw new ServiceException("No users");
         return users;
     }
 

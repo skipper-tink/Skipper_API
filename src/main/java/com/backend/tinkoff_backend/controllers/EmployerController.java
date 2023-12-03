@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class EmployerController {
@@ -38,6 +40,15 @@ public class EmployerController {
         try {
             return new ResponseEntity<>(employerService.getEmployerByUserLogin(userLogin), HttpStatus.OK);
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/employers")
+    public ResponseEntity<List<Employer>> getAllEmployers() {
+        try {
+            return new ResponseEntity<>(employerService.getAllEmployers(), HttpStatus.OK);
+        } catch(Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

@@ -62,8 +62,10 @@ public class EmployerService {
     public void deleteEmployer(long employerId) throws ServiceException {
         Optional<Employer> employerData = employerRepository.findById(employerId);
 
-        if (employerData.isPresent())
+        if (employerData.isPresent()) {
             employerRepository.deleteById(employerId);
+            return;
+        }
         throw new ServiceException("No such employer");
     }
 

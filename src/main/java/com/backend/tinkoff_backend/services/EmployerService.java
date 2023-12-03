@@ -56,4 +56,8 @@ public class EmployerService {
             employerRepository.deleteById(employerId);
         throw new ServiceException("No such employer");
     }
+
+    public void deleteAllEmployers() throws ServiceException {
+        employerRepository.deleteAll();
+    }
 }

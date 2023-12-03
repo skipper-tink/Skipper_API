@@ -14,20 +14,20 @@ public class DemandSkill {
     @JoinColumn(name = "Skill_skillId",
             referencedColumnName = "skillId",
             nullable = false)
-    private long Skill_skillId;
+    private long skillId;
 
     @JoinColumn(name = "Demand_demandId",
             referencedColumnName = "demandId",
             nullable = false)
-    private long Demand_demandId;
+    private long demandId;
 
     public DemandSkill() {
     }
 
     public DemandSkill(long skill_skillId,
                        long demand_demandId) {
-        Skill_skillId = skill_skillId;
-        Demand_demandId = demand_demandId;
+        skillId = skill_skillId;
+        demandId = demand_demandId;
     }
 
     public long getDemandSkillId() {
@@ -38,28 +38,28 @@ public class DemandSkill {
         this.demandSkillId = demandSkillId;
     }
 
-    public long getSkill_skillId() {
-        return Skill_skillId;
+    public long getSkillId() {
+        return skillId;
     }
 
-    public void setSkill_skillId(long skill_skillId) {
-        Skill_skillId = skill_skillId;
+    public void setSkillId(long skill_skillId) {
+        skillId = skill_skillId;
     }
 
-    public long getDemand_demandId() {
-        return Demand_demandId;
+    public long getDemandId() {
+        return demandId;
     }
 
-    public void setDemand_demandId(long demand_demandId) {
-        Demand_demandId = demand_demandId;
+    public void setDemandId(long demand_demandId) {
+        demandId = demand_demandId;
     }
 
     @Override
     public String toString() {
         return "DemandSkill{" +
                 "demandSkillId=" + demandSkillId +
-                ", Skill_skillId=" + Skill_skillId +
-                ", Demand_demandId=" + Demand_demandId +
+                ", skillId=" + skillId +
+                ", demandId=" + demandId +
                 '}';
     }
 }

@@ -14,13 +14,13 @@ public class Employer {
     @JoinColumn(name = "User_userLogin",
             referencedColumnName = "userLogin",
             nullable = false)
-    private String User_userLogin;
+    private String userLogin;
 
     public Employer(){
     }
 
     public Employer( String User_userLogin) {
-        this.User_userLogin = User_userLogin;
+        this.userLogin = User_userLogin;
     }
 
     public long getEmployerId() {
@@ -31,19 +31,19 @@ public class Employer {
         this.employerId = employerId;
     }
 
-    public String getUser_userLogin() {
-        return User_userLogin;
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public void setUser_userLogin(String User_userLogin) {
-        this.User_userLogin = User_userLogin;
+    public void setUserLogin(String User_userLogin) {
+        this.userLogin = User_userLogin;
     }
 
     @Override
     public String toString() {
         return "Employer{" +
                 "employerId=" + employerId +
-                ", User_userLogin='" + User_userLogin + '\'' +
+                ", userLogin='" + userLogin + '\'' +
                 '}';
     }
 }

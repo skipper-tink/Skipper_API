@@ -16,7 +16,7 @@ public class Employee {
     @JoinColumn(name = "User_userLogin",
             referencedColumnName = "userLogin",
             nullable = false)
-    private String User_userLogin;
+    private String userLogin;
 
     @Column(name = "employeeFreeTimePerWeek")
     private long employeeFreeTimePerWeek;
@@ -30,7 +30,7 @@ public class Employee {
     public Employee(String User_userLogin,
                     long employeeFreeTimePerWeek,
                     Date employeeThisFreeTimeUntilDate) {
-        this.User_userLogin = User_userLogin;
+        this.userLogin = User_userLogin;
         this.employeeFreeTimePerWeek = employeeFreeTimePerWeek;
         this.employeeThisFreeTimeUntilDate = employeeThisFreeTimeUntilDate;
     }
@@ -43,12 +43,12 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public String getUser_userLogin() {
-        return User_userLogin;
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public void setUser_userLogin(String User_userLogin) {
-        this.User_userLogin = User_userLogin;
+    public void setUserLogin(String User_userLogin) {
+        this.userLogin = User_userLogin;
     }
 
     public long getEmployeeFreeTimePerWeek() {
@@ -71,7 +71,7 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "employeeId=" + employeeId +
-                ", User_userLogin='" + User_userLogin + '\'' +
+                ", userLogin='" + userLogin + '\'' +
                 ", employeeFreeTimePerWeek=" + employeeFreeTimePerWeek +
                 ", employeeThisFreeTimeUntilDate=" + employeeThisFreeTimeUntilDate +
                 '}';

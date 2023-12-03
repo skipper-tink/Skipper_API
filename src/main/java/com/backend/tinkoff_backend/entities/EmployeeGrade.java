@@ -14,7 +14,7 @@ public class EmployeeGrade {
     @JoinColumn(name = "Employee_employeeId",
             referencedColumnName = "employeeId",
             nullable = false)
-    private long Employee_employeeId;
+    private long employeeId;
 
     @Column(name = "employeeGradeSpecialization", nullable = false)
     private String employeeGradeSpecialization;
@@ -28,7 +28,7 @@ public class EmployeeGrade {
     public EmployeeGrade(long employee_employeeId,
                          String employeeGradeSpecialization,
                          String employeeGradeQualification) {
-        Employee_employeeId = employee_employeeId;
+        employeeId = employee_employeeId;
         this.employeeGradeSpecialization = employeeGradeSpecialization;
         this.employeeGradeQualification = employeeGradeQualification;
     }
@@ -41,12 +41,12 @@ public class EmployeeGrade {
         this.employeeGradeId = employeeGradeId;
     }
 
-    public long getEmployee_employeeId() {
-        return Employee_employeeId;
+    public long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee_employeeId(long employee_employeeId) {
-        Employee_employeeId = employee_employeeId;
+    public void setEmployeeId(long employee_employeeId) {
+        employeeId = employee_employeeId;
     }
 
     public String getEmployeeGradeSpecialization() {
@@ -63,5 +63,15 @@ public class EmployeeGrade {
 
     public void setEmployeeGradeQualification(String employeeGradeQualification) {
         this.employeeGradeQualification = employeeGradeQualification;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeGrade{" +
+                "employeeGradeId=" + employeeGradeId +
+                ", employeeId=" + employeeId +
+                ", employeeGradeSpecialization='" + employeeGradeSpecialization + '\'' +
+                ", employeeGradeQualification='" + employeeGradeQualification + '\'' +
+                '}';
     }
 }

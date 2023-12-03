@@ -23,7 +23,7 @@ public class Project {
     @JoinColumn(name = "Employer_employerId",
             referencedColumnName = "employerId",
             nullable = false)
-    private long Employer_employerId;
+    private long employerId;
 
     public Project(){
     }
@@ -35,7 +35,7 @@ public class Project {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;
-        this.Employer_employerId = Employer_employerId;
+        this.employerId = Employer_employerId;
     }
 
     public long getProjectId() {
@@ -70,12 +70,12 @@ public class Project {
         this.projectStatus = projectStatus;
     }
 
-    public long getEmployer_employerId() {
-        return Employer_employerId;
+    public long getEmployerId() {
+        return employerId;
     }
 
-    public void setEmployer_employerIdr(long Employer_employerId) {
-        this.Employer_employerId = Employer_employerId;
+    public void setEmployerIdr(long Employer_employerId) {
+        this.employerId = Employer_employerId;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class Project {
                 ", projectName='" + projectName + '\'' +
                 ", projectDescription='" + projectDescription + '\'' +
                 ", projectStatus='" + projectStatus + '\'' +
-                ", Employer_employerId=" + Employer_employerId +
+                ", employerId=" + employerId +
                 '}';
     }
 }

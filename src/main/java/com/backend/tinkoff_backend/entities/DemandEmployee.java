@@ -14,20 +14,20 @@ public class DemandEmployee {
     @JoinColumn(name = "Demand_demandId",
             referencedColumnName = "demandId",
             nullable = false)
-    private long Demand_demandId;
+    private long demandId;
 
     @JoinColumn(name = "Employee_employeeId",
             referencedColumnName = "employeeId",
             nullable = false)
-    private long Employee_employeeId;
+    private long employeeId;
 
     public DemandEmployee() {
     }
 
     public DemandEmployee(long demand_demandId,
                           long employee_employeeId) {
-        Demand_demandId = demand_demandId;
-        Employee_employeeId = employee_employeeId;
+        demandId = demand_demandId;
+        employeeId = employee_employeeId;
     }
 
     public long getIdInvolvedEmployee() {
@@ -38,28 +38,28 @@ public class DemandEmployee {
         this.idInvolvedEmployee = idInvolvedEmployee;
     }
 
-    public long getDemand_demandId() {
-        return Demand_demandId;
+    public long getDemandId() {
+        return demandId;
     }
 
-    public void setDemand_demandId(long demand_demandId) {
-        Demand_demandId = demand_demandId;
+    public void setDemandId(long demand_demandId) {
+        demandId = demand_demandId;
     }
 
-    public long getEmployee_employeeId() {
-        return Employee_employeeId;
+    public long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee_employeeId(long employee_employeeId) {
-        Employee_employeeId = employee_employeeId;
+    public void setEmployeeId(long employee_employeeId) {
+        employeeId = employee_employeeId;
     }
 
     @Override
     public String toString() {
         return "DemandEmployee{" +
                 "idInvolvedEmployee=" + idInvolvedEmployee +
-                ", Demand_demandId=" + Demand_demandId +
-                ", Employee_employeeId=" + Employee_employeeId +
+                ", demandId=" + demandId +
+                ", employeeId=" + employeeId +
                 '}';
     }
 }

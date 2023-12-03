@@ -44,6 +44,15 @@ public class ProjectController {
         }
     }
 
+    @GetMapping("/projects")
+    public ResponseEntity<List<Project>> getAllProjects() {
+        try {
+            return new ResponseEntity<>(projectService.getAllProjects(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable("id") long projectId, @RequestBody Project project) {
         try {

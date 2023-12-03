@@ -37,7 +37,15 @@ public class ProjectService {
         List<Project> projects = projectRepository.findAllByEmployerId(employerId);
 
         if (projects.isEmpty())
-            throw new ServiceException("this employer hasn't projects");
+            throw new ServiceException("This employer hasn't projects");
+        return projects;
+    }
+
+    public List<Project> getAllProjects() throws ServiceException {
+        List<Project> projects = projectRepository.findAll();
+
+        if (projects.isEmpty())
+            throw new ServiceException("No projects");
         return projects;
     }
 

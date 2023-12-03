@@ -45,7 +45,7 @@ public class ProjectController {
         }
     }
 
-    @DeleteMapping("/project/{id}")
+    @DeleteMapping("/projects/{id}")
     public ResponseEntity<Project> deleteProject(@PathVariable("id") long projectId) {
         try {
              projectService.deleteProject(projectId);
@@ -55,4 +55,13 @@ public class ProjectController {
         }
     }
 
+    @DeleteMapping("/projects")
+    public ResponseEntity<Project> deleteAllProjects() {
+        try {
+            projectService.deleteAllProjects();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

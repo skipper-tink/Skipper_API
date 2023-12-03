@@ -6,6 +6,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,5 +53,13 @@ public class ProjectService {
         if (projectData.isPresent())
             projectRepository.deleteById(projectId);
         throw new ServiceException("No such project");
+    }
+
+    public void deleteAllProjects() throws ServiceException {
+        List<Project> projects = projectRepository.findAll();
+
+        if (projects.isEmpty())
+            throw new ServiceException("No projects");
+        projectRepository.deleteAll();
     }
 }

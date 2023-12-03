@@ -28,22 +28,18 @@ public class UserController {
         }
     }
 
-    /*@GetMapping("/users/{userLogin}")
+    @GetMapping("/users/{userLogin}")
     public ResponseEntity<User> getUserByLogin(@PathVariable("userLogin") String userLogin){
-        Optional<User> userData = userRepository.findByUserLogin(userLogin);
-
-        return userData.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }*/
+        try {
+            return new ResponseEntity<>(userService.getUserByLogin(userLogin), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     /*@PutMapping("/users/{userLogin}")
     public ResponseEntity<User> updateUser(@PathVariable("userLogin") String userLogin,
                                            @RequestBody User user) {
-        Optional<User> userData = userRepository.findByUserLogin(userLogin);
 
-        if (userData.isPresent()) {
-            User _user = userData.get();
-            _user.setUserPassword();
-        }
     }*/
 }

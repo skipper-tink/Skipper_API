@@ -20,4 +20,14 @@ public class UserService {
             throw new ServiceException("This login already exists");
         userRepository.save(user);
     }
+
+    public User getUserByLogin(String userLogin) throws ServiceException {
+        Optional<User> userData = userRepository.findById(userLogin);
+
+        if (userData.isPresent())
+            return userData.get();
+        throw new ServiceException("No such user");
+    }
+
+
 }

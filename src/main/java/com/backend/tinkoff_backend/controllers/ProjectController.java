@@ -36,10 +36,20 @@ public class ProjectController {
         }
     }
 
-    @PutMapping("projects/{id}")
+    @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable("id") long projectId, @RequestBody Project project) {
         try {
             return new ResponseEntity<>(projectService.updateProject(projectId, project), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/project/{id}")
+    public ResponseEntity<Project> deleteProject(@PathVariable("id") long projectId) {
+        try {
+             projectService.deleteProject(projectId);
+             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

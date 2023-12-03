@@ -45,4 +45,12 @@ public class ProjectService {
         }
         throw new ServiceException("No such project");
     }
+
+    public void deleteProject(long projectId) throws ServiceException {
+        Optional<Project> projectData = projectRepository.findById(projectId);
+
+        if (projectData.isPresent())
+            projectRepository.deleteById(projectId);
+        throw new ServiceException("No such project");
+    }
 }

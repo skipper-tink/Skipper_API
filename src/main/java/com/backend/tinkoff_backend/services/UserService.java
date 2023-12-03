@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.rmi.ServerException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +32,14 @@ public class UserService {
         throw new ServiceException("No such user");
     }
 
+    public List<User> getAllUsers() throws ServiceException {
+        List<User> users = userRepository.findAll();
+
+        if (users.isEmpty())
+            throw new ServiceException("no users");
+        return users;
+    }
+
     public User updateUser(String userLogin, User user) throws ServiceException {
         Optional<User> userData = userRepository.findById(userLogin);
 
@@ -46,5 +56,9 @@ public class UserService {
             return;
         }
         throw new ServerException("No such user");
+    }
+
+    public void deleteAllUsers(){
+        userRepository.deleteAll();
     }
 }

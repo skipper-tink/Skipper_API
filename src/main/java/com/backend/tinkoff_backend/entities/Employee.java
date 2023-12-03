@@ -27,11 +27,9 @@ public class Employee {
     public Employee(){
     }
 
-    public Employee(long employeeId,
-                    String User_userLogin,
+    public Employee(String User_userLogin,
                     long employeeFreeTimePerWeek,
                     Date employeeThisFreeTimeUntilDate) {
-        this.employeeId = employeeId;
         this.User_userLogin = User_userLogin;
         this.employeeFreeTimePerWeek = employeeFreeTimePerWeek;
         this.employeeThisFreeTimeUntilDate = employeeThisFreeTimeUntilDate;

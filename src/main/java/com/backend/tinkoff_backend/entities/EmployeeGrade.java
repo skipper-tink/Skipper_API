@@ -25,11 +25,9 @@ public class EmployeeGrade {
     public EmployeeGrade() {
     }
 
-    public EmployeeGrade(long employeeGradeId,
-                         long employee_employeeId,
+    public EmployeeGrade(long employee_employeeId,
                          String employeeGradeSpecialization,
                          String employeeGradeQualification) {
-        this.employeeGradeId = employeeGradeId;
         Employee_employeeId = employee_employeeId;
         this.employeeGradeSpecialization = employeeGradeSpecialization;
         this.employeeGradeQualification = employeeGradeQualification;

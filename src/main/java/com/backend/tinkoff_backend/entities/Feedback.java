@@ -27,21 +27,16 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(long feedbackId,
-                    int feedbackRating,
+    public Feedback(int feedbackRating,
                     String feedbackComment,
                     long DemandEmployee_demandEmployeeId,
                     String feedbackReviewerName) {
-        this.feedbackId = feedbackId;
         this.feedbackRating = feedbackRating;
         this.feedbackComment = feedbackComment;
         this.DemandEmployee_demandEmployeeId = DemandEmployee_demandEmployeeId;
         this.feedbackReviewerName = feedbackReviewerName;
     }
 
-    public long getFeedbackId() {
-        return feedbackId;
-    }
 
     public void setFeedbackId(long feedbackId) {
         this.feedbackId = feedbackId;

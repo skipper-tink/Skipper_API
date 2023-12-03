@@ -31,13 +31,11 @@ public class Demand {
     public Demand() {
     }
 
-    public Demand(long demandId,
-                  long Project_projectId,
+    public Demand(long Project_projectId,
                   int demandTimeConsumption,
                   Date demandDeadline,
                   String demandSpecialization,
                   String demandQualification) {
-        this.demandId = demandId;
         this.Project_projectId = Project_projectId;
         this.demandTimeConsumption = demandTimeConsumption;
         this.demandDeadline = demandDeadline;

@@ -19,8 +19,7 @@ public class Employer {
     public Employer(){
     }
 
-    public Employer(long employerId, String User_userLogin) {
-        this.employerId = employerId;
+    public Employer( String User_userLogin) {
         this.User_userLogin = User_userLogin;
     }
 

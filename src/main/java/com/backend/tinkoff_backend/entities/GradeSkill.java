@@ -24,10 +24,8 @@ public class GradeSkill {
     public GradeSkill() {
     }
 
-    public GradeSkill(long gradeSkillId,
-                      long skill_skillId,
+    public GradeSkill(long skill_skillId,
                       long employeeGrade_employeeGradeId) {
-        this.gradeSkillId = gradeSkillId;
         Skill_skillId = skill_skillId;
         EmployeeGrade_employeeGradeId = employeeGrade_employeeGradeId;
     }

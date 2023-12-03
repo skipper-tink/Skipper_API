@@ -28,12 +28,10 @@ public class Project {
     public Project(){
     }
 
-    public Project(long projectId,
-                   String projectName,
+    public Project(String projectName,
                    String projectDescription,
                    String projectStatus,
                    long Employer_employerId) {
-        this.projectId = projectId;
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;

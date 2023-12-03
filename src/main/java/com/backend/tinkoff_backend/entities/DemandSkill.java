@@ -24,10 +24,8 @@ public class DemandSkill {
     public DemandSkill() {
     }
 
-    public DemandSkill(long demandSkillId,
-                       long skill_skillId,
+    public DemandSkill(long skill_skillId,
                        long demand_demandId) {
-        this.demandSkillId = demandSkillId;
         Skill_skillId = skill_skillId;
         Demand_demandId = demand_demandId;
     }

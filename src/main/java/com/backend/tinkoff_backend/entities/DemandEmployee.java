@@ -24,10 +24,8 @@ public class DemandEmployee {
     public DemandEmployee() {
     }
 
-    public DemandEmployee(long idInvolvedEmployee,
-                          long demand_demandId,
+    public DemandEmployee(long demand_demandId,
                           long employee_employeeId) {
-        this.idInvolvedEmployee = idInvolvedEmployee;
         Demand_demandId = demand_demandId;
         Employee_employeeId = employee_employeeId;
     }

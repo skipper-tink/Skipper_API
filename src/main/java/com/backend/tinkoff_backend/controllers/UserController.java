@@ -37,9 +37,13 @@ public class UserController {
         }
     }
 
-    /*@PutMapping("/users/{userLogin}")
+    @PutMapping("/users/{userLogin}")
     public ResponseEntity<User> updateUser(@PathVariable("userLogin") String userLogin,
                                            @RequestBody User user) {
-
-    }*/
+        try {
+            return new ResponseEntity<>(userService.updateUser(userLogin, user), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

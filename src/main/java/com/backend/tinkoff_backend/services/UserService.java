@@ -29,5 +29,11 @@ public class UserService {
         throw new ServiceException("No such user");
     }
 
+    public User updateUser(String userLogin, User user) throws ServiceException {
+        Optional<User> userData = userRepository.findById(userLogin);
 
+        if (userData.isPresent())
+            return userRepository.save(user);
+        throw new ServiceException("No such user");
+    }
 }

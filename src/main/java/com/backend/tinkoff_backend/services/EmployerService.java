@@ -6,7 +6,6 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 
 @Service
@@ -21,32 +20,5 @@ public class EmployerService {
         } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
-    }
-
-    public Employer getEmployerById(long employerId) throws ServiceException {
-        Optional<Employer> employerData = employerRepository.findById(employerId);
-
-        if (employerData.isPresent())
-            return employerData.get();
-        throw new ServiceException("No such employer");
-    }
-
-    public Employer updateEmployer(long employerId, Employer employer) throws ServiceException {
-        Optional<Employer> employerData = employerRepository.findById(employerId);
-
-        if (employerData.isPresent()) {
-            Employer _employer = employerData.get();
-            _employer.setUser_userLogin(employer.getUser_userLogin());
-            return employerRepository.save(_employer);
-        }
-        throw new ServiceException("No such employer");
-    }
-
-    public void deleteEmployer(long employerId) throws ServiceException {
-        Optional<Employer> employerData = employerRepository.findById(employerId);
-
-        if (employerData.isPresent())
-            employerRepository.deleteById(employerId);
-        throw new ServiceException("No such employer");
     }
 }

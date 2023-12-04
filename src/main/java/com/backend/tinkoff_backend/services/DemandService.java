@@ -40,6 +40,14 @@ public class DemandService {
         return demands;
     }
 
+    public List<Demand> getAllDemands() throws ServiceException {
+        List<Demand> demands = demandRepository.findAll();
+
+        if (demands.isEmpty())
+            throw new ServiceException("No demands");
+        return demands;
+    }
+
     public Demand updateDemand(long demandId, Demand demand) throws ServiceException {
         Optional<Demand> demandData = demandRepository.findById(demandId);
 

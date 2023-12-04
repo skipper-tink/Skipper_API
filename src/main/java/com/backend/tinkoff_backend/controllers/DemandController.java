@@ -35,10 +35,19 @@ public class DemandController {
         }
     }
 
-    @GetMapping("/demand/{projectId}")
+    @GetMapping("/demands/{projectId}")
     public ResponseEntity<List<Demand>> getDemandsByProjectId(@PathVariable("projectId") long projectId) {
         try {
             return new ResponseEntity<>(demandService.getDemandsByProjectId(projectId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/demands")
+    public ResponseEntity<List<Demand>> getAllDemands() {
+        try {
+            return new ResponseEntity<>(demandService.getAllDemands(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

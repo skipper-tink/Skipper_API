@@ -28,4 +28,13 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/employees/{userLogin}")
+    public ResponseEntity<Employee> getEmployeeByUserLogin(@PathVariable("userLogin") String userLogin) {
+        try {
+            return new ResponseEntity<>(employeeService.getEmployeeByUserLogin(userLogin), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

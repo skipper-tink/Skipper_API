@@ -26,4 +26,12 @@ public class EmployeeService {
             return employeeData.get();
         throw new ServiceException("No such employee");
     }
+
+    public Employee getEmployeeByUserLogin(String userLogin) throws ServiceException {
+        Optional<Employee> employeeData = employeeRepository.findByUserLogin(userLogin);
+
+        if (employeeData.isPresent())
+            return employeeData.get();
+        throw new ServiceException("No such employee");
+    }
 }

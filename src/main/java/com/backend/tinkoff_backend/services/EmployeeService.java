@@ -6,6 +6,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,5 +34,13 @@ public class EmployeeService {
         if (employeeData.isPresent())
             return employeeData.get();
         throw new ServiceException("No such employee");
+    }
+
+    public List<Employee> getAllEmployees() throws ServiceException {
+        List<Employee> employees = employeeRepository.findAll();
+
+        if (employees.isEmpty())
+            throw new ServiceException("No employees");
+        return employees;
     }
 }

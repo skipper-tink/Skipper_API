@@ -33,12 +33,22 @@ public class DemandController {
         }
     }
 
-    @PutMapping("demands/{id}")
+    @PutMapping("/demands/{id}")
     public ResponseEntity<Demand> updateDemand(@PathVariable("id") long demandId,
                                                @RequestBody Demand demand) {
         try {
             return new ResponseEntity<>(demandService.updateDemand(demandId, demand), HttpStatus.OK);
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/demands/{id}")
+    public ResponseEntity<Demand> deleteDemand(@PathVariable("id") long demandId) {
+        try {
+            demandService.deleteDemand(demandId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

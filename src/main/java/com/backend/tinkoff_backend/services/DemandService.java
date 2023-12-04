@@ -44,4 +44,14 @@ public class DemandService {
         }
         throw new ServiceException("No such demand");
     }
+
+    public void deleteDemand(long demandId) throws ServiceException {
+        Optional<Demand> demandData = demandRepository.findById(demandId);
+
+        if (demandData.isPresent()) {
+            demandRepository.deleteById(demandId);
+            return;
+        }
+        throw new ServiceException("No such demand");
+    }
 }

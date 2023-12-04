@@ -43,4 +43,17 @@ public class EmployeeService {
             throw new ServiceException("No employees");
         return employees;
     }
+
+    public Employee updateEmployee(long employeeId, Employee employee) throws ServiceException {
+        Optional<Employee> employeeData = employeeRepository.findById(employeeId);
+
+        if (employeeData.isPresent()) {
+            Employee _employee = employeeData.get();
+            _employee.setUserLogin(employee.getUserLogin());
+            _employee.setEmployeeFreeTimePerWeek(employee.getEmployeeFreeTimePerWeek());
+            _employee.setEmployeeThisFreeTimeUntilDate(employee.getEmployeeThisFreeTimeUntilDate());
+            return employeeRepository.save(_employee);
+        }
+        throw new ServiceException("No such employee");
+    }
 }

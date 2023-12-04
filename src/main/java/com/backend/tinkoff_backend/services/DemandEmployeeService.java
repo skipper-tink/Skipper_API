@@ -6,6 +6,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,5 +25,13 @@ public class DemandEmployeeService {
         if (demandEmployeeData.isPresent())
             return demandEmployeeData.get();
         throw new ServiceException("No such demandEmployee");
+    }
+
+    public List<DemandEmployee> getDemandEmployeesByEmployeeId(long employeeId) throws ServiceException {
+        List<DemandEmployee> demandEmployees = demandEmployeeRepository.findAllByEmployeeId(employeeId);
+
+        if (demandEmployees.isEmpty())
+            throw new ServiceException("This employee not involved in any demands");
+        return demandEmployees;
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class DemandEmployeeController {
@@ -25,6 +27,17 @@ public class DemandEmployeeController {
     public ResponseEntity<DemandEmployee> getDemandEmployeeById(@PathVariable("id") long demandEmployeeId) {
         try {
             return new ResponseEntity<>(demandEmployeeService.getDemandEmployeeById(demandEmployeeId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/demandEmployees/{employeeId}")
+    public ResponseEntity<List<DemandEmployee>> getAllDemandEmployeesByEmployeeId(@PathVariable("employeeId")
+                                                                            long employeeId) {
+        try {
+            return new ResponseEntity<>(demandEmployeeService.getDemandEmployeesByEmployeeId(employeeId),
+                    HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

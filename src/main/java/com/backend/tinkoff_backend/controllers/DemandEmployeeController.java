@@ -73,4 +73,14 @@ public class DemandEmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/demandEmployees/{id}")
+    public ResponseEntity<DemandEmployee> deleteDemandEmployee(@PathVariable("id") long demandEmployeeId) {
+        try {
+            demandEmployeeService.deleteDemandEmployee(demandEmployeeId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

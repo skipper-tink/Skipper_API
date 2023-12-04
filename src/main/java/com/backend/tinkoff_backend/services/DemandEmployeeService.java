@@ -62,4 +62,14 @@ public class DemandEmployeeService {
         }
         throw new ServiceException("No such demandEmployee");
     }
+
+    public void deleteDemandEmployee(long demandEmployeeId) throws ServiceException{
+        Optional<DemandEmployee> demandEmployeeData = demandEmployeeRepository.findById(demandEmployeeId);
+
+        if (demandEmployeeData.isPresent()) {
+            demandEmployeeRepository.deleteById(demandEmployeeId);
+            return;
+        }
+        throw new ServiceException("No such demandEmployee");
+    }
 }

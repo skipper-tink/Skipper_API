@@ -50,4 +50,16 @@ public class DemandEmployeeService {
             throw new ServiceException("No demandEmployees");
         return demandEmployees;
     }
+
+    public DemandEmployee updateDemandEmployee(long demandEmployeeId, DemandEmployee demandEmployee) throws ServiceException {
+        Optional<DemandEmployee> demandEmployeeData = demandEmployeeRepository.findById(demandEmployeeId);
+
+        if (demandEmployeeData.isPresent()) {
+            DemandEmployee _demandEmployee = demandEmployeeData.get();
+            _demandEmployee.setEmployeeId(demandEmployee.getEmployeeId());
+            _demandEmployee.setDemandId(demandEmployee.getDemandId());
+            return demandEmployeeRepository.save(_demandEmployee);
+        }
+        throw new ServiceException("No such demandEmployee");
+    }
 }

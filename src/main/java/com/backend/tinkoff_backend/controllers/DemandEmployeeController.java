@@ -62,4 +62,15 @@ public class DemandEmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/demandEmployees/{id}")
+    public ResponseEntity<DemandEmployee> updateDemandEmployee(@PathVariable("id") long demandEmployeeId,
+                                                               DemandEmployee demandEmployee) {
+        try {
+            return new ResponseEntity<>(demandEmployeeService.updateDemandEmployee(demandEmployeeId,
+                    demandEmployee), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

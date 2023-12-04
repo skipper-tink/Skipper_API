@@ -33,10 +33,21 @@ public class DemandEmployeeController {
     }
 
     @GetMapping("/demandEmployees/{employeeId}")
-    public ResponseEntity<List<DemandEmployee>> getAllDemandEmployeesByEmployeeId(@PathVariable("employeeId")
+    public ResponseEntity<List<DemandEmployee>> getDemandEmployeesByEmployeeId(@PathVariable("employeeId")
                                                                             long employeeId) {
         try {
             return new ResponseEntity<>(demandEmployeeService.getDemandEmployeesByEmployeeId(employeeId),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/demandEmployees/{demandId}")
+    public ResponseEntity<List<DemandEmployee>> getDemandEmployeesByDemandId(@PathVariable("demandId")
+                                                                             long demandId) {
+        try {
+            return new ResponseEntity<>(demandEmployeeService.getDemandEmployeeByDemandId(demandId),
                     HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

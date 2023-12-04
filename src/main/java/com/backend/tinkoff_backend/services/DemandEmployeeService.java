@@ -34,4 +34,12 @@ public class DemandEmployeeService {
             throw new ServiceException("This employee not involved in any demands");
         return demandEmployees;
     }
+
+    public List<DemandEmployee> getDemandEmployeeByDemandId(long demandId) throws ServiceException {
+        List<DemandEmployee> demandEmployees = demandEmployeeRepository.findAllByDemandId(demandId);
+
+        if (demandEmployees.isEmpty())
+            throw new ServiceException("This demand hasn't involved employees yet");
+        return demandEmployees;
+    }
 }

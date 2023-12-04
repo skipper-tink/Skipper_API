@@ -16,12 +16,8 @@ public class EmployerService {
     @Autowired
     EmployerRepository employerRepository;
 
-    public void createEmployer(String userLogin) throws ServiceException {
-        try {
+    public void createEmployer(String userLogin) {
             employerRepository.save(new Employer(userLogin));
-        } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }
     }
 
     public Employer getEmployerById(long employerId) throws ServiceException {

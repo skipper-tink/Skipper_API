@@ -18,12 +18,8 @@ public class DemandController {
 
     @PostMapping("/demands")
     public ResponseEntity<Demand> createDemand(@RequestParam Demand demand) {
-        try {
             demandService.creatDemand(demand);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @GetMapping("/demands/{id}")

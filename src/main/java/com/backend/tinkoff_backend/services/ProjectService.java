@@ -15,14 +15,10 @@ public class ProjectService {
     @Autowired
     ProjectRepository projectRepository;
 
-    public void createProject(Project project) throws ServiceException {
-        try {
+    public void createProject(Project project) {
             projectRepository.save(new Project(project.getProjectName(),
                     project.getProjectDescription(), project.getProjectStatus(),
                     project.getEmployerId()));
-        } catch (IllegalArgumentException e) {
-            throw new ServiceException(e.getMessage());
-        }
     }
 
     public Project getProjectById(long projectId) throws ServiceException {

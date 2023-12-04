@@ -18,12 +18,8 @@ public class EmployerController {
 
     @PostMapping("/employers")
     public ResponseEntity<Employer> createEmployer(@RequestParam String User_userLogin) {
-        try {
             employerService.createEmployer(User_userLogin);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @GetMapping("/employers/{id}")

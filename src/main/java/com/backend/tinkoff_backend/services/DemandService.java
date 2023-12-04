@@ -15,13 +15,9 @@ public class DemandService {
     @Autowired
     DemandRepository demandRepository;
 
-    public void creatDemand(Demand demand) throws ServiceException {
-        try {
+    public void creatDemand(Demand demand) {
             demandRepository.save(new Demand(demand.getProjectId(), demand.getDemandTimeConsumption(),
                     demand.getDemandDeadline(), demand.getDemandSpecialization(), demand.getDemandQualification()));
-        } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }
     }
 
     public Demand getDemandById(long demandId) throws ServiceException {

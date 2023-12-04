@@ -57,4 +57,20 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/employees/{id}")
+    public ResponseEntity<Employee> deleteEmployee(@PathVariable("id") long employeeId) {
+        try {
+            employeeService.deleteEmployee(employeeId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/employees")
+    public ResponseEntity<Employee> deleteAllEmployees() {
+        employeeService.deleteAllEmployees();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

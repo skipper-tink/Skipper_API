@@ -56,4 +56,18 @@ public class EmployeeService {
         }
         throw new ServiceException("No such employee");
     }
+
+    public void deleteEmployee(long employeeId) throws ServiceException {
+        Optional<Employee> employeeData = employeeRepository.findById(employeeId);
+
+        if (employeeData.isPresent()) {
+            employeeRepository.deleteById(employeeId);
+            return;
+        }
+        throw new ServiceException("No such employee");
+    }
+
+    public void deleteAllEmployees() {
+        employeeRepository.deleteAll();
+    }
 }

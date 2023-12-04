@@ -69,7 +69,7 @@ public class EmployerService {
         throw new ServiceException("No such employer");
     }
 
-    public void deleteAllEmployers() throws ServiceException {
+    public void deleteAllEmployers() {
         employerRepository.deleteAll();
     }
 }

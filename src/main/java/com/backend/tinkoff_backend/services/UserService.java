@@ -64,7 +64,7 @@ public class UserService {
         throw new ServerException("No such user");
     }
 
-    public void deleteAllUsers(){
+    public void deleteAllUsers() {
         userRepository.deleteAll();
     }
 }

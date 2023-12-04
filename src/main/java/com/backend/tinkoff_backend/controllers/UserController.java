@@ -67,11 +67,7 @@ public class UserController {
 
     @DeleteMapping("/users")
     public ResponseEntity<User> deleteAllUsers() {
-        try {
             userService.deleteAllUsers();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 }

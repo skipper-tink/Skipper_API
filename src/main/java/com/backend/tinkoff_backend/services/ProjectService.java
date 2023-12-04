@@ -73,7 +73,7 @@ public class ProjectService {
         throw new ServiceException("No such project");
     }
 
-    public void deleteAllProjects() throws ServiceException {
+    public void deleteAllProjects() {
         projectRepository.deleteAll();
     }
 }

@@ -74,11 +74,7 @@ public class ProjectController {
 
     @DeleteMapping("/projects")
     public ResponseEntity<Project> deleteAllProjects() {
-        try {
             projectService.deleteAllProjects();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 }

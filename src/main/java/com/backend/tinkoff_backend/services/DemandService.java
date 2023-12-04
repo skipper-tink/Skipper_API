@@ -71,4 +71,8 @@ public class DemandService {
         }
         throw new ServiceException("No such demand");
     }
+
+    public void deleteAllDemands() {
+        demandRepository.deleteAll();
+    }
 }

@@ -75,11 +75,7 @@ public class EmployerController {
 
     @DeleteMapping("/employers")
     public ResponseEntity<Employer> deleteAllEmployers() {
-        try {
             employerService.deleteAllEmployers();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 }

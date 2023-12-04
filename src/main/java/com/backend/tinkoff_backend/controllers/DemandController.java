@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class DemandController {
@@ -28,6 +30,15 @@ public class DemandController {
     public ResponseEntity<Demand> getDemandById(@PathVariable("id") long demandId) {
         try {
             return new ResponseEntity<>(demandService.getDemandById(demandId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/demand/{projectId}")
+    public ResponseEntity<List<Demand>> getDemandsByProjectId(@PathVariable("projectId") long projectId) {
+        try {
+            return new ResponseEntity<>(demandService.getDemandsByProjectId(projectId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

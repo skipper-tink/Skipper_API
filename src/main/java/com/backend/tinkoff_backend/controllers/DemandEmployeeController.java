@@ -53,4 +53,13 @@ public class DemandEmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/demandEmployees")
+    public ResponseEntity<List<DemandEmployee>> getAllDemandEmployees() {
+        try {
+            return new ResponseEntity<>(demandEmployeeService.getAllDemandEmployees(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

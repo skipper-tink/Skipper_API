@@ -23,4 +23,23 @@ public class DemandController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/demands/{id}")
+    public ResponseEntity<Demand> getDemandById(@PathVariable("id") long demandId) {
+        try {
+            return new ResponseEntity<>(demandService.getDemandById(demandId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("demands/{id}")
+    public ResponseEntity<Demand> updateDemand(@PathVariable("id") long demandId,
+                                               @RequestBody Demand demand) {
+        try {
+            return new ResponseEntity<>(demandService.updateDemand(demandId, demand), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

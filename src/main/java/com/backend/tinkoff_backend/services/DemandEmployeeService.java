@@ -72,4 +72,8 @@ public class DemandEmployeeService {
         }
         throw new ServiceException("No such demandEmployee");
     }
+
+    public void deleteAllDemandEmployees() {
+        demandEmployeeRepository.deleteAll();
+    }
 }

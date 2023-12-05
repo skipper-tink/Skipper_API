@@ -68,4 +68,10 @@ public class FeedbackController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/feedbacks")
+    public ResponseEntity<Feedback> deleteAllFeedbacks() {
+        feedbackService.deleteAllFeedbacks();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

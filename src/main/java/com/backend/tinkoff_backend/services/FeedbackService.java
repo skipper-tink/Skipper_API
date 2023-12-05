@@ -67,4 +67,8 @@ public class FeedbackService {
         }
         throw new ServiceException("No such feedback");
     }
+
+    public void deleteAllFeedbacks() {
+        feedbackRepository.deleteAll();
+    }
 }

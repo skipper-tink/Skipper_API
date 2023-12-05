@@ -6,6 +6,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,5 +26,13 @@ public class FeedbackService {
         if (feedbackData.isPresent())
             return feedbackData.get();
         throw new ServiceException("No such feedback");
+    }
+
+    public List<Feedback> getFeedbacksByDemandEmployeeId(long demandEmployeeId) throws ServiceException {
+        List<Feedback> feedbacks = feedbackRepository.findAllByDemandEmployeeId(demandEmployeeId);
+
+        if (feedbacks.isEmpty())
+            throw new ServiceException("This demandEmployee hasn't receive any feedbacks yet");
+        return feedbacks;
     }
 }

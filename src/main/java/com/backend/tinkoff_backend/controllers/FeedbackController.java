@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class FeedbackController {
@@ -24,6 +26,16 @@ public class FeedbackController {
     public ResponseEntity<Feedback> getFeedbackById(@PathVariable("id") long feedbackId) {
         try {
             return new ResponseEntity<>(feedbackService.getFeedbackById(feedbackId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/feedbacks/{demandEmployeeId}")
+    public ResponseEntity<List<Feedback>> getFeedbacksByDemandEmployeeId(@PathVariable("demandEmployeeId") long demandEmployeeId) {
+        try {
+            return new ResponseEntity<>(feedbackService.getFeedbacksByDemandEmployeeId(demandEmployeeId),
+                    HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

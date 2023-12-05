@@ -16,18 +16,18 @@ public class GradeSkill {
             nullable = false)
     private long skillId;
 
-    @JoinColumn(name = "EmployeeGrade_employeeGradeId",
-            referencedColumnName = "employeeGradeId",
+    @JoinColumn(name = "Grade_gradeId",
+            referencedColumnName = "gradeId",
             nullable = false)
-    private long employeeGradeId;
+    private long gradeId;
 
     public GradeSkill() {
     }
 
     public GradeSkill(long skill_skillId,
-                      long employeeGrade_employeeGradeId) {
+                      long Grade_gradeId) {
         skillId = skill_skillId;
-        employeeGradeId = employeeGrade_employeeGradeId;
+        gradeId = Grade_gradeId;
     }
 
     public long getGradeSkillId() {
@@ -46,12 +46,12 @@ public class GradeSkill {
         skillId = skill_skillId;
     }
 
-    public long getEmployeeGradeId() {
-        return employeeGradeId;
+    public long getGradeId() {
+        return gradeId;
     }
 
-    public void setEmployeeGradeId(long employeeGrade_employeeGradeId) {
-        employeeGradeId = employeeGrade_employeeGradeId;
+    public void setEmployeeGradeId(long Grade_gradeId) {
+        gradeId = Grade_gradeId;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class GradeSkill {
         return "GradeSkill{" +
                 "gradeSkillId=" + gradeSkillId +
                 ", skillId=" + skillId +
-                ", employeeGradeId=" + employeeGradeId +
+                ", gradeId=" + gradeId +
                 '}';
     }
 }

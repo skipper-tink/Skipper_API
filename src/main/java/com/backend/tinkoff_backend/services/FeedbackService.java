@@ -43,4 +43,18 @@ public class FeedbackService {
             throw new ServiceException("No feedbacks");
         return feedbacks;
     }
+
+    public Feedback updateFeedback(long feedbackId, Feedback feedback) throws ServiceException {
+        Optional<Feedback> feedbackData = feedbackRepository.findById(feedbackId);
+
+        if (feedbackData.isPresent()) {
+            Feedback _feedback = feedbackData.get();
+            _feedback.setFeedbackComment(feedback.getFeedbackComment());
+            _feedback.setFeedbackRating(feedback.getFeedbackRating());
+            _feedback.setFeedbackReviewerName(feedback.getFeedbackReviewerName());
+            _feedback.setDemandEmployeeId(feedback.getDemandEmployeeId());
+            return feedbackRepository.save(_feedback);
+        }
+        throw new ServiceException("No such feedback");
+    }
 }

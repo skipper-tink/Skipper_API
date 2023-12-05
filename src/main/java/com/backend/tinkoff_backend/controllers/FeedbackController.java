@@ -50,5 +50,12 @@ public class FeedbackController {
         }
     }
 
-
+    @PutMapping("/feedbacks/{id}")
+    public ResponseEntity<Feedback> updateFeedback(@PathVariable("id") long feedbackId, @RequestBody Feedback feedback) {
+        try {
+            return new ResponseEntity<>(feedbackService.updateFeedback(feedbackId, feedback), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

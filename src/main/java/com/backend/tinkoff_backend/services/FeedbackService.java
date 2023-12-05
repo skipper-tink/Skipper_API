@@ -57,4 +57,14 @@ public class FeedbackService {
         }
         throw new ServiceException("No such feedback");
     }
+
+    public void deleteFeedback(long feedbackId) throws ServiceException {
+        Optional<Feedback> feedbackData = feedbackRepository.findById(feedbackId);
+
+        if (feedbackData.isPresent()){
+            feedbackRepository.deleteById(feedbackId);
+            return;
+        }
+        throw new ServiceException("No such feedback");
+    }
 }

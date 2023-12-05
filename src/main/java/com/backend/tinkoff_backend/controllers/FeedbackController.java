@@ -58,4 +58,14 @@ public class FeedbackController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/feedbacks/{id}")
+    public ResponseEntity<Feedback> deleteFeedback(@PathVariable("id") long feedbackId) {
+        try {
+            feedbackService.deleteFeedback(feedbackId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

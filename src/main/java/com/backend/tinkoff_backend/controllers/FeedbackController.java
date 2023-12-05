@@ -40,4 +40,15 @@ public class FeedbackController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/feedbacks")
+    public ResponseEntity<List<Feedback>> getAllFeedbacks() {
+        try {
+            return new ResponseEntity<>(feedbackService.getAllFeedbacks(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 }

@@ -35,4 +35,12 @@ public class FeedbackService {
             throw new ServiceException("This demandEmployee hasn't receive any feedbacks yet");
         return feedbacks;
     }
+
+    public List<Feedback> getAllFeedbacks() throws ServiceException {
+        List<Feedback> feedbacks = feedbackRepository.findAll();
+
+        if (feedbacks.isEmpty())
+            throw new ServiceException("No feedbacks");
+        return feedbacks;
+    }
 }

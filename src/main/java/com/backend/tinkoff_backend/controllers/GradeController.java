@@ -50,4 +50,13 @@ public class GradeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/grades/{id}")
+    public ResponseEntity<Grade> updateGrade(@PathVariable("id") long gradeId, @RequestBody Grade grade) {
+        try {
+            return new ResponseEntity<>(gradeService.updateGrade(gradeId, grade), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

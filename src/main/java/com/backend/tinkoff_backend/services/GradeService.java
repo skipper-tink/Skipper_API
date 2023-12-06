@@ -7,6 +7,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +27,13 @@ public class GradeService {
         if (gradeData.isPresent())
             return gradeData.get();
         throw new ServiceException("No such grade");
+    }
+
+    public List<Grade> getGradesByEmployeeId(long employeeId) throws ServiceException {
+        List<Grade> grades = gradeRepository.findAllByEmployeeId(employeeId);
+
+        if (grades.isEmpty())
+            throw new ServiceException("This employee hasn't grades");
+        return grades;
     }
 }

@@ -58,4 +58,10 @@ public class SkillController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/skills")
+    public ResponseEntity<Skill> deleteAllSkills() {
+        skillService.deleteAllSkills();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

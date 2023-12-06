@@ -54,4 +54,8 @@ public class SkillService {
         }
         throw new ServiceException("No such skill");
     }
+
+    public void deleteAllSkills() {
+        skillRepository.deleteAll();
+    }
 }

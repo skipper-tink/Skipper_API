@@ -41,4 +41,13 @@ public class GradeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/grades")
+    public ResponseEntity<List<Grade>> getAllGrades() {
+        try {
+            return new ResponseEntity<>(gradeService.getAllGrades(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

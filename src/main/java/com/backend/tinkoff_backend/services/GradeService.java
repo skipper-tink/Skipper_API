@@ -7,6 +7,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.rmi.server.ServerCloneException;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,14 @@ public class GradeService {
 
         if (grades.isEmpty())
             throw new ServiceException("This employee hasn't grades");
+        return grades;
+    }
+
+    public List<Grade> getAllGrades() throws ServiceException {
+        List<Grade> grades = gradeRepository.findAll();
+
+        if (grades.isEmpty())
+            throw new ServiceException("No grades");
         return grades;
     }
 }

@@ -6,6 +6,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,5 +25,13 @@ public class SkillService {
         if (skillData.isPresent())
             return skillData.get();
         throw new ServiceException("No such skill");
+    }
+
+    public List<Skill> getAllSkills() throws ServiceException {
+        List<Skill> skills = skillRepository.findAll();
+
+        if (skills.isEmpty())
+            throw new ServiceException("No skills");
+        return skills;
     }
 }

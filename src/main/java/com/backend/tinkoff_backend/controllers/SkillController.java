@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class SkillController {
@@ -24,6 +26,15 @@ public class SkillController {
     public ResponseEntity<Skill> getSkillBuId(@PathVariable("id") long skillId) {
         try {
             return new ResponseEntity<>(skillService.getSkillById(skillId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/skills")
+    public ResponseEntity<List<Skill>> getAllSkills() {
+        try {
+            return new ResponseEntity<>(skillService.getAllSkills(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

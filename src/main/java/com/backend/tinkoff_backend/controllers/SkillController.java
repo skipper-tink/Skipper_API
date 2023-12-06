@@ -39,4 +39,13 @@ public class SkillController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/skills/{id}")
+    public ResponseEntity<Skill> updateSkill(@PathVariable("id") long skillId, @RequestBody Skill skill) {
+        try {
+            return new ResponseEntity<>(skillService.updateSkill(skillId, skill), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

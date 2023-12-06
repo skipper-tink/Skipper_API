@@ -34,4 +34,15 @@ public class SkillService {
             throw new ServiceException("No skills");
         return skills;
     }
+
+    public Skill updateSkill(long skillId, Skill skill) throws ServiceException {
+        Optional<Skill> skillData = skillRepository.findById(skillId);
+
+        if (skillData.isPresent()) {
+            Skill _skill = skillData.get();
+            _skill.setSkillName(skill.getSkillName());
+            return skillRepository.save(_skill);
+        }
+        throw new ServiceException("No such skill");
+    }
 }

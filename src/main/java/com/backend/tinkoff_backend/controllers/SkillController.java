@@ -48,4 +48,14 @@ public class SkillController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/skills/{id}")
+    public ResponseEntity<Skill> deleteSkill(@PathVariable("id") long skillId) {
+        try {
+            skillService.deleteSkill(skillId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

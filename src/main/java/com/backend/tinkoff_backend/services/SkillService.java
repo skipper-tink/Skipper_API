@@ -45,4 +45,13 @@ public class SkillService {
         }
         throw new ServiceException("No such skill");
     }
+
+    public void deleteSkill(long skillId) throws ServiceException {
+        Optional<Skill> skillData = skillRepository.findById(skillId);
+
+        if (skillData.isPresent()) {
+            skillRepository.deleteById(skillId);
+        }
+        throw new ServiceException("No such skill");
+    }
 }

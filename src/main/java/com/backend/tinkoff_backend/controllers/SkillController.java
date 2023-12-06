@@ -23,7 +23,7 @@ public class SkillController {
     }
 
     @GetMapping("/skills/{id}")
-    public ResponseEntity<Skill> getSkillBuId(@PathVariable("id") long skillId) {
+    public ResponseEntity<Skill> getSkillById(@PathVariable("id") long skillId) {
         try {
             return new ResponseEntity<>(skillService.getSkillById(skillId), HttpStatus.OK);
         } catch (Exception e) {

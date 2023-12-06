@@ -7,10 +7,7 @@ import com.backend.tinkoff_backend.services.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -23,5 +20,14 @@ public class GradeController {
     public ResponseEntity<Grade> createGrade(@RequestParam Grade grade) {
         gradeService.createGrade(grade);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/grades/{id}")
+    public ResponseEntity<Grade> getGradeById(@PathVariable("id") long gradeId) {
+        try {
+            return new ResponseEntity<>(gradeService.getGradeById(gradeId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

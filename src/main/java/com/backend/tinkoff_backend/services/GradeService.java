@@ -58,4 +58,18 @@ public class GradeService {
         }
         throw new ServiceException("No such grade");
     }
+
+    public void deleteGrade(long gradeId) throws ServiceException{
+        Optional<Grade> gradeData = gradeRepository.findById(gradeId);
+
+        if (gradeData.isPresent()) {
+            gradeRepository.deleteById(gradeId);
+            return;
+        }
+        throw new ServiceException("No such grade");
+    }
+
+    public void deleteAllGrades() {
+        gradeRepository.deleteAll();
+    }
 }

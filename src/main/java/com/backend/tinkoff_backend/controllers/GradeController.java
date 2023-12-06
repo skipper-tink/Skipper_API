@@ -59,4 +59,20 @@ public class GradeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/grades/{id}")
+    public ResponseEntity<Grade> deleteGrade(@PathVariable("id") long gradeId) {
+        try {
+            gradeService.deleteGrade(gradeId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/grades")
+    public ResponseEntity<Grade> deleteAllGrades() {
+        gradeService.deleteAllGrades();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

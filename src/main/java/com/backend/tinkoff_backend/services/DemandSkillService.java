@@ -42,4 +42,12 @@ public class DemandSkillService {
             throw new ServiceException("This skill not involved in any demand");
         return demandSkills;
     }
+
+    public List<DemandSkill> getAllDemandSKills() throws ServiceException {
+        List<DemandSkill> demandSkills = demandSkillRepository.findAll();
+
+        if (demandSkills.isEmpty())
+            throw new ServiceException("No demandSkills");
+        return demandSkills;
+    }
 }

@@ -48,4 +48,13 @@ public class DemandSkillController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/demandSkills")
+    public ResponseEntity<List<DemandSkill>> getAllDemandSkills() {
+        try {
+            return new ResponseEntity<>(demandSkillService.getAllDemandSKills(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

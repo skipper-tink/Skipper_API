@@ -66,4 +66,20 @@ public class DemandSkillController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/demandSkills/{id}")
+    public ResponseEntity<DemandSkill> deleteDemandSKill(@PathVariable("id") long demandSKillId) {
+        try {
+            demandSkillService.deleteDemandSKill(demandSKillId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/demandSkills")
+    public ResponseEntity<DemandSkill> deleteAllDemandSkills() {
+        demandSkillService.deleteAllDemandSkills();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

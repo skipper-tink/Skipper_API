@@ -62,4 +62,18 @@ public class DemandSkillService {
         }
         throw new ServiceException("No such demandSkill");
     }
+
+    public void deleteDemandSKill(long demandSkillId) throws ServiceException {
+        Optional<DemandSkill> demandSkillData = demandSkillRepository.findById(demandSkillId);
+
+        if (demandSkillData.isPresent()) {
+            demandSkillRepository.deleteById(demandSkillId);
+            return;
+        }
+        throw new ServiceException("No such demandSkill");
+    }
+
+    public void deleteAllDemandSkills() {
+        demandSkillRepository.deleteAll();
+    }
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class DemandSkillController {
@@ -20,12 +22,30 @@ public class DemandSkillController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/demandSkill/{id}")
+    @GetMapping("/demandSkills/{id}")
     public ResponseEntity<DemandSkill> getDemandSKillById(@PathVariable("id") long demandSkillId) {
         try {
             return new ResponseEntity<>(demandSkillService.getDemandSkillById(demandSkillId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @GetMapping("/demandSkills/{demandId}")
+    public ResponseEntity<List<DemandSkill>> getDemandSkillsByDemandId(@PathVariable("demandId") long demandId) {
+        try {
+            return new ResponseEntity<>(demandSkillService.getDemandSkillsByDemandId(demandId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/demandSkills/{skillId}")
+    public ResponseEntity<List<DemandSkill>> getDemandSkillsBySkillId(@PathVariable("skillId") long skillId) {
+        try {
+            return new ResponseEntity<>(demandSkillService.getDemandSkillsBySkillId(skillId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

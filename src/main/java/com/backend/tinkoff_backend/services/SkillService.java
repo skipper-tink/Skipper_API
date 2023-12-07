@@ -51,6 +51,7 @@ public class SkillService {
 
         if (skillData.isPresent()) {
             skillRepository.deleteById(skillId);
+            return;
         }
         throw new ServiceException("No such skill");
     }

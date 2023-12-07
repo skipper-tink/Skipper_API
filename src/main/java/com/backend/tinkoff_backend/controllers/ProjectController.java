@@ -17,7 +17,7 @@ public class ProjectController {
     ProjectService projectService;
 
     @PostMapping("/projects")
-    public ResponseEntity<Project> createProject(@RequestParam Project project) {
+    public ResponseEntity<Project> createProject(@RequestBody Project project) {
             projectService.createProject(project);
             return new ResponseEntity<>(HttpStatus.CREATED);
     }

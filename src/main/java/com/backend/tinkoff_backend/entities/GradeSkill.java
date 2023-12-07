@@ -50,7 +50,7 @@ public class GradeSkill {
         return gradeId;
     }
 
-    public void setEmployeeGradeId(long Grade_gradeId) {
+    public void setGradeId(long Grade_gradeId) {
         gradeId = Grade_gradeId;
     }
 

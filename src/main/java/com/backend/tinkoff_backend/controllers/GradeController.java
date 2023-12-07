@@ -19,7 +19,7 @@ public class GradeController {
     GradeService gradeService;
 
     @PostMapping("/grades")
-    public ResponseEntity<Grade> createGrade(@RequestParam Grade grade) {
+    public ResponseEntity<Grade> createGrade(@RequestBody Grade grade) {
         gradeService.createGrade(grade);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

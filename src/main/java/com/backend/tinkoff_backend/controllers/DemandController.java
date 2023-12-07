@@ -17,7 +17,7 @@ public class DemandController {
     DemandService demandService;
 
     @PostMapping("/demands")
-    public ResponseEntity<Demand> createDemand(@RequestParam Demand demand) {
+    public ResponseEntity<Demand> createDemand(@RequestBody Demand demand) {
             demandService.creatDemand(demand);
             return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -17,7 +17,7 @@ public class FeedbackController {
     FeedbackService feedbackService;
 
     @PostMapping("/feedbacks")
-    public ResponseEntity<Feedback> createFeedback(@RequestParam Feedback feedback) {
+    public ResponseEntity<Feedback> createFeedback(@RequestBody Feedback feedback) {
         feedbackService.createFeedback(feedback);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

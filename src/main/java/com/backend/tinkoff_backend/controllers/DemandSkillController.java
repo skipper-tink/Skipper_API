@@ -17,13 +17,13 @@ public class DemandSkillController {
     DemandSkillService demandSkillService;
 
     @PostMapping("/demandSkills")
-    public ResponseEntity<DemandSkill> createDemandSkill(@RequestParam DemandSkill demandSkill) {
+    public ResponseEntity<DemandSkill> createDemandSkill(@RequestBody DemandSkill demandSkill) {
         demandSkillService.createDemandSkill(demandSkill);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/demandSkills/{id}")
-    public ResponseEntity<DemandSkill> getDemandSKillById(@PathVariable("id") long demandSkillId) {
+    public ResponseEntity<DemandSkill> getDemandSkillById(@PathVariable("id") long demandSkillId) {
         try {
             return new ResponseEntity<>(demandSkillService.getDemandSkillById(demandSkillId), HttpStatus.OK);
         } catch (Exception e) {
@@ -68,9 +68,9 @@ public class DemandSkillController {
     }
 
     @DeleteMapping("/demandSkills/{id}")
-    public ResponseEntity<DemandSkill> deleteDemandSKill(@PathVariable("id") long demandSKillId) {
+    public ResponseEntity<DemandSkill> deleteDemandSKill(@PathVariable("id") long demandSkillId) {
         try {
-            demandSkillService.deleteDemandSKill(demandSKillId);
+            demandSkillService.deleteDemandSKill(demandSkillId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

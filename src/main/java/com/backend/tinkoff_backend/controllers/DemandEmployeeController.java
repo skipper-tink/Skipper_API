@@ -18,7 +18,7 @@ public class DemandEmployeeController {
     DemandEmployeeService demandEmployeeService;
 
     @PostMapping("/demandEmployees")
-    public ResponseEntity<DemandEmployee> createDemandEmployee(@RequestParam DemandEmployee demandEmployee) {
+    public ResponseEntity<DemandEmployee> createDemandEmployee(@RequestBody DemandEmployee demandEmployee) {
         demandEmployeeService.createDemandEmployee(demandEmployee);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

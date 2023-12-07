@@ -17,7 +17,7 @@ public class SkillController {
     SkillService skillService;
 
     @PostMapping("/skills")
-    public ResponseEntity<Skill> createSkill(@RequestParam Skill skill) {
+    public ResponseEntity<Skill> createSkill(@RequestBody Skill skill) {
         skillService.createSkill(skill);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -17,7 +17,7 @@ public class EmployerController {
     EmployerService employerService;
 
     @PostMapping("/employers")
-    public ResponseEntity<Employer> createEmployer(@RequestParam String User_userLogin) {
+    public ResponseEntity<Employer> createEmployer(@RequestBody String User_userLogin) {
             employerService.createEmployer(User_userLogin);
             return new ResponseEntity<>(HttpStatus.CREATED);
     }

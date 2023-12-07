@@ -50,4 +50,16 @@ public class DemandSkillService {
             throw new ServiceException("No demandSkills");
         return demandSkills;
     }
+
+    public DemandSkill updateDemandSkill(long demandSkillId, DemandSkill demandSkill) throws ServiceException {
+        Optional<DemandSkill> demandSkillData = demandSkillRepository.findById(demandSkillId);
+
+        if (demandSkillData.isPresent()) {
+            DemandSkill _demandSkill = demandSkillData.get();
+            _demandSkill.setDemandId(demandSkill.getDemandId());
+            _demandSkill.setSkillId(demandSkill.getSkillId());
+            return demandSkillRepository.save(_demandSkill);
+        }
+        throw new ServiceException("No such demandSkill");
+    }
 }

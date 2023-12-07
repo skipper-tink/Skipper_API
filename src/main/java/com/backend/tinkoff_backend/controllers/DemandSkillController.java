@@ -57,4 +57,13 @@ public class DemandSkillController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/demandSkills/{id}")
+    public ResponseEntity<DemandSkill> updateDemandSkill(@PathVariable("id") long demandSkillId, @RequestBody DemandSkill demandSkill) {
+        try {
+            return new ResponseEntity<>(demandSkillService.updateDemandSkill(demandSkillId, demandSkill), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

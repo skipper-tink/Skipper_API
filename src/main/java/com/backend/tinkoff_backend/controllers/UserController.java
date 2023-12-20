@@ -27,10 +27,10 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users/{userLogin}")
-    public ResponseEntity<User> getUserByLogin(@PathVariable("userLogin") String userLogin) {
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
         try {
-            return new ResponseEntity<>(userService.getUserByLogin(userLogin), HttpStatus.OK);
+            return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -45,20 +45,20 @@ public class UserController {
         }
     }
 
-    @PutMapping("/users/{userLogin}")
-    public ResponseEntity<User> updateUser(@PathVariable("userLogin") String userLogin,
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") long id,
                                            @RequestBody User user) {
         try {
-            return new ResponseEntity<>(userService.updateUser(userLogin, user), HttpStatus.OK);
+            return new ResponseEntity<>(userService.updateUser(id, user), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/users/{userLogin}")
-    public ResponseEntity<User> deleteUser(@PathVariable("userLogin") String userLogin) {
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
         try {
-            userService.deleteUser(userLogin);
+            userService.deleteUser(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

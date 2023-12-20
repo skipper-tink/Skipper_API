@@ -16,7 +16,7 @@ public class EmployeeService {
     EmployeeRepository employeeRepository;
 
     public void createEmployee(Employee employee) {
-        employeeRepository.save(new Employee(employee.getUserLogin(), employee.getEmployeeFreeTimePerWeek(),
+        employeeRepository.save(new Employee(employee.getUserId(), employee.getEmployeeFreeTimePerWeek(),
                 employee.getEmployeeThisFreeTimeUntilDate()));
     }
 
@@ -28,8 +28,8 @@ public class EmployeeService {
         throw new ServiceException("No such employee");
     }
 
-    public Employee getEmployeeByUserLogin(String userLogin) throws ServiceException {
-        Optional<Employee> employeeData = employeeRepository.findByUserLogin(userLogin);
+    public Employee getEmployeeByUserId(long userId) throws ServiceException {
+        Optional<Employee> employeeData = employeeRepository.findByUserId(userId);
 
         if (employeeData.isPresent())
             return employeeData.get();
@@ -49,7 +49,7 @@ public class EmployeeService {
 
         if (employeeData.isPresent()) {
             Employee _employee = employeeData.get();
-            _employee.setUserLogin(employee.getUserLogin());
+            _employee.setUserId(employee.getUserId());
             _employee.setEmployeeFreeTimePerWeek(employee.getEmployeeFreeTimePerWeek());
             _employee.setEmployeeThisFreeTimeUntilDate(employee.getEmployeeThisFreeTimeUntilDate());
             return employeeRepository.save(_employee);

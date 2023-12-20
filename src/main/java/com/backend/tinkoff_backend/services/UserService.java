@@ -17,14 +17,11 @@ public class UserService {
     UserRepository userRepository;
 
     public void createUser(User user) throws ServiceException {
-        Optional<User> userData = userRepository.findById(user.getUserLogin());
-        if (userData.isPresent())
-            throw new ServiceException("User with this login already exists");
-        userRepository.save(user);
+            userRepository.save(new User(user.getUserLogin(), user.getPassword(), user.getName(), user.getEmail(), user.getPhoneNumber()));
     }
 
-    public User getUserByLogin(String userLogin) throws ServiceException {
-        Optional<User> userData = userRepository.findById(userLogin);
+    public User getUserById(long id) throws ServiceException {
+        Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent())
             return userData.get();
@@ -39,26 +36,26 @@ public class UserService {
         return users;
     }
 
-    public User updateUser(String userLogin, User user) throws ServiceException {
-        Optional<User> userData = userRepository.findById(userLogin);
+    public User updateUser(long id, User user) throws ServiceException {
+        Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {
             User _user = userData.get();
-            _user.setUserPassword(user.getUserPassword());
-            _user.setUserName(user.getUserName());
-            _user.setUserEmail(user.getUserEmail());
-            _user.setUserPhoneNumber(user.getUserPhoneNumber());
+            _user.setPassword(user.getPassword());
+            _user.setName(user.getName());
+            _user.setEmail(user.getEmail());
+            _user.setPhoneNumber(user.getPhoneNumber());
 
             return userRepository.save(_user);
         }
         throw new ServiceException("No such user");
     }
 
-    public void deleteUser(String userLogin) throws ServerException {
-        Optional<User> userData = userRepository.findById(userLogin);
+    public void deleteUser(long id) throws ServerException {
+        Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {
-            userRepository.deleteById(userLogin);
+            userRepository.deleteById(id);
             return;
         }
         throw new ServerException("No such user");

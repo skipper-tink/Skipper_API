@@ -17,8 +17,8 @@ public class EmployerController {
     EmployerService employerService;
 
     @PostMapping("/employers")
-    public ResponseEntity<Employer> createEmployer(@RequestBody String User_userLogin) {
-            employerService.createEmployer(User_userLogin);
+    public ResponseEntity<Employer> createEmployer(@RequestBody long userId) {
+            employerService.createEmployer(userId);
             return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -31,10 +31,10 @@ public class EmployerController {
         }
     }
 
-    @GetMapping("/employers/{userLogin}")
-    public ResponseEntity<Employer> getEmployerByUserLogin(@PathVariable("userLogin") String userLogin) {
+    @GetMapping("/employers/{userId}")
+    public ResponseEntity<Employer> getEmployerByUserLogin(@PathVariable("userId") long userId) {
         try {
-            return new ResponseEntity<>(employerService.getEmployerByUserLogin(userLogin), HttpStatus.OK);
+            return new ResponseEntity<>(employerService.getEmployerByUserLogin(userId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

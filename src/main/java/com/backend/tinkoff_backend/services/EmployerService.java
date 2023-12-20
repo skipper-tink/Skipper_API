@@ -16,8 +16,8 @@ public class EmployerService {
     @Autowired
     EmployerRepository employerRepository;
 
-    public void createEmployer(String userLogin) {
-            employerRepository.save(new Employer(userLogin));
+    public void createEmployer(long userId) {
+            employerRepository.save(new Employer(userId));
     }
 
     public Employer getEmployerById(long employerId) throws ServiceException {
@@ -28,8 +28,8 @@ public class EmployerService {
         throw new ServiceException("No such employer");
     }
 
-    public Employer getEmployerByUserLogin(String userLogin) throws ServiceException {
-        Optional<Employer> employerData = employerRepository.findByUserLogin(userLogin);
+    public Employer getEmployerByUserLogin(long userId) throws ServiceException {
+        Optional<Employer> employerData = employerRepository.findByUserId(userId);
 
         if (employerData.isPresent())
             return employerData.get();
@@ -49,7 +49,7 @@ public class EmployerService {
 
         if (employerData.isPresent()) {
             Employer _employer = employerData.get();
-            _employer.setUserLogin(employer.getUserLogin());
+            _employer.setUserId(employer.getUserId());
             return employerRepository.save(_employer);
         }
         throw new ServiceException("No such employer");

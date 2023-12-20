@@ -31,10 +31,10 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/employees/{userLogin}")
-    public ResponseEntity<Employee> getEmployeeByUserLogin(@PathVariable("userLogin") String userLogin) {
+    @GetMapping("/employees/{userId}")
+    public ResponseEntity<Employee> getEmployeeByUserLogin(@PathVariable("userId") long userId) {
         try {
-            return new ResponseEntity<>(employeeService.getEmployeeByUserLogin(userLogin), HttpStatus.OK);
+            return new ResponseEntity<>(employeeService.getEmployeeByUserId(userId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

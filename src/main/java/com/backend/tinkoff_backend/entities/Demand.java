@@ -14,7 +14,7 @@ public class Demand {
 
     @JoinColumn(name = "Project_projectId",
             referencedColumnName = "projectId", nullable = false)
-    private long Project_projectId;
+    private long projectId;
 
     @Column(name = "demandTimeConsumption", nullable = false)
     private int demandTimeConsumption;
@@ -31,14 +31,12 @@ public class Demand {
     public Demand() {
     }
 
-    public Demand(long demandId,
-                  long Project_projectId,
+    public Demand(long Project_projectId,
                   int demandTimeConsumption,
                   Date demandDeadline,
                   String demandSpecialization,
                   String demandQualification) {
-        this.demandId = demandId;
-        this.Project_projectId = Project_projectId;
+        this.projectId = Project_projectId;
         this.demandTimeConsumption = demandTimeConsumption;
         this.demandDeadline = demandDeadline;
         this.demandSpecialization = demandSpecialization;
@@ -53,12 +51,12 @@ public class Demand {
         this.demandId = demandId;
     }
 
-    public long getProject_projectId() {
-        return Project_projectId;
+    public long getProjectId() {
+        return projectId;
     }
 
-    public void setProject_projectId(long Project_projectId) {
-        this.Project_projectId = Project_projectId;
+    public void setProjectId(long Project_projectId) {
+        this.projectId = Project_projectId;
     }
 
     public int getDemandTimeConsumption() {
@@ -97,7 +95,7 @@ public class Demand {
     public String toString() {
         return "Demand{" +
                 "demandId=" + demandId +
-                ", Project_projectId=" + Project_projectId +
+                ", projectId=" + projectId +
                 ", demandTimeConsumption=" + demandTimeConsumption +
                 ", demandDeadline=" + demandDeadline +
                 ", demandSpecialization='" + demandSpecialization + '\'' +

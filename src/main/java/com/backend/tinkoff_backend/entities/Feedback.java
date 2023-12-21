@@ -19,7 +19,7 @@ public class Feedback {
     @JoinColumn(name = "DemandEmployee_demandEmployeeId",
             referencedColumnName = "demandEmployeeId",
             nullable = false)
-    private long DemandEmployee_demandEmployeeId;
+    private long demandEmployeeId;
 
     @Column(name = "feedbackReviewerName", nullable = false)
     private String feedbackReviewerName;
@@ -27,21 +27,16 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(long feedbackId,
-                    int feedbackRating,
+    public Feedback(int feedbackRating,
                     String feedbackComment,
                     long DemandEmployee_demandEmployeeId,
                     String feedbackReviewerName) {
-        this.feedbackId = feedbackId;
         this.feedbackRating = feedbackRating;
         this.feedbackComment = feedbackComment;
-        this.DemandEmployee_demandEmployeeId = DemandEmployee_demandEmployeeId;
+        this.demandEmployeeId = DemandEmployee_demandEmployeeId;
         this.feedbackReviewerName = feedbackReviewerName;
     }
 
-    public long getFeedbackId() {
-        return feedbackId;
-    }
 
     public void setFeedbackId(long feedbackId) {
         this.feedbackId = feedbackId;
@@ -63,12 +58,12 @@ public class Feedback {
         this.feedbackComment = feedbackComment;
     }
 
-    public long getDemandEmployee_demandEmployeeId() {
-        return DemandEmployee_demandEmployeeId;
+    public long getDemandEmployeeId() {
+        return demandEmployeeId;
     }
 
-    public void setDemandEmployee_demandEmployeeId(long demandEmployee_demandEmployeeId) {
-        DemandEmployee_demandEmployeeId = demandEmployee_demandEmployeeId;
+    public void setDemandEmployeeId(long demandEmployee_demandEmployeeId) {
+        demandEmployeeId = demandEmployee_demandEmployeeId;
     }
 
     public String getFeedbackReviewerName() {
@@ -85,7 +80,7 @@ public class Feedback {
                 "feedbackId=" + feedbackId +
                 ", feedbackRating=" + feedbackRating +
                 ", feedbackComment='" + feedbackComment + '\'' +
-                ", DemandEmployee_demandEmployeeId=" + DemandEmployee_demandEmployeeId +
+                ", demandEmployeeId=" + demandEmployeeId +
                 ", feedbackReviewerName='" + feedbackReviewerName + '\'' +
                 '}';
     }

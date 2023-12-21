@@ -1,92 +1,102 @@
 package com.backend.tinkoff_backend.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User {
 
     @Id
-    @Column(name = "userLogin", nullable = false, unique = true)
-    private String userLogin;
+    @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-    @Column(name = "userPassword", nullable = false)
-    private String userPassword;
+    @Column(name = "login", nullable = false, unique = true)
+    private String login;
 
-    @Column(name = "userName", nullable = false)
-    private String userName;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @Column(name = "userEmail", nullable = false)
-    private String userEmail;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name = "userPhoneNumber", nullable = false)
-    private String userPhoneNumber;
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
 
     public User(){}
 
-    public User(String userLogin,
-                String userPassword,
-                String userName,
-                String userEmail,
-                String userPhoneNumber) {
-        this.userLogin = userLogin;
-        this.userPassword = userPassword;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userPhoneNumber = userPhoneNumber;
+    public User(String login,
+                String password,
+                String name,
+                String email,
+                String phoneNumber) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUserLogin() {
-        return userLogin;
+        return login;
     }
 
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getUserPhoneNumber() {
-        return userPhoneNumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setUserPhoneNumber(String userPhoneNumber) {
-        this.userPhoneNumber = userPhoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "userLogin='" + userLogin + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", userName='" + userName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userPhoneNumber='" + userPhoneNumber + '\'' +
+        return "user{" +
+                "id=" + id + '\'' +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

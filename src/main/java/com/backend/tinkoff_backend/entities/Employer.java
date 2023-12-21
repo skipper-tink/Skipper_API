@@ -3,7 +3,7 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Employer")
+@Table(name = "employer")
 public class Employer {
 
     @Id
@@ -11,17 +11,16 @@ public class Employer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employerId;
 
-    @JoinColumn(name = "User_userLogin",
-            referencedColumnName = "userLogin",
+    @JoinColumn(name = "user_id",
+            referencedColumnName = "id",
             nullable = false)
-    private String User_userLogin;
+    private long userId;
 
     public Employer(){
     }
 
-    public Employer(long employerId, String User_userLogin) {
-        this.employerId = employerId;
-        this.User_userLogin = User_userLogin;
+    public Employer( long userId) {
+        this.userId = userId;
     }
 
     public long getEmployerId() {
@@ -32,19 +31,19 @@ public class Employer {
         this.employerId = employerId;
     }
 
-    public String getUser_userLogin() {
-        return User_userLogin;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser_userLogin(String User_userLogin) {
-        this.User_userLogin = User_userLogin;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "Employer{" +
                 "employerId=" + employerId +
-                ", User_userLogin='" + User_userLogin + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

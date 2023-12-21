@@ -14,22 +14,20 @@ public class GradeSkill {
     @JoinColumn(name = "Skill_skillId",
             referencedColumnName = "skillId",
             nullable = false)
-    private long Skill_skillId;
+    private long skillId;
 
-    @JoinColumn(name = "EmployeeGrade_employeeGradeId",
-            referencedColumnName = "employeeGradeId",
+    @JoinColumn(name = "Grade_gradeId",
+            referencedColumnName = "gradeId",
             nullable = false)
-    private long EmployeeGrade_employeeGradeId;
+    private long gradeId;
 
     public GradeSkill() {
     }
 
-    public GradeSkill(long gradeSkillId,
-                      long skill_skillId,
-                      long employeeGrade_employeeGradeId) {
-        this.gradeSkillId = gradeSkillId;
-        Skill_skillId = skill_skillId;
-        EmployeeGrade_employeeGradeId = employeeGrade_employeeGradeId;
+    public GradeSkill(long skill_skillId,
+                      long Grade_gradeId) {
+        skillId = skill_skillId;
+        gradeId = Grade_gradeId;
     }
 
     public long getGradeSkillId() {
@@ -40,28 +38,28 @@ public class GradeSkill {
         this.gradeSkillId = gradeSkillId;
     }
 
-    public long getSkill_skillId() {
-        return Skill_skillId;
+    public long getSkillId() {
+        return skillId;
     }
 
-    public void setSkill_skillId(long skill_skillId) {
-        Skill_skillId = skill_skillId;
+    public void setSkillId(long skill_skillId) {
+        skillId = skill_skillId;
     }
 
-    public long getEmployeeGrade_employeeGradeId() {
-        return EmployeeGrade_employeeGradeId;
+    public long getGradeId() {
+        return gradeId;
     }
 
-    public void setEmployeeGrade_employeeGradeId(long employeeGrade_employeeGradeId) {
-        EmployeeGrade_employeeGradeId = employeeGrade_employeeGradeId;
+    public void setGradeId(long Grade_gradeId) {
+        gradeId = Grade_gradeId;
     }
 
     @Override
     public String toString() {
         return "GradeSkill{" +
                 "gradeSkillId=" + gradeSkillId +
-                ", Skill_skillId=" + Skill_skillId +
-                ", EmployeeGrade_employeeGradeId=" + EmployeeGrade_employeeGradeId +
+                ", skillId=" + skillId +
+                ", gradeId=" + gradeId +
                 '}';
     }
 }

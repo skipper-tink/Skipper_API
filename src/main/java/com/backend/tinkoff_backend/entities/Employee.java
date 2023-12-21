@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "Employee")
+@Table(name = "employee")
 public class Employee {
 
     @Id
@@ -13,10 +13,10 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employeeId;
 
-    @JoinColumn(name = "User_userLogin",
-            referencedColumnName = "userLogin",
+    @JoinColumn(name = "user_id",
+            referencedColumnName = "id",
             nullable = false)
-    private String User_userLogin;
+    private long userId;
 
     @Column(name = "employeeFreeTimePerWeek")
     private long employeeFreeTimePerWeek;
@@ -27,12 +27,10 @@ public class Employee {
     public Employee(){
     }
 
-    public Employee(long employeeId,
-                    String User_userLogin,
+    public Employee(long userId,
                     long employeeFreeTimePerWeek,
                     Date employeeThisFreeTimeUntilDate) {
-        this.employeeId = employeeId;
-        this.User_userLogin = User_userLogin;
+        this.userId = userId;
         this.employeeFreeTimePerWeek = employeeFreeTimePerWeek;
         this.employeeThisFreeTimeUntilDate = employeeThisFreeTimeUntilDate;
     }
@@ -45,12 +43,12 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public String getUser_userLogin() {
-        return User_userLogin;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser_userLogin(String User_userLogin) {
-        this.User_userLogin = User_userLogin;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public long getEmployeeFreeTimePerWeek() {
@@ -73,7 +71,7 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "employeeId=" + employeeId +
-                ", User_userLogin='" + User_userLogin + '\'' +
+                ", userId='" + userId + '\'' +
                 ", employeeFreeTimePerWeek=" + employeeFreeTimePerWeek +
                 ", employeeThisFreeTimeUntilDate=" + employeeThisFreeTimeUntilDate +
                 '}';

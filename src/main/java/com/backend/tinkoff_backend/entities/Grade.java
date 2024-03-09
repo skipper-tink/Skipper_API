@@ -9,7 +9,7 @@ public class Grade {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long gradeId;
+    private long id;
 
     @JoinColumn(name = "employee_id",
             referencedColumnName = "id",
@@ -17,61 +17,61 @@ public class Grade {
     private long employeeId;
 
     @Column(name = "specialization", nullable = false)
-    private String gradeSpecialization;
+    private String specialization;
 
     @Column(name = "qualification", nullable = false)
-    private String gradeQualification;
+    private String qualification;
 
     public Grade() {
     }
 
-    public Grade(long employee_employeeId,
-                 String gradeSpecialization,
-                 String gradeQualification) {
-        employeeId = employee_employeeId;
-        this.gradeSpecialization = gradeSpecialization;
-        this.gradeQualification = gradeQualification;
+    public Grade(long employeeId,
+                 String specialization,
+                 String qualification) {
+        this.employeeId = employeeId;
+        this.specialization = specialization;
+        this.qualification = qualification;
     }
 
-    public long getGradeId() {
-        return gradeId;
+    public long getId() {
+        return id;
     }
 
-    public void setGradeId(long gradeId) {
-        this.gradeId = gradeId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(long employee_employeeId) {
-        employeeId = employee_employeeId;
+    public void setEmployeeId(long employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getGradeSpecialization() {
-        return gradeSpecialization;
+    public String getSpecialization() {
+        return specialization;
     }
 
-    public void setGradeSpecialization(String gradeSpecialization) {
-        this.gradeSpecialization = gradeSpecialization;
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 
-    public String getGradeQualification() {
-        return gradeQualification;
+    public String getQualification() {
+        return qualification;
     }
 
-    public void setGradeQualification(String gradeQualification) {
-        this.gradeQualification = gradeQualification;
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
     }
 
     @Override
     public String toString() {
         return "Grade{" +
-                "gradeId=" + gradeId +
+                "id=" + id +
                 ", employeeId=" + employeeId +
-                ", gradeSpecialization='" + gradeSpecialization + '\'' +
-                ", gradeQualification='" + gradeQualification + '\'' +
+                ", specialization='" + specialization + '\'' +
+                ", qualification='" + qualification + '\'' +
                 '}';
     }
 }

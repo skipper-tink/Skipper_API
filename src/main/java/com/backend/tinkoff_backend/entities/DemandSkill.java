@@ -9,7 +9,7 @@ public class DemandSkill {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long demandSkillId;
+    private long id;
 
     @JoinColumn(name = "skill_id",
             referencedColumnName = "id",
@@ -24,40 +24,40 @@ public class DemandSkill {
     public DemandSkill() {
     }
 
-    public DemandSkill(long skill_skillId,
-                       long demand_demandId) {
-        skillId = skill_skillId;
-        demandId = demand_demandId;
+    public DemandSkill(long skillId,
+                       long demandId) {
+        this.skillId = skillId;
+        this.demandId = demandId;
     }
 
-    public long getDemandSkillId() {
-        return demandSkillId;
+    public long getId() {
+        return id;
     }
 
-    public void setDemandSkillId(long demandSkillId) {
-        this.demandSkillId = demandSkillId;
+    public void setId(long Id) {
+        this.id = Id;
     }
 
     public long getSkillId() {
         return skillId;
     }
 
-    public void setSkillId(long skill_skillId) {
-        skillId = skill_skillId;
+    public void setSkillId(long skillId) {
+        this.skillId = skillId;
     }
 
     public long getDemandId() {
         return demandId;
     }
 
-    public void setDemandId(long demand_demandId) {
-        demandId = demand_demandId;
+    public void setDemandId(long demandId) {
+        this.demandId = demandId;
     }
 
     @Override
     public String toString() {
         return "DemandSkill{" +
-                "demandSkillId=" + demandSkillId +
+                "id=" + id +
                 ", skillId=" + skillId +
                 ", demandId=" + demandId +
                 '}';

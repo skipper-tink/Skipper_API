@@ -16,8 +16,8 @@ public class DemandService {
     DemandRepository demandRepository;
 
     public void creatDemand(Demand demand) {
-            demandRepository.save(new Demand(demand.getProjectId(), demand.getDemandTimeConsumption(),
-                    demand.getDemandDeadline(), demand.getDemandSpecialization(), demand.getDemandQualification()));
+            demandRepository.save(new Demand(demand.getProjectId(), demand.getTimeConsumption(),
+                    demand.getDeadline(), demand.getSpecialization(), demand.getQualification()));
     }
 
     public Demand getDemandById(long demandId) throws ServiceException {
@@ -49,10 +49,10 @@ public class DemandService {
 
         if (demandData.isPresent()) {
             Demand _demand = demandData.get();
-            _demand.setDemandTimeConsumption(demand.getDemandTimeConsumption());
-            _demand.setDemandDeadline(demand.getDemandDeadline());
-            _demand.setDemandSpecialization(demand.getDemandSpecialization());
-            _demand.setDemandQualification(demand.getDemandQualification());
+            _demand.setTimeConsumption(demand.getTimeConsumption());
+            _demand.setDeadline(demand.getDeadline());
+            _demand.setSpecialization(demand.getSpecialization());
+            _demand.setQualification(demand.getQualification());
             return demandRepository.save(_demand);
         }
         throw new ServiceException("No such demand");

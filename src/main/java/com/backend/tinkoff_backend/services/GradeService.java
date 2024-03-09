@@ -1,13 +1,11 @@
 package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.Grade;
-import com.backend.tinkoff_backend.entities.Skill;
 import com.backend.tinkoff_backend.repositories.GradeRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.rmi.server.ServerCloneException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +17,7 @@ public class GradeService {
 
     public void createGrade(Grade grade) {
         gradeRepository.save(new Grade(grade.getEmployeeId(),
-                grade.getGradeSpecialization(), grade.getGradeQualification()));
+                grade.getSpecialization(), grade.getQualification()));
     }
 
     public Grade getGradeById(long gradeId) throws ServiceException {
@@ -51,8 +49,8 @@ public class GradeService {
 
         if (gradeData.isPresent()) {
             Grade _grade = gradeData.get();
-            _grade.setGradeQualification(grade.getGradeQualification());
-            _grade.setGradeSpecialization(grade.getGradeSpecialization());
+            _grade.setQualification(grade.getQualification());
+            _grade.setSpecialization(grade.getSpecialization());
             _grade.setEmployeeId(grade.getEmployeeId());
             return gradeRepository.save(_grade);
         }

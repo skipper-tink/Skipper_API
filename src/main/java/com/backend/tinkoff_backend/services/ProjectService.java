@@ -16,8 +16,8 @@ public class ProjectService {
     ProjectRepository projectRepository;
 
     public void createProject(Project project) {
-            projectRepository.save(new Project(project.getProjectName(),
-                    project.getProjectDescription(), project.getProjectStatus(),
+            projectRepository.save(new Project(project.getName(),
+                    project.getDescription(), project.getStatus(),
                     project.getEmployerId()));
     }
 
@@ -50,9 +50,9 @@ public class ProjectService {
 
         if (projectData.isPresent()) {
             Project _project = projectData.get();
-            _project.setProjectName(project.getProjectName());
-            _project.setProjectStatus(project.getProjectStatus());
-            _project.setProjectDescription(project.getProjectDescription());
+            _project.setName(project.getName());
+            _project.setStatus(project.getStatus());
+            _project.setDescription(project.getDescription());
             _project.setEmployerId(project.getEmployerId());
             return projectRepository.save(_project);
         }

@@ -9,7 +9,7 @@ public class GradeSkill {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long gradeSkillId;
+    private long id;
 
     @JoinColumn(name = "skill_id",
             referencedColumnName = "id",
@@ -24,40 +24,40 @@ public class GradeSkill {
     public GradeSkill() {
     }
 
-    public GradeSkill(long skill_skillId,
-                      long Grade_gradeId) {
-        skillId = skill_skillId;
-        gradeId = Grade_gradeId;
+    public GradeSkill(long skillId,
+                      long gradeId) {
+        this.skillId = skillId;
+        this.gradeId = gradeId;
     }
 
-    public long getGradeSkillId() {
-        return gradeSkillId;
+    public long getId() {
+        return id;
     }
 
-    public void setGradeSkillId(long gradeSkillId) {
-        this.gradeSkillId = gradeSkillId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getSkillId() {
         return skillId;
     }
 
-    public void setSkillId(long skill_skillId) {
-        skillId = skill_skillId;
+    public void setSkillId(long skillId) {
+        this.skillId = skillId;
     }
 
     public long getGradeId() {
         return gradeId;
     }
 
-    public void setGradeId(long Grade_gradeId) {
-        gradeId = Grade_gradeId;
+    public void setGradeId(long gradeId) {
+        this.gradeId = gradeId;
     }
 
     @Override
     public String toString() {
         return "GradeSkill{" +
-                "gradeSkillId=" + gradeSkillId +
+                "id=" + id +
                 ", skillId=" + skillId +
                 ", gradeId=" + gradeId +
                 '}';

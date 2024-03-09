@@ -16,8 +16,8 @@ public class FeedbackService {
     FeedbackRepository feedbackRepository;
 
     public void createFeedback(Feedback feedback) {
-        feedbackRepository.save(new Feedback(feedback.getFeedbackRating(), feedback.getFeedbackComment(),
-                feedback.getDemandEmployeeId(), feedback.getFeedbackReviewerName()));
+        feedbackRepository.save(new Feedback(feedback.getRating(), feedback.getComment(),
+                feedback.getDemandEmployeeId(), feedback.getReviewerName()));
     }
 
     public Feedback getFeedbackById(long feedbackId) throws ServiceException {
@@ -49,9 +49,9 @@ public class FeedbackService {
 
         if (feedbackData.isPresent()) {
             Feedback _feedback = feedbackData.get();
-            _feedback.setFeedbackComment(feedback.getFeedbackComment());
-            _feedback.setFeedbackRating(feedback.getFeedbackRating());
-            _feedback.setFeedbackReviewerName(feedback.getFeedbackReviewerName());
+            _feedback.setComment(feedback.getComment());
+            _feedback.setRating(feedback.getRating());
+            _feedback.setReviewerName(feedback.getReviewerName());
             _feedback.setDemandEmployeeId(feedback.getDemandEmployeeId());
             return feedbackRepository.save(_feedback);
         }

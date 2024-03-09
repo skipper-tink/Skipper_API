@@ -8,13 +8,13 @@ public class Feedback {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long feedbackId;
+    private long id;
 
     @Column(name = "rating", nullable = false)
-    private int feedbackRating;
+    private int rating;
 
     @Column(name ="comment", nullable = false)
-    private String feedbackComment;
+    private String comment;
 
     @JoinColumn(name = "demand_employee_id",
             referencedColumnName = "id",
@@ -22,66 +22,66 @@ public class Feedback {
     private long demandEmployeeId;
 
     @Column(name = "reviewer_name", nullable = false)
-    private String feedbackReviewerName;
+    private String reviewerName;
 
     public Feedback() {
     }
 
-    public Feedback(int feedbackRating,
-                    String feedbackComment,
-                    long DemandEmployee_demandEmployeeId,
-                    String feedbackReviewerName) {
-        this.feedbackRating = feedbackRating;
-        this.feedbackComment = feedbackComment;
-        this.demandEmployeeId = DemandEmployee_demandEmployeeId;
-        this.feedbackReviewerName = feedbackReviewerName;
+    public Feedback(int rating,
+                    String comment,
+                    long demandEmployeeId,
+                    String reviewerName) {
+        this.rating = rating;
+        this.comment = comment;
+        this.demandEmployeeId = demandEmployeeId;
+        this.reviewerName = reviewerName;
     }
 
 
-    public void setFeedbackId(long feedbackId) {
-        this.feedbackId = feedbackId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public int getFeedbackRating() {
-        return feedbackRating;
+    public int getRating() {
+        return rating;
     }
 
-    public void setFeedbackRating(int feedbackRating) {
-        this.feedbackRating = feedbackRating;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
-    public String getFeedbackComment() {
-        return feedbackComment;
+    public String getComment() {
+        return comment;
     }
 
-    public void setFeedbackComment(String feedbackComment) {
-        this.feedbackComment = feedbackComment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public long getDemandEmployeeId() {
         return demandEmployeeId;
     }
 
-    public void setDemandEmployeeId(long demandEmployee_demandEmployeeId) {
-        demandEmployeeId = demandEmployee_demandEmployeeId;
+    public void setDemandEmployeeId(long demandEmployeeId) {
+        this.demandEmployeeId = demandEmployeeId;
     }
 
-    public String getFeedbackReviewerName() {
-        return feedbackReviewerName;
+    public String getReviewerName() {
+        return reviewerName;
     }
 
-    public void setFeedbackReviewerName(String feedbackReviewerName) {
-        this.feedbackReviewerName = feedbackReviewerName;
+    public void setReviewerName(String reviewerName) {
+        this.reviewerName = reviewerName;
     }
 
     @Override
     public String toString() {
         return "Feedback{" +
-                "feedbackId=" + feedbackId +
-                ", feedbackRating=" + feedbackRating +
-                ", feedbackComment='" + feedbackComment + '\'' +
+                "id=" + id +
+                ", rating=" + rating +
+                ", comment='" + comment + '\'' +
                 ", demandEmployeeId=" + demandEmployeeId +
-                ", feedbackReviewerName='" + feedbackReviewerName + '\'' +
+                ", reviewerName='" + reviewerName + '\'' +
                 '}';
     }
 }

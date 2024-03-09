@@ -9,16 +9,16 @@ public class Project {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long projectId;
+    private long id;
 
     @Column(name = "name", nullable = false)
-    private String projectName;
+    private String name;
 
     @Column(name = "description", nullable = false)
-    private String projectDescription;
+    private String description;
 
     @Column(name = "status", nullable = false)
-    private String projectStatus;
+    private String status;
 
     @JoinColumn(name = "employer_id",
             referencedColumnName = "id",
@@ -29,45 +29,45 @@ public class Project {
     }
 
     public Project(String projectName,
-                   String projectDescription,
+                   String description,
                    String projectStatus,
                    long Employer_employerId) {
-        this.projectName = projectName;
-        this.projectDescription = projectDescription;
-        this.projectStatus = projectStatus;
+        this.name = projectName;
+        this.description = description;
+        this.status = projectStatus;
         this.employerId = Employer_employerId;
     }
 
-    public long getProjectId() {
-        return projectId;
+    public long getId() {
+        return id;
     }
 
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
+    public void setId(long projectId) {
+        this.id = projectId;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getName() {
+        return name;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setName(String projectName) {
+        this.name = projectName;
     }
 
-    public String getProjectDescription() {
-        return projectDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProjectDescription(String projectDescription) {
-        this.projectDescription = projectDescription;
+    public void setDescription(String projectDescription) {
+        this.description = projectDescription;
     }
 
-    public String getProjectStatus() {
-        return projectStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setProjectStatus(String projectStatus) {
-        this.projectStatus = projectStatus;
+    public void setStatus(String projectStatus) {
+        this.status = projectStatus;
     }
 
     public long getEmployerId() {
@@ -81,10 +81,10 @@ public class Project {
     @Override
     public String toString() {
         return "Project{" +
-                "projectId=" + projectId +
-                ", projectName='" + projectName + '\'' +
-                ", projectDescription='" + projectDescription + '\'' +
-                ", projectStatus='" + projectStatus + '\'' +
+                "projectId=" + id +
+                ", projectName='" + name + '\'' +
+                ", projectDescription='" + description + '\'' +
+                ", projectStatus='" + status + '\'' +
                 ", employerId=" + employerId +
                 '}';
     }

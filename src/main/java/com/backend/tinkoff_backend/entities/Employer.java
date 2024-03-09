@@ -9,7 +9,7 @@ public class Employer {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long employerId;
+    private long id;
 
     @JoinColumn(name = "user_id",
             referencedColumnName = "id",
@@ -23,12 +23,12 @@ public class Employer {
         this.userId = userId;
     }
 
-    public long getEmployerId() {
-        return employerId;
+    public long getId() {
+        return id;
     }
 
-    public void setEmployerId(long employerId) {
-        this.employerId = employerId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getUserId() {
@@ -42,7 +42,7 @@ public class Employer {
     @Override
     public String toString() {
         return "Employer{" +
-                "employerId=" + employerId +
+                "id=" + id +
                 ", userId='" + userId + '\'' +
                 '}';
     }

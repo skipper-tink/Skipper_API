@@ -9,7 +9,7 @@ public class DemandEmployee {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idInvolvedEmployee;
+    private long id;
 
     @JoinColumn(name = "demand_id",
             referencedColumnName = "id",
@@ -24,40 +24,40 @@ public class DemandEmployee {
     public DemandEmployee() {
     }
 
-    public DemandEmployee(long demand_demandId,
-                          long employee_employeeId) {
-        demandId = demand_demandId;
-        employeeId = employee_employeeId;
+    public DemandEmployee(long demandId,
+                          long employeeId) {
+        this.demandId = demandId;
+        this.employeeId = employeeId;
     }
 
-    public long getIdInvolvedEmployee() {
-        return idInvolvedEmployee;
+    public long getId() {
+        return id;
     }
 
-    public void setIdInvolvedEmployee(long idInvolvedEmployee) {
-        this.idInvolvedEmployee = idInvolvedEmployee;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getDemandId() {
         return demandId;
     }
 
-    public void setDemandId(long demand_demandId) {
-        demandId = demand_demandId;
+    public void setDemandId(long demandId) {
+        this.demandId = demandId;
     }
 
     public long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(long employee_employeeId) {
-        employeeId = employee_employeeId;
+    public void setEmployeeId(long employeeId) {
+        this.employeeId = employeeId;
     }
 
     @Override
     public String toString() {
         return "DemandEmployee{" +
-                "idInvolvedEmployee=" + idInvolvedEmployee +
+                "id=" + id +
                 ", demandId=" + demandId +
                 ", employeeId=" + employeeId +
                 '}';

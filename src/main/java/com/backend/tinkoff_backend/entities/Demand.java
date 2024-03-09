@@ -10,96 +10,96 @@ public class Demand {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long demandId;
+    private long id;
 
     @JoinColumn(name = "project_id",
             referencedColumnName = "id", nullable = false)
     private long projectId;
 
     @Column(name = "time_consumption", nullable = false)
-    private int demandTimeConsumption;
+    private int timeConsumption;
 
     @Column(name = "deadline", nullable = false)
-    private Date demandDeadline;
+    private Date deadline;
 
     @Column(name = "specialization")
-    private String demandSpecialization;
+    private String specialization;
 
     @Column(name = "qualification")
-    private String demandQualification;
+    private String qualification;
 
     public Demand() {
     }
 
-    public Demand(long Project_projectId,
-                  int demandTimeConsumption,
-                  Date demandDeadline,
-                  String demandSpecialization,
-                  String demandQualification) {
-        this.projectId = Project_projectId;
-        this.demandTimeConsumption = demandTimeConsumption;
-        this.demandDeadline = demandDeadline;
-        this.demandSpecialization = demandSpecialization;
-        this.demandQualification = demandQualification;
+    public Demand(long projectId,
+                  int timeConsumption,
+                  Date deadline,
+                  String specialization,
+                  String qualification) {
+        this.projectId = projectId;
+        this.timeConsumption = timeConsumption;
+        this.deadline = deadline;
+        this.specialization = specialization;
+        this.qualification = qualification;
     }
 
-    public long getDemandId() {
-        return demandId;
+    public long getId() {
+        return id;
     }
 
-    public void setDemandId(long demandId) {
-        this.demandId = demandId;
+    public void setId(long demandId) {
+        this.id = demandId;
     }
 
     public long getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(long Project_projectId) {
-        this.projectId = Project_projectId;
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
     }
 
-    public int getDemandTimeConsumption() {
-        return demandTimeConsumption;
+    public int getTimeConsumption() {
+        return timeConsumption;
     }
 
-    public void setDemandTimeConsumption(int demandTimeConsumption) {
-        this.demandTimeConsumption = demandTimeConsumption;
+    public void setTimeConsumption(int timeConsumption) {
+        this.timeConsumption = timeConsumption;
     }
 
-    public Date getDemandDeadline() {
-        return demandDeadline;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setDemandDeadline(Date demandDeadline) {
-        this.demandDeadline = demandDeadline;
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
-    public String getDemandSpecialization() {
-        return demandSpecialization;
+    public String getSpecialization() {
+        return specialization;
     }
 
-    public void setDemandSpecialization(String demandSpecialization) {
-        this.demandSpecialization = demandSpecialization;
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 
-    public String getDemandQualification() {
-        return demandQualification;
+    public String getQualification() {
+        return qualification;
     }
 
-    public void setDemandQualification(String demandQualification) {
-        this.demandQualification = demandQualification;
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
     }
 
     @Override
     public String toString() {
         return "Demand{" +
-                "demandId=" + demandId +
+                "id=" + id +
                 ", projectId=" + projectId +
-                ", demandTimeConsumption=" + demandTimeConsumption +
-                ", demandDeadline=" + demandDeadline +
-                ", demandSpecialization='" + demandSpecialization + '\'' +
-                ", demandQualification='" + demandQualification + '\'' +
+                ", timeConsumption=" + timeConsumption +
+                ", deadline=" + deadline +
+                ", specialization='" + specialization + '\'' +
+                ", qualification='" + qualification + '\'' +
                 '}';
     }
 }

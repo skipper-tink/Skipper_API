@@ -11,7 +11,7 @@ public class Employee {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long employeeId;
+    private long id;
 
     @JoinColumn(name = "user_id",
             referencedColumnName = "id",
@@ -19,28 +19,28 @@ public class Employee {
     private long userId;
 
     @Column(name = "free_time_per_week")
-    private long employeeFreeTimePerWeek;
+    private long freeTimePerWeek;
 
     @Column(name = "free_time_until_date")
-    private Date employeeThisFreeTimeUntilDate;
+    private Date freeTimeUntilDate;
 
     public Employee(){
     }
 
     public Employee(long userId,
-                    long employeeFreeTimePerWeek,
-                    Date employeeThisFreeTimeUntilDate) {
+                    long freeTimePerWeek,
+                    Date freeTimeUntilDate) {
         this.userId = userId;
-        this.employeeFreeTimePerWeek = employeeFreeTimePerWeek;
-        this.employeeThisFreeTimeUntilDate = employeeThisFreeTimeUntilDate;
+        this.freeTimePerWeek = freeTimePerWeek;
+        this.freeTimeUntilDate = freeTimeUntilDate;
     }
 
-    public long getEmployeeId() {
-        return employeeId;
+    public long getId() {
+        return id;
     }
 
-    public void setEmployeeId(long employeeId) {
-        this.employeeId = employeeId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getUserId() {
@@ -51,29 +51,29 @@ public class Employee {
         this.userId = userId;
     }
 
-    public long getEmployeeFreeTimePerWeek() {
-        return employeeFreeTimePerWeek;
+    public long getFreeTimePerWeek() {
+        return freeTimePerWeek;
     }
 
-    public void setEmployeeFreeTimePerWeek(long employeeFreeTimePerWeek) {
-        this.employeeFreeTimePerWeek = employeeFreeTimePerWeek;
+    public void setFreeTimePerWeek(long freeTimePerWeek) {
+        this.freeTimePerWeek = freeTimePerWeek;
     }
 
-    public Date getEmployeeThisFreeTimeUntilDate() {
-        return employeeThisFreeTimeUntilDate;
+    public Date getFreeTimeUntilDate() {
+        return freeTimeUntilDate;
     }
 
-    public void setEmployeeThisFreeTimeUntilDate(Date employeeThisFreeTimeUntilDate) {
-        this.employeeThisFreeTimeUntilDate = employeeThisFreeTimeUntilDate;
+    public void setFreeTimeUntilDate(Date freeTimeUntilDate) {
+        this.freeTimeUntilDate = freeTimeUntilDate;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeId=" + employeeId +
+                "id=" + id +
                 ", userId='" + userId + '\'' +
-                ", employeeFreeTimePerWeek=" + employeeFreeTimePerWeek +
-                ", employeeThisFreeTimeUntilDate=" + employeeThisFreeTimeUntilDate +
+                ", freeTimePerWeek=" + freeTimePerWeek +
+                ", freeTimeUntilDate=" + freeTimeUntilDate +
                 '}';
     }
 }

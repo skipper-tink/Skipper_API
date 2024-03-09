@@ -3,15 +3,15 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Skill")
+@Table(name = "skill")
 public class Skill {
 
     @Id
-    @Column(name = "skillId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long skillId;
 
-    @Column(name = "skillName", nullable = false)
+    @Column(name = "name", nullable = false)
     private String skillName;
 
     public Skill() {

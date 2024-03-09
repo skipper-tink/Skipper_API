@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Employer {
 
     @Id
-    @Column(name = "employerId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employerId;
 

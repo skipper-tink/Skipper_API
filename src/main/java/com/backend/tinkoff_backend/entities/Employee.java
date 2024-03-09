@@ -9,7 +9,7 @@ import java.sql.Date;
 public class Employee {
 
     @Id
-    @Column(name = "employeeId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employeeId;
 
@@ -18,10 +18,10 @@ public class Employee {
             nullable = false)
     private long userId;
 
-    @Column(name = "employeeFreeTimePerWeek")
+    @Column(name = "free_time_per_week")
     private long employeeFreeTimePerWeek;
 
-    @Column(name = "employeeThisFreeTimeUntilDate")
+    @Column(name = "free_time_until_date")
     private Date employeeThisFreeTimeUntilDate;
 
     public Employee(){

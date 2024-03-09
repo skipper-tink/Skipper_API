@@ -48,7 +48,7 @@ public class User {
         this.id = id;
     }
 
-    public String getUserLogin() {
+    public String getLogin() {
         return login;
     }
 

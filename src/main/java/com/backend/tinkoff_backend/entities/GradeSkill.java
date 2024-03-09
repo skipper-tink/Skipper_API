@@ -3,21 +3,21 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "GradeSkill")
+@Table(name = "grade_skill")
 public class GradeSkill {
 
     @Id
-    @Column(name = "gradeSkillId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long gradeSkillId;
 
-    @JoinColumn(name = "Skill_skillId",
-            referencedColumnName = "skillId",
+    @JoinColumn(name = "skill_id",
+            referencedColumnName = "id",
             nullable = false)
     private long skillId;
 
-    @JoinColumn(name = "Grade_gradeId",
-            referencedColumnName = "gradeId",
+    @JoinColumn(name = "grade_id",
+            referencedColumnName = "id",
             nullable = false)
     private long gradeId;
 

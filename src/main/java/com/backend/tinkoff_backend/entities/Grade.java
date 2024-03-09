@@ -3,23 +3,23 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Grade")
+@Table(name = "grade")
 public class Grade {
 
     @Id
-    @Column(name = "gradeId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long gradeId;
 
-    @JoinColumn(name = "Employee_employeeId",
-            referencedColumnName = "employeeId",
+    @JoinColumn(name = "employee_id",
+            referencedColumnName = "id",
             nullable = false)
     private long employeeId;
 
-    @Column(name = "gradeSpecialization", nullable = false)
+    @Column(name = "specialization", nullable = false)
     private String gradeSpecialization;
 
-    @Column(name = "gradeQualification", nullable = false)
+    @Column(name = "qualification", nullable = false)
     private String gradeQualification;
 
     public Grade() {

@@ -3,25 +3,25 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Feedback")
+@Table(name = "feedback")
 public class Feedback {
     @Id
-    @Column(name = "feedbackId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long feedbackId;
 
-    @Column(name = "feedbackRating", nullable = false)
+    @Column(name = "rating", nullable = false)
     private int feedbackRating;
 
-    @Column(name ="feedbackComment", nullable = false)
+    @Column(name ="comment", nullable = false)
     private String feedbackComment;
 
-    @JoinColumn(name = "DemandEmployee_demandEmployeeId",
-            referencedColumnName = "demandEmployeeId",
+    @JoinColumn(name = "demand_employee_id",
+            referencedColumnName = "id",
             nullable = false)
     private long demandEmployeeId;
 
-    @Column(name = "feedbackReviewerName", nullable = false)
+    @Column(name = "reviewer_name", nullable = false)
     private String feedbackReviewerName;
 
     public Feedback() {

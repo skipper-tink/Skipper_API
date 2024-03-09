@@ -5,27 +5,27 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "Demand")
+@Table(name = "demand")
 public class Demand {
     @Id
-    @Column(name = "demandId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long demandId;
 
-    @JoinColumn(name = "Project_projectId",
-            referencedColumnName = "projectId", nullable = false)
+    @JoinColumn(name = "project_id",
+            referencedColumnName = "id", nullable = false)
     private long projectId;
 
-    @Column(name = "demandTimeConsumption", nullable = false)
+    @Column(name = "time_consumption", nullable = false)
     private int demandTimeConsumption;
 
-    @Column(name = "demandDeadline", nullable = false)
+    @Column(name = "deadline", nullable = false)
     private Date demandDeadline;
 
-    @Column(name = "demandSpecialization")
+    @Column(name = "specialization")
     private String demandSpecialization;
 
-    @Column(name = "demandQualification")
+    @Column(name = "qualification")
     private String demandQualification;
 
     public Demand() {

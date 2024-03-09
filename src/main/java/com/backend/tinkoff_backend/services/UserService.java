@@ -17,7 +17,7 @@ public class UserService {
     UserRepository userRepository;
 
     public void createUser(User user) throws ServiceException {
-            userRepository.save(new User(user.getUserLogin(), user.getPassword(), user.getName(), user.getEmail(), user.getPhoneNumber()));
+            userRepository.save(new User(user.getLogin(), user.getPassword(), user.getName(), user.getEmail(), user.getPhoneNumber()));
     }
 
     public User getUserById(long id) throws ServiceException {

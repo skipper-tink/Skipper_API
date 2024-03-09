@@ -16,7 +16,7 @@ public class SkillService {
     SkillRepository skillRepository;
 
     public void createSkill(Skill skill) {
-        skillRepository.save(new Skill(skill.getSkillName()));
+        skillRepository.save(new Skill(skill.getName()));
     }
 
     public Skill getSkillById(long skillId) throws ServiceException {
@@ -40,7 +40,7 @@ public class SkillService {
 
         if (skillData.isPresent()) {
             Skill _skill = skillData.get();
-            _skill.setSkillName(skill.getSkillName());
+            _skill.setName(skill.getName());
             return skillRepository.save(_skill);
         }
         throw new ServiceException("No such skill");

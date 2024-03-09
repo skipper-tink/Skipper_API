@@ -30,61 +30,61 @@ public class Project {
 
     public Project(String projectName,
                    String description,
-                   String projectStatus,
-                   long Employer_employerId) {
+                   String status,
+                   long employerId) {
         this.name = projectName;
         this.description = description;
-        this.status = projectStatus;
-        this.employerId = Employer_employerId;
+        this.status = status;
+        this.employerId = employerId;
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long projectId) {
-        this.id = projectId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String projectName) {
-        this.name = projectName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String projectDescription) {
-        this.description = projectDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String projectStatus) {
-        this.status = projectStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public long getEmployerId() {
         return employerId;
     }
 
-    public void setEmployerId(long Employer_employerId) {
-        this.employerId = Employer_employerId;
+    public void setEmployerId(long employerId) {
+        this.employerId = employerId;
     }
 
     @Override
     public String toString() {
         return "Project{" +
-                "projectId=" + id +
-                ", projectName='" + name + '\'' +
-                ", projectDescription='" + description + '\'' +
-                ", projectStatus='" + status + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
                 ", employerId=" + employerId +
                 '}';
     }

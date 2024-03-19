@@ -3,7 +3,7 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "project")
+@Table(name = "SprProject")
 public class Project {
 
     @Id
@@ -20,7 +20,7 @@ public class Project {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @JoinColumn(name = "employer_id",
+    @JoinColumn(name = "sprEmployerId",
             referencedColumnName = "id",
             nullable = false)
     private long employerId;

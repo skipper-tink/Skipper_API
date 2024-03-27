@@ -3,90 +3,85 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Feedback")
+@Table(name = "SprFeedback")
 public class Feedback {
     @Id
-    @Column(name = "feedbackId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long feedbackId;
+    private long id;
 
-    @Column(name = "feedbackRating", nullable = false)
-    private int feedbackRating;
+    @Column(name = "rating", nullable = false)
+    private int rating;
 
-    @Column(name ="feedbackComment", nullable = false)
-    private String feedbackComment;
+    @Column(name ="comment", nullable = false)
+    private String comment;
 
-    @JoinColumn(name = "DemandEmployee_demandEmployeeId",
-            referencedColumnName = "demandEmployeeId",
+    @JoinColumn(name = "sprDemandEmployeeId",
+            referencedColumnName = "id",
             nullable = false)
-    private long DemandEmployee_demandEmployeeId;
+    private long demandEmployeeId;
 
-    @Column(name = "feedbackReviewerName", nullable = false)
-    private String feedbackReviewerName;
+    @Column(name = "reviewerName", nullable = false)
+    private String reviewerName;
 
     public Feedback() {
     }
 
-    public Feedback(long feedbackId,
-                    int feedbackRating,
-                    String feedbackComment,
-                    long DemandEmployee_demandEmployeeId,
-                    String feedbackReviewerName) {
-        this.feedbackId = feedbackId;
-        this.feedbackRating = feedbackRating;
-        this.feedbackComment = feedbackComment;
-        this.DemandEmployee_demandEmployeeId = DemandEmployee_demandEmployeeId;
-        this.feedbackReviewerName = feedbackReviewerName;
+    public Feedback(int rating,
+                    String comment,
+                    long demandEmployeeId,
+                    String reviewerName) {
+        this.rating = rating;
+        this.comment = comment;
+        this.demandEmployeeId = demandEmployeeId;
+        this.reviewerName = reviewerName;
     }
 
-    public long getFeedbackId() {
-        return feedbackId;
+
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setFeedbackId(long feedbackId) {
-        this.feedbackId = feedbackId;
+    public int getRating() {
+        return rating;
     }
 
-    public int getFeedbackRating() {
-        return feedbackRating;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
-    public void setFeedbackRating(int feedbackRating) {
-        this.feedbackRating = feedbackRating;
+    public String getComment() {
+        return comment;
     }
 
-    public String getFeedbackComment() {
-        return feedbackComment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public void setFeedbackComment(String feedbackComment) {
-        this.feedbackComment = feedbackComment;
+    public long getDemandEmployeeId() {
+        return demandEmployeeId;
     }
 
-    public long getDemandEmployee_demandEmployeeId() {
-        return DemandEmployee_demandEmployeeId;
+    public void setDemandEmployeeId(long demandEmployeeId) {
+        this.demandEmployeeId = demandEmployeeId;
     }
 
-    public void setDemandEmployee_demandEmployeeId(long demandEmployee_demandEmployeeId) {
-        DemandEmployee_demandEmployeeId = demandEmployee_demandEmployeeId;
+    public String getReviewerName() {
+        return reviewerName;
     }
 
-    public String getFeedbackReviewerName() {
-        return feedbackReviewerName;
-    }
-
-    public void setFeedbackReviewerName(String feedbackReviewerName) {
-        this.feedbackReviewerName = feedbackReviewerName;
+    public void setReviewerName(String reviewerName) {
+        this.reviewerName = reviewerName;
     }
 
     @Override
     public String toString() {
         return "Feedback{" +
-                "feedbackId=" + feedbackId +
-                ", feedbackRating=" + feedbackRating +
-                ", feedbackComment='" + feedbackComment + '\'' +
-                ", DemandEmployee_demandEmployeeId=" + DemandEmployee_demandEmployeeId +
-                ", feedbackReviewerName='" + feedbackReviewerName + '\'' +
+                "id=" + id +
+                ", rating=" + rating +
+                ", comment='" + comment + '\'' +
+                ", demandEmployeeId=" + demandEmployeeId +
+                ", reviewerName='" + reviewerName + '\'' +
                 '}';
     }
 }

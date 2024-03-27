@@ -5,77 +5,75 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "Employee")
+@Table(name = "SprEmployee")
 public class Employee {
 
     @Id
-    @Column(name = "employeeId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long employeeId;
+    private long id;
 
-    @JoinColumn(name = "User_userLogin",
-            referencedColumnName = "userLogin",
+    @JoinColumn(name = "sprUserId",
+            referencedColumnName = "id",
             nullable = false)
-    private String User_userLogin;
+    private long userId;
 
-    @Column(name = "employeeFreeTimePerWeek")
-    private long employeeFreeTimePerWeek;
+    @Column(name = "freeTimePerWeek")
+    private long freeTimePerWeek;
 
-    @Column(name = "employeeThisFreeTimeUntilDate")
-    private Date employeeThisFreeTimeUntilDate;
+    @Column(name = "freeTimeUntilDate")
+    private Date freeTimeUntilDate;
 
     public Employee(){
     }
 
-    public Employee(long employeeId,
-                    String User_userLogin,
-                    long employeeFreeTimePerWeek,
-                    Date employeeThisFreeTimeUntilDate) {
-        this.employeeId = employeeId;
-        this.User_userLogin = User_userLogin;
-        this.employeeFreeTimePerWeek = employeeFreeTimePerWeek;
-        this.employeeThisFreeTimeUntilDate = employeeThisFreeTimeUntilDate;
+    public Employee(long userId,
+                    long freeTimePerWeek,
+                    Date freeTimeUntilDate) {
+        this.userId = userId;
+        this.freeTimePerWeek = freeTimePerWeek;
+        this.freeTimeUntilDate = freeTimeUntilDate;
     }
 
-    public long getEmployeeId() {
-        return employeeId;
+    public long getId() {
+        return id;
     }
 
-    public void setEmployeeId(long employeeId) {
-        this.employeeId = employeeId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getUser_userLogin() {
-        return User_userLogin;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser_userLogin(String User_userLogin) {
-        this.User_userLogin = User_userLogin;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public long getEmployeeFreeTimePerWeek() {
-        return employeeFreeTimePerWeek;
+    public long getFreeTimePerWeek() {
+        return freeTimePerWeek;
     }
 
-    public void setEmployeeFreeTimePerWeek(long employeeFreeTimePerWeek) {
-        this.employeeFreeTimePerWeek = employeeFreeTimePerWeek;
+    public void setFreeTimePerWeek(long freeTimePerWeek) {
+        this.freeTimePerWeek = freeTimePerWeek;
     }
 
-    public Date getEmployeeThisFreeTimeUntilDate() {
-        return employeeThisFreeTimeUntilDate;
+    public Date getFreeTimeUntilDate() {
+        return freeTimeUntilDate;
     }
 
-    public void setEmployeeThisFreeTimeUntilDate(Date employeeThisFreeTimeUntilDate) {
-        this.employeeThisFreeTimeUntilDate = employeeThisFreeTimeUntilDate;
+    public void setFreeTimeUntilDate(Date freeTimeUntilDate) {
+        this.freeTimeUntilDate = freeTimeUntilDate;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeId=" + employeeId +
-                ", User_userLogin='" + User_userLogin + '\'' +
-                ", employeeFreeTimePerWeek=" + employeeFreeTimePerWeek +
-                ", employeeThisFreeTimeUntilDate=" + employeeThisFreeTimeUntilDate +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", freeTimePerWeek=" + freeTimePerWeek +
+                ", freeTimeUntilDate=" + freeTimeUntilDate +
                 '}';
     }
 }

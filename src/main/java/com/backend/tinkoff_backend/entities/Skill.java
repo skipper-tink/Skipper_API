@@ -3,47 +3,45 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Skill")
+@Table(name = "SprSkill")
 public class Skill {
 
     @Id
-    @Column(name = "skillId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long skillId;
+    private long id;
 
-    @Column(name = "skillName", nullable = false)
-    private String skillName;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     public Skill() {
     }
 
-    public Skill(long skillId,
-                 String skillName) {
-        this.skillId = skillId;
-        this.skillName = skillName;
+    public Skill(String name) {
+        this.name = name;
     }
 
-    public long getSkillId() {
-        return skillId;
+    public long getId() {
+        return id;
     }
 
-    public void setSkillId(long skillId) {
-        this.skillId = skillId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getSkillName() {
-        return skillName;
+    public String getName() {
+        return name;
     }
 
-    public void setSkillName(String skillName) {
-        this.skillName = skillName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Skill{" +
-                "skillId=" + skillId +
-                ", skillName='" + skillName + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

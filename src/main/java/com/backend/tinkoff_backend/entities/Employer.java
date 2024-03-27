@@ -3,48 +3,47 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Employer")
+@Table(name = "SprEmployer")
 public class Employer {
 
     @Id
-    @Column(name = "employerId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long employerId;
+    private long id;
 
-    @JoinColumn(name = "User_userLogin",
-            referencedColumnName = "userLogin",
+    @JoinColumn(name = "sprUserId",
+            referencedColumnName = "id",
             nullable = false)
-    private String User_userLogin;
+    private long userId;
 
     public Employer(){
     }
 
-    public Employer(long employerId, String User_userLogin) {
-        this.employerId = employerId;
-        this.User_userLogin = User_userLogin;
+    public Employer( long userId) {
+        this.userId = userId;
     }
 
-    public long getEmployerId() {
-        return employerId;
+    public long getId() {
+        return id;
     }
 
-    public void setEmployerId(long employerId) {
-        this.employerId = employerId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getUser_userLogin() {
-        return User_userLogin;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser_userLogin(String User_userLogin) {
-        this.User_userLogin = User_userLogin;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "Employer{" +
-                "employerId=" + employerId +
-                ", User_userLogin='" + User_userLogin + '\'' +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

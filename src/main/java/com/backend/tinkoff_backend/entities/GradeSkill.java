@@ -3,65 +3,63 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "GradeSkill")
+@Table(name = "SprGradeSkill")
 public class GradeSkill {
 
     @Id
-    @Column(name = "gradeSkillId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long gradeSkillId;
+    private long id;
 
-    @JoinColumn(name = "Skill_skillId",
-            referencedColumnName = "skillId",
+    @JoinColumn(name = "sprSkillId",
+            referencedColumnName = "id",
             nullable = false)
-    private long Skill_skillId;
+    private long skillId;
 
-    @JoinColumn(name = "EmployeeGrade_employeeGradeId",
-            referencedColumnName = "employeeGradeId",
+    @JoinColumn(name = "sprGradeId",
+            referencedColumnName = "id",
             nullable = false)
-    private long EmployeeGrade_employeeGradeId;
+    private long gradeId;
 
     public GradeSkill() {
     }
 
-    public GradeSkill(long gradeSkillId,
-                      long skill_skillId,
-                      long employeeGrade_employeeGradeId) {
-        this.gradeSkillId = gradeSkillId;
-        Skill_skillId = skill_skillId;
-        EmployeeGrade_employeeGradeId = employeeGrade_employeeGradeId;
+    public GradeSkill(long skillId,
+                      long gradeId) {
+        this.skillId = skillId;
+        this.gradeId = gradeId;
     }
 
-    public long getGradeSkillId() {
-        return gradeSkillId;
+    public long getId() {
+        return id;
     }
 
-    public void setGradeSkillId(long gradeSkillId) {
-        this.gradeSkillId = gradeSkillId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public long getSkill_skillId() {
-        return Skill_skillId;
+    public long getSkillId() {
+        return skillId;
     }
 
-    public void setSkill_skillId(long skill_skillId) {
-        Skill_skillId = skill_skillId;
+    public void setSkillId(long skillId) {
+        this.skillId = skillId;
     }
 
-    public long getEmployeeGrade_employeeGradeId() {
-        return EmployeeGrade_employeeGradeId;
+    public long getGradeId() {
+        return gradeId;
     }
 
-    public void setEmployeeGrade_employeeGradeId(long employeeGrade_employeeGradeId) {
-        EmployeeGrade_employeeGradeId = employeeGrade_employeeGradeId;
+    public void setGradeId(long gradeId) {
+        this.gradeId = gradeId;
     }
 
     @Override
     public String toString() {
         return "GradeSkill{" +
-                "gradeSkillId=" + gradeSkillId +
-                ", Skill_skillId=" + Skill_skillId +
-                ", EmployeeGrade_employeeGradeId=" + EmployeeGrade_employeeGradeId +
+                "id=" + id +
+                ", skillId=" + skillId +
+                ", gradeId=" + gradeId +
                 '}';
     }
 }

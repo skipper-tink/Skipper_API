@@ -5,103 +5,101 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "Demand")
+@Table(name = "SprDemand")
 public class Demand {
     @Id
-    @Column(name = "demandId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long demandId;
+    private long id;
 
-    @JoinColumn(name = "Project_projectId",
-            referencedColumnName = "projectId", nullable = false)
-    private long Project_projectId;
+    @JoinColumn(name = "sprProjectId",
+            referencedColumnName = "id", nullable = false)
+    private long projectId;
 
-    @Column(name = "demandTimeConsumption", nullable = false)
-    private int demandTimeConsumption;
+    @Column(name = "timeConsumption", nullable = false)
+    private int timeConsumption;
 
-    @Column(name = "demandDeadline", nullable = false)
-    private Date demandDeadline;
+    @Column(name = "deadline", nullable = false)
+    private Date deadline;
 
-    @Column(name = "demandSpecialization")
-    private String demandSpecialization;
+    @Column(name = "specialization")
+    private String specialization;
 
-    @Column(name = "demandQualification")
-    private String demandQualification;
+    @Column(name = "qualification")
+    private String qualification;
 
     public Demand() {
     }
 
-    public Demand(long demandId,
-                  long Project_projectId,
-                  int demandTimeConsumption,
-                  Date demandDeadline,
-                  String demandSpecialization,
-                  String demandQualification) {
-        this.demandId = demandId;
-        this.Project_projectId = Project_projectId;
-        this.demandTimeConsumption = demandTimeConsumption;
-        this.demandDeadline = demandDeadline;
-        this.demandSpecialization = demandSpecialization;
-        this.demandQualification = demandQualification;
+    public Demand(long projectId,
+                  int timeConsumption,
+                  Date deadline,
+                  String specialization,
+                  String qualification) {
+        this.projectId = projectId;
+        this.timeConsumption = timeConsumption;
+        this.deadline = deadline;
+        this.specialization = specialization;
+        this.qualification = qualification;
     }
 
-    public long getDemandId() {
-        return demandId;
+    public long getId() {
+        return id;
     }
 
-    public void setDemandId(long demandId) {
-        this.demandId = demandId;
+    public void setId(long demandId) {
+        this.id = demandId;
     }
 
-    public long getProject_projectId() {
-        return Project_projectId;
+    public long getProjectId() {
+        return projectId;
     }
 
-    public void setProject_projectId(long Project_projectId) {
-        this.Project_projectId = Project_projectId;
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
     }
 
-    public int getDemandTimeConsumption() {
-        return demandTimeConsumption;
+    public int getTimeConsumption() {
+        return timeConsumption;
     }
 
-    public void setDemandTimeConsumption(int demandTimeConsumption) {
-        this.demandTimeConsumption = demandTimeConsumption;
+    public void setTimeConsumption(int timeConsumption) {
+        this.timeConsumption = timeConsumption;
     }
 
-    public Date getDemandDeadline() {
-        return demandDeadline;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setDemandDeadline(Date demandDeadline) {
-        this.demandDeadline = demandDeadline;
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
-    public String getDemandSpecialization() {
-        return demandSpecialization;
+    public String getSpecialization() {
+        return specialization;
     }
 
-    public void setDemandSpecialization(String demandSpecialization) {
-        this.demandSpecialization = demandSpecialization;
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 
-    public String getDemandQualification() {
-        return demandQualification;
+    public String getQualification() {
+        return qualification;
     }
 
-    public void setDemandQualification(String demandQualification) {
-        this.demandQualification = demandQualification;
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
     }
 
     @Override
     public String toString() {
         return "Demand{" +
-                "demandId=" + demandId +
-                ", Project_projectId=" + Project_projectId +
-                ", demandTimeConsumption=" + demandTimeConsumption +
-                ", demandDeadline=" + demandDeadline +
-                ", demandSpecialization='" + demandSpecialization + '\'' +
-                ", demandQualification='" + demandQualification + '\'' +
+                "id=" + id +
+                ", projectId=" + projectId +
+                ", timeConsumption=" + timeConsumption +
+                ", deadline=" + deadline +
+                ", specialization='" + specialization + '\'' +
+                ", qualification='" + qualification + '\'' +
                 '}';
     }
 }

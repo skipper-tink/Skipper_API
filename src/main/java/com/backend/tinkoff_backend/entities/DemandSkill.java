@@ -3,65 +3,63 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "DemandSkill")
+@Table(name = "SprDemandSkill")
 public class DemandSkill {
 
     @Id
-    @Column(name = "demandSkillId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long demandSkillId;
+    private long id;
 
-    @JoinColumn(name = "Skill_skillId",
-            referencedColumnName = "skillId",
+    @JoinColumn(name = "sprSkillId",
+            referencedColumnName = "id",
             nullable = false)
-    private long Skill_skillId;
+    private long skillId;
 
-    @JoinColumn(name = "Demand_demandId",
-            referencedColumnName = "demandId",
+    @JoinColumn(name = "sprDemandId",
+            referencedColumnName = "id",
             nullable = false)
-    private long Demand_demandId;
+    private long demandId;
 
     public DemandSkill() {
     }
 
-    public DemandSkill(long demandSkillId,
-                       long skill_skillId,
-                       long demand_demandId) {
-        this.demandSkillId = demandSkillId;
-        Skill_skillId = skill_skillId;
-        Demand_demandId = demand_demandId;
+    public DemandSkill(long skillId,
+                       long demandId) {
+        this.skillId = skillId;
+        this.demandId = demandId;
     }
 
-    public long getDemandSkillId() {
-        return demandSkillId;
+    public long getId() {
+        return id;
     }
 
-    public void setDemandSkillId(long demandSkillId) {
-        this.demandSkillId = demandSkillId;
+    public void setId(long Id) {
+        this.id = Id;
     }
 
-    public long getSkill_skillId() {
-        return Skill_skillId;
+    public long getSkillId() {
+        return skillId;
     }
 
-    public void setSkill_skillId(long skill_skillId) {
-        Skill_skillId = skill_skillId;
+    public void setSkillId(long skillId) {
+        this.skillId = skillId;
     }
 
-    public long getDemand_demandId() {
-        return Demand_demandId;
+    public long getDemandId() {
+        return demandId;
     }
 
-    public void setDemand_demandId(long demand_demandId) {
-        Demand_demandId = demand_demandId;
+    public void setDemandId(long demandId) {
+        this.demandId = demandId;
     }
 
     @Override
     public String toString() {
         return "DemandSkill{" +
-                "demandSkillId=" + demandSkillId +
-                ", Skill_skillId=" + Skill_skillId +
-                ", Demand_demandId=" + Demand_demandId +
+                "id=" + id +
+                ", skillId=" + skillId +
+                ", demandId=" + demandId +
                 '}';
     }
 }

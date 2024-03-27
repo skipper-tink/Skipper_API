@@ -3,91 +3,89 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Project")
+@Table(name = "SprProject")
 public class Project {
 
     @Id
-    @Column(name = "projectId", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long projectId;
+    private long id;
 
-    @Column(name = "projectName", nullable = false)
-    private String projectName;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name = "projectDescription", nullable = false)
-    private String projectDescription;
+    @Column(name = "description", nullable = false)
+    private String description;
 
-    @Column(name = "projectStatus", nullable = false)
-    private String projectStatus;
+    @Column(name = "status", nullable = false)
+    private String status;
 
-    @JoinColumn(name = "Employer_employerId",
-            referencedColumnName = "employerId",
+    @JoinColumn(name = "sprEmployerId",
+            referencedColumnName = "id",
             nullable = false)
-    private long Employer_employerId;
+    private long employerId;
 
     public Project(){
     }
 
-    public Project(long projectId,
-                   String projectName,
-                   String projectDescription,
-                   String projectStatus,
-                   long Employer_employerId) {
-        this.projectId = projectId;
-        this.projectName = projectName;
-        this.projectDescription = projectDescription;
-        this.projectStatus = projectStatus;
-        this.Employer_employerId = Employer_employerId;
+    public Project(String projectName,
+                   String description,
+                   String status,
+                   long employerId) {
+        this.name = projectName;
+        this.description = description;
+        this.status = status;
+        this.employerId = employerId;
     }
 
-    public long getProjectId() {
-        return projectId;
+    public long getId() {
+        return id;
     }
 
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getName() {
+        return name;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getProjectDescription() {
-        return projectDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProjectDescription(String projectDescription) {
-        this.projectDescription = projectDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getProjectStatus() {
-        return projectStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setProjectStatus(String projectStatus) {
-        this.projectStatus = projectStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public long getEmployer_employerId() {
-        return Employer_employerId;
+    public long getEmployerId() {
+        return employerId;
     }
 
-    public void setEmployer_employerIdr(long Employer_employerId) {
-        this.Employer_employerId = Employer_employerId;
+    public void setEmployerId(long employerId) {
+        this.employerId = employerId;
     }
 
     @Override
     public String toString() {
         return "Project{" +
-                "projectId=" + projectId +
-                ", projectName='" + projectName + '\'' +
-                ", projectDescription='" + projectDescription + '\'' +
-                ", projectStatus='" + projectStatus + '\'' +
-                ", Employer_employerId=" + Employer_employerId +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                ", employerId=" + employerId +
                 '}';
     }
 }

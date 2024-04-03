@@ -24,15 +24,23 @@ public class Employee {
     @Column(name = "freeTimeUntilDate")
     private Date freeTimeUntilDate;
 
+    @Column(name = "specialization")
+    private String specialization;
+
+    @Column(name = "qualification")
+    private String qualification;
+
     public Employee(){
     }
 
     public Employee(long userId,
                     long freeTimePerWeek,
-                    Date freeTimeUntilDate) {
+                    Date freeTimeUntilDate, String specialization, String qualification) {
         this.userId = userId;
         this.freeTimePerWeek = freeTimePerWeek;
         this.freeTimeUntilDate = freeTimeUntilDate;
+        this.specialization = specialization;
+        this.qualification = qualification;
     }
 
     public long getId() {
@@ -67,6 +75,14 @@ public class Employee {
         this.freeTimeUntilDate = freeTimeUntilDate;
     }
 
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -74,6 +90,8 @@ public class Employee {
                 ", userId='" + userId + '\'' +
                 ", freeTimePerWeek=" + freeTimePerWeek +
                 ", freeTimeUntilDate=" + freeTimeUntilDate +
+                ", specialization=" + specialization +
+                ", qualification" + qualification +
                 '}';
     }
 }

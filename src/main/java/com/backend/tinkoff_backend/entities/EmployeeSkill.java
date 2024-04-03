@@ -3,8 +3,8 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "SprGradeSkill")
-public class GradeSkill {
+@Table(name = "SprEmployeeSkill")
+public class EmployeeSkill {
 
     @Id
     @Column(name = "id", nullable = false, unique = true)
@@ -16,18 +16,18 @@ public class GradeSkill {
             nullable = false)
     private long skillId;
 
-    @JoinColumn(name = "sprGradeId",
+    @JoinColumn(name = "sprEmployeeId",
             referencedColumnName = "id",
             nullable = false)
-    private long gradeId;
+    private long employeeId;
 
-    public GradeSkill() {
+    public EmployeeSkill() {
     }
 
-    public GradeSkill(long skillId,
-                      long gradeId) {
+    public EmployeeSkill(long skillId,
+                         long employeeId) {
         this.skillId = skillId;
-        this.gradeId = gradeId;
+        this.employeeId = employeeId;
     }
 
     public long getId() {
@@ -46,20 +46,20 @@ public class GradeSkill {
         this.skillId = skillId;
     }
 
-    public long getGradeId() {
-        return gradeId;
+    public long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setGradeId(long gradeId) {
-        this.gradeId = gradeId;
+    public void setEmployeeId(long employeeId) {
+        this.employeeId = employeeId;
     }
 
     @Override
     public String toString() {
-        return "GradeSkill{" +
+        return "EmployeeSkill{" +
                 "id=" + id +
                 ", skillId=" + skillId +
-                ", gradeId=" + gradeId +
+                ", employeeId=" + employeeId +
                 '}';
     }
 }

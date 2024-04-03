@@ -18,7 +18,8 @@ public class EmployeeService {
     public long createEmployee(Employee employee) {
         if (employeeRepository.findByUserId(employee.getUserId()).isEmpty()) {
             return employeeRepository.save(new Employee(employee.getUserId(), employee.getFreeTimePerWeek(),
-                    employee.getFreeTimeUntilDate())).getId();
+                    employee.getFreeTimeUntilDate(), employee.getSpecialization(),
+                    employee.getQualification())).getId();
         } else throw new ServiceException("This user already employee");
     }
 

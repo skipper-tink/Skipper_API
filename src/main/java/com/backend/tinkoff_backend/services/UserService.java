@@ -16,13 +16,22 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public void createUser(User user) throws ServiceException {
-            userRepository.save(new User(user.getLogin(), user.getPassword(), user.getName(), user.getEmail(), user.getPhoneNumber()));
+    public long createUser(User user) throws ServiceException {
+        if (userRepository.findByLogin(user.getLogin()).isEmpty()) {
+            return userRepository.save(new User(user.getLogin(), user.getPassword(), user.getName(), user.getEmail(), user.getPhoneNumber())).getId();
+        } else throw new ServiceException("This login already used");
     }
 
     public User getUserById(long id) throws ServiceException {
         Optional<User> userData = userRepository.findById(id);
 
+        if (userData.isPresent())
+            return userData.get();
+        throw new ServiceException("No such user");
+    }
+
+    public User getUserByLogin(String login) {
+        Optional<User> userData = userRepository.findByLogin(login);
         if (userData.isPresent())
             return userData.get();
         throw new ServiceException("No such user");

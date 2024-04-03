@@ -2,6 +2,7 @@ package com.backend.tinkoff_backend.controllers;
 
 import com.backend.tinkoff_backend.entities.Employer;
 import com.backend.tinkoff_backend.services.EmployerService;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,12 @@ public class EmployerController {
     EmployerService employerService;
 
     @PostMapping("/employers")
-    public ResponseEntity<Employer> createEmployer(@RequestBody long userId) {
-            employerService.createEmployer(userId);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Long> createEmployer(@RequestBody long userId) {
+        try {
+            return new ResponseEntity<>(employerService.createEmployer(userId),HttpStatus.CREATED);
+        } catch (ServiceException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/employers/{id}")

@@ -16,8 +16,10 @@ public class EmployerService {
     @Autowired
     EmployerRepository employerRepository;
 
-    public void createEmployer(long userId) {
-            employerRepository.save(new Employer(userId));
+    public long createEmployer(long userId) {
+        if (employerRepository.findByUserId(userId).isEmpty()) {
+            return employerRepository.save(new Employer(userId)).getId();
+        } else throw new ServiceException("This user already employer");
     }
 
     public Employer getEmployerById(long employerId) throws ServiceException {

@@ -15,9 +15,11 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public void createEmployee(Employee employee) {
-        employeeRepository.save(new Employee(employee.getUserId(), employee.getFreeTimePerWeek(),
-                employee.getFreeTimeUntilDate()));
+    public long createEmployee(Employee employee) {
+        if (employeeRepository.findByUserId(employee.getUserId()).isEmpty()) {
+            return employeeRepository.save(new Employee(employee.getUserId(), employee.getFreeTimePerWeek(),
+                    employee.getFreeTimeUntilDate())).getId();
+        } else throw new ServiceException("This user already employee");
     }
 
     public Employee getEmployeeById(long employeeId) throws ServiceException {

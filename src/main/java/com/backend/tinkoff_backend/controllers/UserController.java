@@ -18,12 +18,11 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<Long> createUser(@RequestBody User user) {
         try {
-            userService.createUser(user);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
         } catch (ServiceException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

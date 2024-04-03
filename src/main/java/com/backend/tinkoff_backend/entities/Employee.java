@@ -83,6 +83,14 @@ public class Employee {
         return qualification;
     }
 
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +

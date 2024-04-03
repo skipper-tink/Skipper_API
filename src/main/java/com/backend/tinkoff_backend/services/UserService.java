@@ -6,7 +6,6 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.rmi.ServerException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,18 +15,14 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public long createUser(User user) throws ServiceException {
+    public Optional<Long> createUser(User user) {
         if (userRepository.findByLogin(user.getLogin()).isEmpty()) {
-            return userRepository.save(new User(user.getLogin(), user.getPassword(), user.getName(), user.getEmail(), user.getPhoneNumber())).getId();
-        } else throw new ServiceException("This login already used");
+            return Optional.of(userRepository.save(new User(user.getLogin(), user.getPassword(), user.getName(), user.getEmail(), user.getPhoneNumber())).getId());
+        } else return Optional.empty();
     }
 
-    public User getUserById(long id) throws ServiceException {
-        Optional<User> userData = userRepository.findById(id);
-
-        if (userData.isPresent())
-            return userData.get();
-        throw new ServiceException("No such user");
+    public Optional<User> getUserById(long id){
+        return userRepository.findById(id);
     }
 
     public User getUserByLogin(String login) {
@@ -37,37 +32,37 @@ public class UserService {
         throw new ServiceException("No such user");
     }
 
-    public List<User> getAllUsers() throws ServiceException {
-        List<User> users = userRepository.findAll();
-
-        if (users.isEmpty())
-            throw new ServiceException("No users");
-        return users;
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    public User updateUser(long id, User user) throws ServiceException {
+    public Optional<User> updateUser(long id, User user) {
         Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {
             User _user = userData.get();
+            if(!_user.getLogin().equals(user.getLogin())){
+                if (userRepository.findByLogin(user.getLogin()).isEmpty())
+                    _user.setLogin(user.getLogin());
+            } else return Optional.empty();
             _user.setPassword(user.getPassword());
             _user.setName(user.getName());
             _user.setEmail(user.getEmail());
             _user.setPhoneNumber(user.getPhoneNumber());
 
-            return userRepository.save(_user);
+            return Optional.of(userRepository.save(_user));
         }
-        throw new ServiceException("No such user");
+        return Optional.empty();
     }
 
-    public void deleteUser(long id) throws ServerException {
+    public Optional<User> deleteUser(long id) {
         Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {
             userRepository.deleteById(id);
-            return;
+            return userData;
         }
-        throw new ServerException("No such user");
+        return Optional.empty();
     }
 
     public void deleteAllUsers() {

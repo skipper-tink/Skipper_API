@@ -26,7 +26,7 @@ public class EmployeeService {
                 .map(value -> isAlreadyEmpl(value.getId())
                         ? mergeEmployee(new Employee(), employee)
                         : null)
-                .map(value -> employeeRepository.save(value).getUserId());
+                .map(value -> employeeRepository.save(value).getId());
     }
 
     public Optional<Employee> getEmployeeById(long employeeId) {

@@ -22,14 +22,11 @@ public class EmployeeService {
     UserRepository userRepository;
 
     public Optional<Long> createEmployee(Employee employee) {
-        if (userRepository.findById(employee.getUserId()).isPresent()) {
-            if (employeeRepository.findByUserId(employee.getUserId()).isEmpty() && employerRepository.findByUserId(employee.getUserId()).isEmpty()) {
-                return Optional.of(employeeRepository.save(new Employee(employee.getUserId(), employee.getFreeTimePerWeek(),
-                        employee.getFreeTimeUntilDate(), employee.getSpecialization(),
-                        employee.getQualification())).getId());
-            }
-        }
-        return Optional.empty();
+        return userRepository.findById(employee.getUserId())
+                .map(value -> isAlreadyEmpl(value.getId())
+                        ? mergeEmployee(new Employee(), employee)
+                        : null)
+                .map(value -> employeeRepository.save(value).getUserId());
     }
 
     public Optional<Employee> getEmployeeById(long employeeId) {
@@ -45,35 +42,40 @@ public class EmployeeService {
     }
 
     public Optional<Employee> updateEmployee(long employeeId, Employee employee) {
-        Optional<Employee> employeeData = employeeRepository.findById(employeeId);
-
-        if (employeeData.isPresent()) {
-            Employee _employee = employeeData.get();
-            if (_employee.getUserId() != employee.getUserId()) {
-                if (userRepository.findById(employee.getUserId()).isPresent()) {
-                    if (employeeRepository.findByUserId(employee.getUserId()).isEmpty() && employerRepository.findByUserId(employee.getUserId()).isEmpty()) {
-                        _employee.setUserId(employee.getUserId());
-                    } else return Optional.empty();
-                } else return Optional.empty();
-            }
-            _employee.setFreeTimePerWeek(employee.getFreeTimePerWeek());
-            _employee.setFreeTimeUntilDate(employee.getFreeTimeUntilDate());
-            return Optional.of(employeeRepository.save(_employee));
-        }
-        return Optional.empty();
+        return employeeRepository.findById(employeeId)
+                .map(value -> {
+                    long userId = value.getUserId();
+                    Employee res = mergeEmployee(value, employee);
+                    res.setUserId(userId);
+                    return res;
+                })
+                .map(value -> employeeRepository.save(value));
     }
 
     public Optional<Employee> deleteEmployee(long employeeId) {
         Optional<Employee> employeeData = employeeRepository.findById(employeeId);
 
-        if (employeeData.isPresent()) {
-            employeeRepository.deleteById(employeeId);
-            return employeeData;
-        }
-        return Optional.empty();
+        return employeeData
+                .map(value -> {
+                    employeeRepository.deleteById(employeeId);
+                    return value;
+                });
     }
 
     public void deleteAllEmployees() {
         employeeRepository.deleteAll();
+    }
+
+    private boolean isAlreadyEmpl(long id) {
+        return employeeRepository.findByUserId(id).isEmpty() && employerRepository.findByUserId(id).isEmpty();
+    }
+
+    private Employee mergeEmployee(Employee employee, Employee value) {
+        employee.setUserId(value.getUserId());
+        employee.setFreeTimePerWeek(value.getFreeTimePerWeek());
+        employee.setFreeTimeUntilDate(value.getFreeTimeUntilDate());
+        employee.setQualification(value.getQualification());
+        employee.setSpecialization(value.getSpecialization());
+        return employee;
     }
 }

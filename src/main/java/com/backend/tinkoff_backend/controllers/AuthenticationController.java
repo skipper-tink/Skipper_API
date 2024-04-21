@@ -2,12 +2,12 @@ package com.backend.tinkoff_backend.controllers;
 
 import com.backend.tinkoff_backend.entities.Employee;
 import com.backend.tinkoff_backend.entities.User;
+import com.backend.tinkoff_backend.exceptions.MyRetrievalFailureException;
 import com.backend.tinkoff_backend.services.AuthenticationService;
 import com.backend.tinkoff_backend.services.EmployeeService;
 import com.backend.tinkoff_backend.services.EmployerService;
 import com.backend.tinkoff_backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +28,7 @@ public class AuthenticationController {
     @Autowired
     UserService userService;
 
-//Не настроен вариант неправильного пароля и неправильного логина
-    @GetMapping("/authorisation")
+    @GetMapping("/authentication")
     public ResponseEntity<Long> authentication(@RequestBody User user) {
         try {
             return new ResponseEntity<>(authenticationService.authenticate(user), HttpStatus.OK);
@@ -44,7 +43,7 @@ public class AuthenticationController {
         if (idData.isPresent()) {
             return new ResponseEntity<>(idData.get(), HttpStatus.CREATED);
         }
-        throw new DataRetrievalFailureException("User with that login already exists");
+        throw new MyRetrievalFailureException("User with that login already exists");
     }
 
     @PostMapping("/registration/employee")
@@ -53,11 +52,15 @@ public class AuthenticationController {
         if (idData.isPresent()) {
             return new ResponseEntity<>(idData.get(), HttpStatus.CREATED);
         }
-        throw new DataRetrievalFailureException("This user can't be an employee");
+        throw new MyRetrievalFailureException("This user can't be an employee");
     }
 
     @PostMapping("/registration/employer")
     public ResponseEntity<Long> registerEmployer(@RequestBody long userId) {
-        return new ResponseEntity<>(employerService.createEmployer(userId), HttpStatus.CREATED);
+        Optional<Long> idData = employerService.createEmployer(userId);
+        if (idData.isPresent()) {
+            return new ResponseEntity<>(idData.get(), HttpStatus.CREATED);
+        }
+        throw new MyRetrievalFailureException("This user can't be an employer");
     }
 }

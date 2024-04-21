@@ -1,7 +1,9 @@
 package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.Employer;
+import com.backend.tinkoff_backend.repositories.EmployeeRepository;
 import com.backend.tinkoff_backend.repositories.EmployerRepository;
+import com.backend.tinkoff_backend.repositories.UserRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +17,17 @@ public class EmployerService {
 
     @Autowired
     EmployerRepository employerRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    EmployeeRepository employeeRepository;
 
-    public long createEmployer(long userId) {
-        if (employerRepository.findByUserId(userId).isEmpty()) {
-            return employerRepository.save(new Employer(userId)).getId();
-        } else throw new ServiceException("This user already employer");
+    public Optional<Long> createEmployer(long userId) {
+        return userRepository.findById(userId)
+                .map(value -> isAlreadyEmpl(userId)
+                        ? new Employer(userId)
+                        : null)
+                .map(value -> employerRepository.save(value).getUserId());
     }
 
     public Employer getEmployerById(long employerId) throws ServiceException {
@@ -69,5 +77,9 @@ public class EmployerService {
 
     public void deleteAllEmployers() {
         employerRepository.deleteAll();
+    }
+
+    private boolean isAlreadyEmpl(long id) {
+        return employeeRepository.findByUserId(id).isEmpty() && employerRepository.findByUserId(id).isEmpty();
     }
 }

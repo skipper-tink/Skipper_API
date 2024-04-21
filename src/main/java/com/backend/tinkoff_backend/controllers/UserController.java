@@ -1,10 +1,10 @@
 package com.backend.tinkoff_backend.controllers;
 
 import com.backend.tinkoff_backend.entities.User;
+import com.backend.tinkoff_backend.exceptions.MyInvalidArgumentException;
+import com.backend.tinkoff_backend.exceptions.MyRetrievalFailureException;
 import com.backend.tinkoff_backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,22 +19,22 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/users")
-    public ResponseEntity<Long> createUser(@RequestBody User user) {
-        Optional<Long> userData = userService.createUser(user);
-        if (userData.isPresent()) {
-            return new ResponseEntity<>(userData.get(), HttpStatus.CREATED);
-        }
-        throw new DataIntegrityViolationException("User with that login already exists");
-    }
-
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
         Optional<User> userData = userService.getUserById(id);
         if (userData.isPresent()) {
             return new ResponseEntity<>(userData.get(), HttpStatus.OK);
         }
-        throw new DataRetrievalFailureException("No user has such id");
+        throw new MyRetrievalFailureException("No user has such id");
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity<Long> createUser(@RequestBody User user) {
+        Optional<Long> userData = userService.createUser(user);
+        if (userData.isPresent()) {
+            return new ResponseEntity<>(userData.get(), HttpStatus.CREATED);
+        }
+        throw new MyInvalidArgumentException("User with that login already exists");
     }
 
     @GetMapping("/users")
@@ -49,7 +49,7 @@ public class UserController {
         if(userData.isPresent()) {
             return new ResponseEntity<>(userData.get(), HttpStatus.OK);
         }
-        throw new DataRetrievalFailureException("No user has such id");
+        throw new MyRetrievalFailureException("No user has such id");
     }
 
     @DeleteMapping("/users/{id}")
@@ -58,7 +58,7 @@ public class UserController {
         if (userData.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        throw new DataRetrievalFailureException("No user has such id");
+        throw new MyRetrievalFailureException("No user has such id");
     }
 
     @DeleteMapping("/users")

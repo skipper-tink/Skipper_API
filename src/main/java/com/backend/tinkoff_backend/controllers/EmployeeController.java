@@ -1,10 +1,10 @@
 package com.backend.tinkoff_backend.controllers;
 
 import com.backend.tinkoff_backend.entities.Employee;
+import com.backend.tinkoff_backend.exceptions.MyInvalidArgumentException;
+import com.backend.tinkoff_backend.exceptions.MyRetrievalFailureException;
 import com.backend.tinkoff_backend.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +22,11 @@ public class EmployeeController {
     @PostMapping("/employees")
     public ResponseEntity<Long> createEmployee(@RequestBody Employee employee) {
         Optional<Long> employeeData = employeeService.createEmployee(employee);
+
         if (employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.CREATED);
         }
-        throw new DataIntegrityViolationException("This user can't be an employee");
+        throw new MyInvalidArgumentException("This user can't be an employee");
     }
 
     @GetMapping("/employees/{id}")
@@ -34,7 +35,7 @@ public class EmployeeController {
         if(employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
         }
-        throw new DataRetrievalFailureException("No employee has such id");
+        throw new MyRetrievalFailureException("No employee has such id");
     }
 
     @GetMapping("/employees/{userId}")
@@ -43,7 +44,7 @@ public class EmployeeController {
         if(employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
         }
-        throw new DataRetrievalFailureException("This user is not employee");
+        throw new MyRetrievalFailureException("This user is not employee");
     }
 
     @GetMapping("/employees")
@@ -58,7 +59,7 @@ public class EmployeeController {
         if (employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
         }
-        throw new DataRetrievalFailureException("No employee has such id");
+        throw new MyRetrievalFailureException("No employee has such id");
     }
 
     @DeleteMapping("/employees/{id}")
@@ -67,7 +68,7 @@ public class EmployeeController {
         if (employeeData.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        throw new DataRetrievalFailureException("No employee has such id");
+        throw new MyRetrievalFailureException("No employee has such id");
     }
 
     @DeleteMapping("/employees")

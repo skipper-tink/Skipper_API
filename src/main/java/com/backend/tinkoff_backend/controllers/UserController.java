@@ -1,14 +1,16 @@
 package com.backend.tinkoff_backend.controllers;
 
 import com.backend.tinkoff_backend.entities.User;
+import com.backend.tinkoff_backend.exceptions.MyInvalidArgumentException;
+import com.backend.tinkoff_backend.exceptions.MyRetrievalFailureException;
 import com.backend.tinkoff_backend.services.UserService;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -17,57 +19,51 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        try {
-            userService.createUser(user);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (ServiceException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
-        try {
-            return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<User> userData = userService.getUserById(id);
+        if (userData.isPresent()) {
+            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
         }
+        throw new MyRetrievalFailureException("No user has such id");
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity<Long> createUser(@RequestBody User user) {
+        Optional<Long> userData = userService.createUser(user);
+        if (userData.isPresent()) {
+            return new ResponseEntity<>(userData.get(), HttpStatus.CREATED);
+        }
+        throw new MyInvalidArgumentException("User with that login already exists");
     }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
-        try {
-            return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") long id,
                                            @RequestBody User user) {
-        try {
-            return new ResponseEntity<>(userService.updateUser(id, user), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<User> userData = userService.updateUser(id, user);
+        if(userData.isPresent()) {
+            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
         }
+        throw new MyRetrievalFailureException("No user has such id");
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
-        try {
-            userService.deleteUser(id);
+        Optional<User> userData = userService.deleteUser(id);
+        if (userData.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        throw new MyRetrievalFailureException("No user has such id");
     }
 
     @DeleteMapping("/users")
     public ResponseEntity<User> deleteAllUsers() {
-            userService.deleteAllUsers();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        userService.deleteAllUsers();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

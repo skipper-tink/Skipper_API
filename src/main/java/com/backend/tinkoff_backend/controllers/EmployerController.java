@@ -1,6 +1,7 @@
 package com.backend.tinkoff_backend.controllers;
 
 import com.backend.tinkoff_backend.entities.Employer;
+import com.backend.tinkoff_backend.exceptions.MyInvalidArgumentException;
 import com.backend.tinkoff_backend.services.EmployerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -17,9 +19,12 @@ public class EmployerController {
     EmployerService employerService;
 
     @PostMapping("/employers")
-    public ResponseEntity<Employer> createEmployer(@RequestBody long userId) {
-            employerService.createEmployer(userId);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Long> createEmployer(@RequestBody long userId) {
+        Optional<Long> employerData = employerService.createEmployer(userId);
+        if (employerData.isPresent()) {
+            return new ResponseEntity<>(employerData.get(), HttpStatus.CREATED);
+        }
+        throw new MyInvalidArgumentException("This user can't be an employer");
     }
 
     @GetMapping("/employers/{id}")

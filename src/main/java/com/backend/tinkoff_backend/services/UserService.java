@@ -2,11 +2,9 @@ package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.User;
 import com.backend.tinkoff_backend.repositories.UserRepository;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.rmi.ServerException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,52 +14,53 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public void createUser(User user) throws ServiceException {
-            userRepository.save(new User(user.getLogin(), user.getPassword(), user.getName(), user.getEmail(), user.getPhoneNumber()));
+    public Optional<Long> createUser(User user) {
+        return Optional.of(user)
+                .map(u -> mergeUsers(new User(), u))
+                .map(u -> userRepository.save(u))
+                .map(User::getId);
     }
 
-    public User getUserById(long id) throws ServiceException {
+    public Optional<User> getUserById(long id) {
+        return userRepository.findById(id);
+    }
+
+    public Optional<User> getUserByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public Optional<User> updateUser(long id, User user) {
         Optional<User> userData = userRepository.findById(id);
 
-        if (userData.isPresent())
-            return userData.get();
-        throw new ServiceException("No such user");
+        return userData
+                .map(u -> mergeUsers(u, user))
+                .map(u -> userRepository.save(u));
     }
 
-    public List<User> getAllUsers() throws ServiceException {
-        List<User> users = userRepository.findAll();
-
-        if (users.isEmpty())
-            throw new ServiceException("No users");
-        return users;
-    }
-
-    public User updateUser(long id, User user) throws ServiceException {
+    public Optional<User> deleteUser(long id) {
         Optional<User> userData = userRepository.findById(id);
 
-        if (userData.isPresent()) {
-            User _user = userData.get();
-            _user.setPassword(user.getPassword());
-            _user.setName(user.getName());
-            _user.setEmail(user.getEmail());
-            _user.setPhoneNumber(user.getPhoneNumber());
-
-            return userRepository.save(_user);
-        }
-        throw new ServiceException("No such user");
-    }
-
-    public void deleteUser(long id) throws ServerException {
-        Optional<User> userData = userRepository.findById(id);
-
-        if (userData.isPresent()) {
-            userRepository.deleteById(id);
-            return;
-        }
-        throw new ServerException("No such user");
+        return userData
+                .map(u -> {
+                    userRepository.deleteById(id);
+                    return u;
+                });
     }
 
     public void deleteAllUsers() {
         userRepository.deleteAll();
+    }
+
+    private User mergeUsers(User u, User user) {
+        u.setLogin(user.getLogin());
+        u.setPassword(user.getPassword());
+        u.setName(user.getName());
+        u.setEmail(user.getEmail());
+        u.setPhoneNumber(user.getPhoneNumber());
+        return u;
     }
 }

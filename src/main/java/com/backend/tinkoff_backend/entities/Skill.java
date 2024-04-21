@@ -14,11 +14,15 @@ public class Skill {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "specialization", nullable = false)
+    private String specialization;
+
     public Skill() {
     }
 
-    public Skill(String name) {
+    public Skill(String name, String specialization) {
         this.name = name;
+        this.specialization = specialization;
     }
 
     public long getId() {
@@ -37,11 +41,21 @@ public class Skill {
         this.name = name;
     }
 
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
     @Override
     public String toString() {
         return "Skill{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", specialization='" + specialization + '\'' +
                 '}';
     }
+
 }

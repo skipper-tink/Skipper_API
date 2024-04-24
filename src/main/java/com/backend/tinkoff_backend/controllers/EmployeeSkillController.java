@@ -24,7 +24,7 @@ public class EmployeeSkillController {
         Optional<Long> opt = employeeSkillService.createEmployeeSkill(employeeSkill);
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.CREATED);
-        } throw new MyInvalidArgumentException("Can't create such employeeSkill");
+        } throw new MyInvalidArgumentException("EmployeeSkill creation error");
     }
 
     @GetMapping("/employeeSkills/{id}")
@@ -33,7 +33,7 @@ public class EmployeeSkillController {
 
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        } throw new MyRetrievalFailureException("No such employeeSkill by this id");
+        } throw new MyRetrievalFailureException("EmployeeSkill getting by id error");
     }
 
     @GetMapping("/employeeSkills")
@@ -47,7 +47,7 @@ public class EmployeeSkillController {
         Optional<EmployeeSkill> opt = employeeSkillService.updateEmployeeSkill(employeeSkillId, employeeSkill);
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        }  throw new MyRetrievalFailureException("Update employeeSkill error");
+        }  throw new MyRetrievalFailureException("EmployeeSkill updating error");
     }
 
     @DeleteMapping("/employeeSkills/{id}")
@@ -55,7 +55,7 @@ public class EmployeeSkillController {
         Optional<EmployeeSkill> opt = employeeSkillService.deleteEmployeeSKill(employeeSkillId);
         if (opt.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } throw new MyRetrievalFailureException("Deletion employeeSkill error");
+        } throw new MyRetrievalFailureException("EmployeeSkill deletion error");
     }
 
     @DeleteMapping("/employeeSkills")

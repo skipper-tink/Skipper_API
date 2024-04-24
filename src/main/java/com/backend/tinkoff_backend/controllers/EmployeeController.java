@@ -26,7 +26,7 @@ public class EmployeeController {
         if (employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.CREATED);
         }
-        throw new MyInvalidArgumentException("This user can't be an employee");
+        throw new MyInvalidArgumentException("Employee creation error");
     }
 
     @GetMapping("/employees/{id}")
@@ -35,7 +35,7 @@ public class EmployeeController {
         if(employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
         }
-        throw new MyRetrievalFailureException("No employee has such id");
+        throw new MyRetrievalFailureException("Employee getting by id error");
     }
 
     @GetMapping("/employees/{userId}")
@@ -44,7 +44,7 @@ public class EmployeeController {
         if(employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
         }
-        throw new MyRetrievalFailureException("This user is not employee");
+        throw new MyRetrievalFailureException("Employee getting by user id error");
     }
 
     @GetMapping("/employees")
@@ -59,7 +59,7 @@ public class EmployeeController {
         if (employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
         }
-        throw new MyRetrievalFailureException("No employee has such id");
+        throw new MyRetrievalFailureException("Employee updating error");
     }
 
     @DeleteMapping("/employees/{id}")
@@ -68,7 +68,7 @@ public class EmployeeController {
         if (employeeData.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        throw new MyRetrievalFailureException("No employee has such id");
+        throw new MyRetrievalFailureException("Employee deletion error");
     }
 
     @DeleteMapping("/employees")

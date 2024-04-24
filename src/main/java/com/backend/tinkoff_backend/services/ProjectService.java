@@ -15,61 +15,60 @@ public class ProjectService {
     @Autowired
     ProjectRepository projectRepository;
 
-    public void createProject(Project project) {
-            projectRepository.save(new Project(project.getName(),
-                    project.getDescription(), project.getStatus(),
-                    project.getEmployerId()));
+    public Optional<Long> createProject(Project project) {
+        Optional<Project> opt = projectRepository.findByEmployerIdAndName(project.getEmployerId(), project.getName());
+
+        return Optional.empty()
+                .map(p -> opt.isEmpty()
+                        ? null
+                        : mergeProject(new Project(), project))
+                .map(p -> projectRepository.save(p).getId());
     }
 
-    public Project getProjectById(long projectId) throws ServiceException {
-        Optional<Project> projectData = projectRepository.findById(projectId);
-
-        if (projectData.isPresent())
-            return projectData.get();
-        throw new ServiceException("No such project");
+    public Optional<Project> getProjectById(long projectId) {
+        return projectRepository.findById(projectId);
     }
 
-    public List<Project> getProjectsByEmployerId(long employerId) throws ServiceException {
-        List<Project> projects = projectRepository.findAllByEmployerId(employerId);
-
-        if (projects.isEmpty())
-            throw new ServiceException("This employer hasn't projects");
-        return projects;
+    public List<Project> getProjectsByEmployerId(long employerId) {
+        return projectRepository.findAllByEmployerId(employerId);
     }
 
     public List<Project> getAllProjects() throws ServiceException {
-        List<Project> projects = projectRepository.findAll();
-
-        if (projects.isEmpty())
-            throw new ServiceException("No projects");
-        return projects;
+        return projectRepository.findAll();
     }
 
-    public Project updateProject(long projectId, Project project) throws ServiceException {
-        Optional<Project> projectData = projectRepository.findById(projectId);
+    public Optional<Project> updateProject(long projectId, Project project) {
+        Optional<Project> opt = projectRepository.findById(projectId);
 
-        if (projectData.isPresent()) {
-            Project _project = projectData.get();
-            _project.setName(project.getName());
-            _project.setStatus(project.getStatus());
-            _project.setDescription(project.getDescription());
-            _project.setEmployerId(project.getEmployerId());
-            return projectRepository.save(_project);
-        }
-        throw new ServiceException("No such project");
+        //Check if new p.Name is the same as the previous
+        //if it isn't, we'll check if this employer can have such a project
+        return opt
+                .map(p -> p.getName().equals(project.getName())
+                        ? mergeProject(p, project)
+                        : (projectRepository.findByEmployerIdAndName(p.getEmployerId(), project.getName()).isPresent()
+                            ? null
+                            : mergeProject(p, project)))
+                .map(p -> projectRepository.save(p));
     }
 
-    public void deleteProject(long projectId) throws ServiceException {
-        Optional<Project> projectData = projectRepository.findById(projectId);
-
-        if (projectData.isPresent()) {
-            projectRepository.deleteById(projectId);
-            return;
-        }
-        throw new ServiceException("No such project");
+    public Optional<Project> deleteProject(long projectId) throws ServiceException {
+        Optional<Project> opt = projectRepository.findById(projectId);
+        return opt
+                .map(p -> {
+                    projectRepository.deleteById(projectId);
+                    return p;
+                });
     }
 
     public void deleteAllProjects() {
         projectRepository.deleteAll();
+    }
+
+    private Project mergeProject(Project project, Project p) {
+        project.setDescription(p.getDescription());
+        project.setName(p.getName());
+        project.setEmployerId(p.getEmployerId());
+        project.setStatus(p.getStatus());
+        return project;
     }
 }

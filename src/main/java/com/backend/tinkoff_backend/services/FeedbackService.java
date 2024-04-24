@@ -2,7 +2,6 @@ package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.Feedback;
 import com.backend.tinkoff_backend.repositories.FeedbackRepository;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,60 +14,56 @@ public class FeedbackService {
     @Autowired
     FeedbackRepository feedbackRepository;
 
-    public void createFeedback(Feedback feedback) {
-        feedbackRepository.save(new Feedback(feedback.getRating(), feedback.getComment(),
-                feedback.getDemandEmployeeId(), feedback.getReviewerName()));
+    public Optional<Long> createFeedback(Feedback feedback) {
+        return Optional.of(
+                feedbackRepository.save(new Feedback(
+                        feedback.getRating(),
+                        feedback.getComment(),
+                        feedback.getDemandEmployeeId(),
+                        feedback.getReviewerName())).getId()
+        );
     }
 
-    public Feedback getFeedbackById(long feedbackId) throws ServiceException {
-        Optional<Feedback> feedbackData = feedbackRepository.findById(feedbackId);
-
-        if (feedbackData.isPresent())
-            return feedbackData.get();
-        throw new ServiceException("No such feedback");
+    public Optional<Feedback> getFeedbackById(long feedbackId) {
+        return feedbackRepository.findById(feedbackId);
     }
 
-    public List<Feedback> getFeedbacksByDemandEmployeeId(long demandEmployeeId) throws ServiceException {
-        List<Feedback> feedbacks = feedbackRepository.findAllByDemandEmployeeId(demandEmployeeId);
-
-        if (feedbacks.isEmpty())
-            throw new ServiceException("This demandEmployee hasn't receive any feedbacks yet");
-        return feedbacks;
+    public List<Feedback> getFeedbacksByDemandEmployeeId(long demandEmployeeId) {
+        return feedbackRepository.findAllByDemandEmployeeId(demandEmployeeId);
     }
 
-    public List<Feedback> getAllFeedbacks() throws ServiceException {
-        List<Feedback> feedbacks = feedbackRepository.findAll();
-
-        if (feedbacks.isEmpty())
-            throw new ServiceException("No feedbacks");
-        return feedbacks;
+    public List<Feedback> getAllFeedbacks() {
+        return feedbackRepository.findAll();
     }
 
-    public Feedback updateFeedback(long feedbackId, Feedback feedback) throws ServiceException {
-        Optional<Feedback> feedbackData = feedbackRepository.findById(feedbackId);
+    public Optional<Feedback> updateFeedback(long feedbackId, Feedback feedback) {
+        Optional<Feedback> opt = feedbackRepository.findById(feedbackId);
 
-        if (feedbackData.isPresent()) {
-            Feedback _feedback = feedbackData.get();
-            _feedback.setComment(feedback.getComment());
-            _feedback.setRating(feedback.getRating());
-            _feedback.setReviewerName(feedback.getReviewerName());
-            _feedback.setDemandEmployeeId(feedback.getDemandEmployeeId());
-            return feedbackRepository.save(_feedback);
-        }
-        throw new ServiceException("No such feedback");
+        return opt
+                .map(f -> f.getDemandEmployeeId() == feedback.getDemandEmployeeId()
+                        ? merdgeFeedback(f, feedback)
+                        : null)
+                .map(f -> feedbackRepository.save(f));
     }
 
-    public void deleteFeedback(long feedbackId) throws ServiceException {
-        Optional<Feedback> feedbackData = feedbackRepository.findById(feedbackId);
+    public Optional<Feedback> deleteFeedback(long feedbackId) {
+        Optional<Feedback> opt = feedbackRepository.findById(feedbackId);
 
-        if (feedbackData.isPresent()){
-            feedbackRepository.deleteById(feedbackId);
-            return;
-        }
-        throw new ServiceException("No such feedback");
+        return opt
+                .map(f -> {
+                    feedbackRepository.deleteById(feedbackId);
+                    return f;
+                });
     }
 
     public void deleteAllFeedbacks() {
         feedbackRepository.deleteAll();
+    }
+
+    private Feedback merdgeFeedback(Feedback f, Feedback feedback) {
+        f.setComment(feedback.getComment());
+        f.setRating(feedback.getRating());
+        f.setReviewerName(feedback.getReviewerName());
+        return f;
     }
 }

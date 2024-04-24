@@ -2,7 +2,6 @@ package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.DemandSkill;
 import com.backend.tinkoff_backend.repositories.DemandSkillRepository;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,65 +14,60 @@ public class DemandSkillService {
     @Autowired
     DemandSkillRepository demandSkillRepository;
 
-    public void createDemandSkill(DemandSkill demandSkill) {
-        demandSkillRepository.save(new DemandSkill(demandSkill.getSkillId(), demandSkill.getDemandId()));
-    }
-
-    public DemandSkill getDemandSkillById(long demandSkillId) throws ServiceException {
-        Optional<DemandSkill> demandSkillData = demandSkillRepository.findById(demandSkillId);
-
-        if (demandSkillData.isPresent())
-            return demandSkillData.get();
-        throw new ServiceException("No such demandSkill");
-    }
-
-    public List<DemandSkill> getDemandSkillsByDemandId(long demandId) throws ServiceException {
-        List<DemandSkill> demandSkills = demandSkillRepository.findAllByDemandId(demandId);
-
-        if (demandSkills.isEmpty())
-            throw new ServiceException("Do not need any skills in that demand");
-        return demandSkills;
-    }
-
-    public List<DemandSkill> getDemandSkillsBySkillId(long skillId) throws ServiceException {
-        List<DemandSkill> demandSkills = demandSkillRepository.findAllBySkillId(skillId);
-
-        if (demandSkills.isEmpty())
-            throw new ServiceException("This skill not involved in any demand");
-        return demandSkills;
-    }
-
-    public List<DemandSkill> getAllDemandSKills() throws ServiceException {
-        List<DemandSkill> demandSkills = demandSkillRepository.findAll();
-
-        if (demandSkills.isEmpty())
-            throw new ServiceException("No demandSkills");
-        return demandSkills;
-    }
-
-    public DemandSkill updateDemandSkill(long demandSkillId, DemandSkill demandSkill) throws ServiceException {
-        Optional<DemandSkill> demandSkillData = demandSkillRepository.findById(demandSkillId);
-
-        if (demandSkillData.isPresent()) {
-            DemandSkill _demandSkill = demandSkillData.get();
-            _demandSkill.setDemandId(demandSkill.getDemandId());
-            _demandSkill.setSkillId(demandSkill.getSkillId());
-            return demandSkillRepository.save(_demandSkill);
+    public Optional<Long> createDemandSkill(DemandSkill demandSkill) {
+        if (!isAlreadyExist(demandSkill)) {
+            return Optional.of(demandSkillRepository
+                    .save(new DemandSkill(demandSkill.getSkillId(), demandSkill.getDemandId()))
+                    .getId());
         }
-        throw new ServiceException("No such demandSkill");
+        return Optional.empty();
     }
 
-    public void deleteDemandSKill(long demandSkillId) throws ServiceException {
-        Optional<DemandSkill> demandSkillData = demandSkillRepository.findById(demandSkillId);
+    public Optional<DemandSkill> getDemandSkillById(long demandSkillId) {
+        return demandSkillRepository.findById(demandSkillId);
+    }
 
-        if (demandSkillData.isPresent()) {
-            demandSkillRepository.deleteById(demandSkillId);
-            return;
-        }
-        throw new ServiceException("No such demandSkill");
+    public List<DemandSkill> getDemandSkillsByDemandId(long demandId) {
+        return demandSkillRepository.findAllByDemandId(demandId);
+    }
+
+    public List<DemandSkill> getDemandSkillsBySkillId(long skillId) {
+        return demandSkillRepository.findAllBySkillId(skillId);
+    }
+
+    public List<DemandSkill> getAllDemandSKills() {
+        return demandSkillRepository.findAll();
+    }
+
+    public Optional<DemandSkill> updateDemandSkill(long demandSkillId, DemandSkill demandSkill) {
+        Optional<DemandSkill> opt = demandSkillRepository.findById(demandSkillId);
+
+        return opt
+                .map(ds -> mergeDemandSkill(ds, demandSkill))
+                .map(ds -> demandSkillRepository.save(ds));
+    }
+
+    public Optional<DemandSkill> deleteDemandSKill(long demandSkillId) {
+        Optional<DemandSkill> opt = demandSkillRepository.findById(demandSkillId);
+
+        return opt
+                .map(ds -> {
+                    demandSkillRepository.deleteById(demandSkillId);
+                    return ds;
+                });
     }
 
     public void deleteAllDemandSkills() {
         demandSkillRepository.deleteAll();
+    }
+
+    private DemandSkill mergeDemandSkill(DemandSkill ds, DemandSkill demandSkill) {
+        ds.setDemandId(demandSkill.getDemandId());
+        ds.setSkillId(demandSkill.getSkillId());
+        return ds;
+    }
+
+    private boolean isAlreadyExist(DemandSkill demandSkill) {
+        return demandSkillRepository.findByDemandIdAndSkillId(demandSkill.getDemandId(), demandSkill.getSkillId()).isPresent();
     }
 }

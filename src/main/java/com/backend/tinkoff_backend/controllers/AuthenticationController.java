@@ -2,6 +2,7 @@ package com.backend.tinkoff_backend.controllers;
 
 import com.backend.tinkoff_backend.entities.Employee;
 import com.backend.tinkoff_backend.entities.User;
+import com.backend.tinkoff_backend.entities.pojo.AuthenticationPojo;
 import com.backend.tinkoff_backend.exceptions.MyRetrievalFailureException;
 import com.backend.tinkoff_backend.services.AuthenticationService;
 import com.backend.tinkoff_backend.services.EmployeeService;
@@ -29,12 +30,11 @@ public class AuthenticationController {
     UserService userService;
 
     @GetMapping("/authentication")
-    public ResponseEntity<Long> authentication(@RequestBody User user) {
-        try {
-            return new ResponseEntity<>(authenticationService.authenticate(user), HttpStatus.OK);
-        } catch (SecurityException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Long> authentication(@RequestBody AuthenticationPojo pojo) {
+        Optional<Long> opt = authenticationService.authenticate(pojo);
+        if (opt.isPresent()) {
+            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
+        } throw new IllegalArgumentException("Authentication error");
     }
 
     @PostMapping("/registration/user")

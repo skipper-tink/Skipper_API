@@ -25,7 +25,7 @@ public class UserController {
         if (userData.isPresent()) {
             return new ResponseEntity<>(userData.get(), HttpStatus.CREATED);
         }
-        throw new MyInvalidArgumentException("User with that login already exists");
+        throw new MyInvalidArgumentException("User creation error");
     }
 
     @GetMapping("/users/{id}")
@@ -34,7 +34,7 @@ public class UserController {
         if (userData.isPresent()) {
             return new ResponseEntity<>(userData.get(), HttpStatus.OK);
         }
-        throw new MyRetrievalFailureException("No user has such id");
+        throw new MyRetrievalFailureException("User getting error");
     }
 
     @GetMapping("/users")
@@ -49,7 +49,7 @@ public class UserController {
         if(userData.isPresent()) {
             return new ResponseEntity<>(userData.get(), HttpStatus.OK);
         }
-        throw new MyRetrievalFailureException("No user has such id");
+        throw new MyRetrievalFailureException("User updating error");
     }
 
     @DeleteMapping("/users/{id}")
@@ -58,7 +58,7 @@ public class UserController {
         if (userData.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        throw new MyRetrievalFailureException("No user has such id");
+        throw new MyRetrievalFailureException("User deleting error");
     }
 
     @DeleteMapping("/users")

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "SprEmployee")
+@Table(name = "spr_employee")
 public class Employee {
 
     @Id
@@ -13,15 +13,15 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @JoinColumn(name = "sprUserId",
+    @JoinColumn(name = "user_id",
             referencedColumnName = "id",
             nullable = false)
     private long userId;
 
-    @Column(name = "freeTimePerWeek")
+    @Column(name = "free_time_per_week")
     private long freeTimePerWeek;
 
-    @Column(name = "freeTimeUntilDate")
+    @Column(name = "free_time_until_date")
     private Date freeTimeUntilDate;
 
     @Column(name = "specialization")

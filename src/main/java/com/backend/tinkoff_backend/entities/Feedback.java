@@ -3,7 +3,7 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "SprFeedback")
+@Table(name = "spr_feedback")
 public class Feedback {
     @Id
     @Column(name = "id", nullable = false, unique = true)
@@ -16,12 +16,12 @@ public class Feedback {
     @Column(name ="comment", nullable = false)
     private String comment;
 
-    @JoinColumn(name = "sprDemandEmployeeId",
+    @JoinColumn(name = "demand_employee_id",
             referencedColumnName = "id",
             nullable = false)
     private long demandEmployeeId;
 
-    @Column(name = "reviewerName", nullable = false)
+    @Column(name = "reviewer_name", nullable = false)
     private String reviewerName;
 
     public Feedback() {

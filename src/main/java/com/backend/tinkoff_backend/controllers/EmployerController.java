@@ -25,7 +25,7 @@ public class EmployerController {
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.CREATED);
         }
-        throw new MyInvalidArgumentException("This user can't be an employer");
+        throw new MyInvalidArgumentException("Employer creation error");
     }
 
     @GetMapping("/employers/{id}")
@@ -34,7 +34,7 @@ public class EmployerController {
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.OK);
         }
-        throw new MyRetrievalFailureException("Getting employer by id error");
+        throw new MyRetrievalFailureException("Employer getting by id error");
     }
 
     @GetMapping("/employers/{userId}")
@@ -43,7 +43,7 @@ public class EmployerController {
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.OK);
         }
-        throw new MyRetrievalFailureException("Getting employer by user id error");
+        throw new MyRetrievalFailureException("Employer getting by user id error");
     }
 
     @GetMapping("/employers")
@@ -57,7 +57,7 @@ public class EmployerController {
         Optional<Employer> opt = employerService.updateEmployer(employerId, employer);
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        } throw new MyRetrievalFailureException("Updating employer error");
+        } throw new MyRetrievalFailureException("Employer updating error");
     }
 
     @DeleteMapping("/employers/{id}")
@@ -65,7 +65,7 @@ public class EmployerController {
         Optional<Employer> opt = employerService.deleteEmployer(employerId);
         if (opt.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } throw new MyRetrievalFailureException("Deletion employer error");
+        } throw new MyRetrievalFailureException("Employer deletion error");
     }
 
     @DeleteMapping("/employers")

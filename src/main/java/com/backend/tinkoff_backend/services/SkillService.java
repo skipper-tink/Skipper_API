@@ -17,7 +17,7 @@ public class SkillService {
     public Optional<Long> createSkill(Skill skill) {
         Optional<Skill> opt = skillRepository.findByNameAndSpecialization(skill.getName(), skill.getSpecialization());
         return Optional.empty()
-                .map(value -> opt.isEmpty()
+                .map(s -> opt.isEmpty()
                         ? skillRepository.save(new Skill(skill.getName(), skill.getSpecialization())).getId()
                         : null
                 );

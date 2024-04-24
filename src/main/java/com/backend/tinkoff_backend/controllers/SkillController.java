@@ -24,7 +24,7 @@ public class SkillController {
         Optional<Long> opt = skillService.createSkill(skill);
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.CREATED);
-        } throw new MyInvalidArgumentException("Creation skill error");
+        } throw new MyInvalidArgumentException("Skill creation error");
     }
 
     @GetMapping("/skills/{id}")
@@ -32,7 +32,7 @@ public class SkillController {
         Optional<Skill> opt = skillService.getSkillById(skillId);
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        } throw new MyRetrievalFailureException("Getting skill by id error");
+        } throw new MyRetrievalFailureException("Skill getting by id error");
     }
 
     @GetMapping("/skills")
@@ -45,7 +45,7 @@ public class SkillController {
         Optional<Skill> opt = skillService.updateSkill(skillId, skill);
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        } throw new MyRetrievalFailureException("Updating skill error");
+        } throw new MyRetrievalFailureException("Skill updating error");
     }
 
     @DeleteMapping("/skills/{id}")
@@ -53,7 +53,7 @@ public class SkillController {
         Optional<Skill> opt = skillService.deleteSkill(skillId);
         if (opt.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } throw new MyRetrievalFailureException("Deletion skill error");
+        } throw new MyRetrievalFailureException("Skill deletion error");
     }
 
     @DeleteMapping("/skills")

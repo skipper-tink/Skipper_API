@@ -3,7 +3,7 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "SprEmployeeSkill")
+@Table(name = "spr_employee_skill")
 public class EmployeeSkill {
 
     @Id
@@ -11,12 +11,12 @@ public class EmployeeSkill {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @JoinColumn(name = "sprSkillId",
+    @JoinColumn(name = "skill_id",
             referencedColumnName = "id",
             nullable = false)
     private long skillId;
 
-    @JoinColumn(name = "sprEmployeeId",
+    @JoinColumn(name = "employee_id",
             referencedColumnName = "id",
             nullable = false)
     private long employeeId;

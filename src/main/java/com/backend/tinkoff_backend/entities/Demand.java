@@ -5,18 +5,18 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "SprDemand")
+@Table(name = "spr_demand")
 public class Demand {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @JoinColumn(name = "sprProjectId",
+    @JoinColumn(name = "project_id",
             referencedColumnName = "id", nullable = false)
     private long projectId;
 
-    @Column(name = "timeConsumption", nullable = false)
+    @Column(name = "time_consumption", nullable = false)
     private int timeConsumption;
 
     @Column(name = "deadline", nullable = false)

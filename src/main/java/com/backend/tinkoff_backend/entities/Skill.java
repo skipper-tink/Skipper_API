@@ -3,7 +3,7 @@ package com.backend.tinkoff_backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "SprSkill")
+@Table(name = "spr_skill")
 public class Skill {
 
     @Id

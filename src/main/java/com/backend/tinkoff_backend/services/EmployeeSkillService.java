@@ -21,7 +21,7 @@ public class EmployeeSkillService {
     SkillRepository skillRepository;
 
     public Optional<Long> createEmployeeSkill(EmployeeSkill employeeSkill) {
-        if (isAlreadyExist(employeeSkill)) {
+        if (!isAlreadyExist(employeeSkill)) {
             return Optional.of(employeeSkillRepository
                     .save(new EmployeeSkill(employeeSkill.getSkillId(), employeeSkill.getEmployeeId()))
                     .getId());

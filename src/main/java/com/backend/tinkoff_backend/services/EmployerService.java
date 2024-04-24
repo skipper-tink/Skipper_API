@@ -4,7 +4,6 @@ import com.backend.tinkoff_backend.entities.Employer;
 import com.backend.tinkoff_backend.repositories.EmployeeRepository;
 import com.backend.tinkoff_backend.repositories.EmployerRepository;
 import com.backend.tinkoff_backend.repositories.UserRepository;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,53 +29,48 @@ public class EmployerService {
                 .map(value -> employerRepository.save(value).getUserId());
     }
 
-    public Employer getEmployerById(long employerId) throws ServiceException {
-        Optional<Employer> employerData = employerRepository.findById(employerId);
-
-        if (employerData.isPresent())
-            return employerData.get();
-        throw new ServiceException("No such employer");
+    public Optional<Employer> getEmployerById(long employerId) {
+        return employerRepository.findById(employerId);
     }
 
-    public Employer getEmployerByUserLogin(long userId) throws ServiceException {
-        Optional<Employer> employerData = employerRepository.findByUserId(userId);
-
-        if (employerData.isPresent())
-            return employerData.get();
-        throw new ServiceException("No such employer");
+    public Optional<Employer> getEmployerByUserId(long userId) {
+        return employerRepository.findByUserId(userId);
     }
 
-    public List<Employer> getAllEmployers() throws ServiceException {
-        List<Employer> employers = employerRepository.findAll();
-
-        if (employers.isEmpty())
-            throw new ServiceException("No employers");
-        return employers;
+    public List<Employer> getAllEmployers() {
+        return employerRepository.findAll();
     }
 
-    public Employer updateEmployer(long employerId, Employer employer) throws ServiceException {
-        Optional<Employer> employerData = employerRepository.findById(employerId);
+    public Optional<Employer> updateEmployer(long employerId, Employer employer) {
+        Optional<Employer> opt = employerRepository.findById(employerId);
 
-        if (employerData.isPresent()) {
-            Employer _employer = employerData.get();
-            _employer.setUserId(employer.getUserId());
-            return employerRepository.save(_employer);
-        }
-        throw new ServiceException("No such employer");
+        return opt
+                .map(e -> isAlreadyExist(employer)
+                        ? null
+                        : mergeEmployer(e, employer))
+                .map(e -> employerRepository.save(e));
     }
 
-    public void deleteEmployer(long employerId) throws ServiceException {
-        Optional<Employer> employerData = employerRepository.findById(employerId);
-
-        if (employerData.isPresent()) {
-            employerRepository.deleteById(employerId);
-            return;
-        }
-        throw new ServiceException("No such employer");
+    public Optional<Employer> deleteEmployer(long employerId) {
+        Optional<Employer> opt = employerRepository.findById(employerId);
+        return opt
+                .map(e -> {
+                    employerRepository.deleteById(employerId);
+                    return e;
+                });
     }
 
     public void deleteAllEmployers() {
         employerRepository.deleteAll();
+    }
+
+    private Employer mergeEmployer(Employer e, Employer employer) {
+        e.setUserId(employer.getUserId());
+        return e;
+    }
+
+    private boolean isAlreadyExist(Employer employer) {
+        return employerRepository.findByUserId(employer.getUserId()).isPresent();
     }
 
     private boolean isAlreadyEmpl(long id) {

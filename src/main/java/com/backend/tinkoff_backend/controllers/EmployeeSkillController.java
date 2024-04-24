@@ -20,10 +20,10 @@ public class EmployeeSkillController {
     EmployeeSkillService employeeSkillService;
 
     @PostMapping("/employeeSkills")
-    public ResponseEntity<EmployeeSkill> createEmployeeSkill(@RequestBody EmployeeSkill employeeSkill) {
+    public ResponseEntity<Long> createEmployeeSkill(@RequestBody EmployeeSkill employeeSkill) {
         Optional<Long> opt = employeeSkillService.createEmployeeSkill(employeeSkill);
         if (opt.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(opt.get(), HttpStatus.CREATED);
         } throw new MyInvalidArgumentException("Can't create such employeeSkill");
     }
 
@@ -47,7 +47,7 @@ public class EmployeeSkillController {
         Optional<EmployeeSkill> opt = employeeSkillService.updateEmployeeSkill(employeeSkillId, employeeSkill);
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        }  throw new MyInvalidArgumentException("Update employeeSkill error");
+        }  throw new MyRetrievalFailureException("Update employeeSkill error");
     }
 
     @DeleteMapping("/employeeSkills/{id}")
@@ -55,7 +55,7 @@ public class EmployeeSkillController {
         Optional<EmployeeSkill> opt = employeeSkillService.deleteEmployeeSKill(employeeSkillId);
         if (opt.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } throw new MyInvalidArgumentException("Deletion employeeSkill error");
+        } throw new MyRetrievalFailureException("Deletion employeeSkill error");
     }
 
     @DeleteMapping("/employeeSkills")

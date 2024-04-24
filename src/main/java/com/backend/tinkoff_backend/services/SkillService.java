@@ -2,7 +2,6 @@ package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.Skill;
 import com.backend.tinkoff_backend.repositories.SkillRepository;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,49 +14,49 @@ public class SkillService {
     @Autowired
     SkillRepository skillRepository;
 
-    public void createSkill(Skill skill) {
-        skillRepository.save(new Skill(skill.getName(), skill.getSpecialization()));
+    public Optional<Long> createSkill(Skill skill) {
+        Optional<Skill> opt = skillRepository.findByNameAndSpecialization(skill.getName(), skill.getSpecialization());
+        return Optional.empty()
+                .map(value -> opt.isEmpty()
+                        ? skillRepository.save(new Skill(skill.getName(), skill.getSpecialization())).getId()
+                        : null
+                );
     }
 
-    public Skill getSkillById(long skillId) throws ServiceException {
+    public Optional<Skill> getSkillById(long skillId) {
+        return skillRepository.findById(skillId);
+    }
+
+    public List<Skill> getAllSkills() {
+        return skillRepository.findAll();
+    }
+
+    public Optional<Skill> updateSkill(long skillId, Skill skill) {
         Optional<Skill> skillData = skillRepository.findById(skillId);
 
-        if (skillData.isPresent())
-            return skillData.get();
-        throw new ServiceException("No such skill");
+        return skillData
+                .map(s -> skillRepository.findByNameAndSpecialization(skill.getName(), skill.getSpecialization()).isEmpty()
+                        ? mergeSkill(s, skill)
+                        : null).map(s -> skillRepository.save(s));
     }
 
-    public List<Skill> getAllSkills() throws ServiceException {
-        List<Skill> skills = skillRepository.findAll();
-
-        if (skills.isEmpty())
-            throw new ServiceException("No skills");
-        return skills;
-    }
-
-    public Skill updateSkill(long skillId, Skill skill) throws ServiceException {
+    public Optional<Skill> deleteSkill(long skillId) {
         Optional<Skill> skillData = skillRepository.findById(skillId);
 
-        if (skillData.isPresent()) {
-            Skill _skill = skillData.get();
-            _skill.setName(skill.getName());
-            _skill.setSpecialization(skill.getSpecialization());
-            return skillRepository.save(_skill);
-        }
-        throw new ServiceException("No such skill");
-    }
-
-    public void deleteSkill(long skillId) throws ServiceException {
-        Optional<Skill> skillData = skillRepository.findById(skillId);
-
-        if (skillData.isPresent()) {
-            skillRepository.deleteById(skillId);
-            return;
-        }
-        throw new ServiceException("No such skill");
+        return skillData
+                .map(s -> {
+                    skillRepository.deleteById(skillId);
+                    return s;
+                });
     }
 
     public void deleteAllSkills() {
         skillRepository.deleteAll();
+    }
+
+    private Skill mergeSkill(Skill s, Skill skill) {
+        s.setName(skill.getName());
+        s.setSpecialization(skill.getSpecialization());
+        return s;
     }
 }

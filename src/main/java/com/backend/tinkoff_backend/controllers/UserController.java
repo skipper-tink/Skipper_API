@@ -19,15 +19,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
-        Optional<User> userData = userService.getUserById(id);
-        if (userData.isPresent()) {
-            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
-        }
-        throw new MyRetrievalFailureException("No user has such id");
-    }
-
     @PostMapping("/users")
     public ResponseEntity<Long> createUser(@RequestBody User user) {
         Optional<Long> userData = userService.createUser(user);
@@ -35,6 +26,15 @@ public class UserController {
             return new ResponseEntity<>(userData.get(), HttpStatus.CREATED);
         }
         throw new MyInvalidArgumentException("User with that login already exists");
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
+        Optional<User> userData = userService.getUserById(id);
+        if (userData.isPresent()) {
+            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+        }
+        throw new MyRetrievalFailureException("No user has such id");
     }
 
     @GetMapping("/users")

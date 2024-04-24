@@ -41,7 +41,7 @@ public class EmployeeSkillService {
         Optional<EmployeeSkill> employeeSkillData = employeeSkillRepository.findById(employeeSkillId);
 
         return employeeSkillData
-                .map(value -> paramsExist(employeeSkill) ? mergeEmplSkill(value, employeeSkill) : null)
+                .map(value -> mergeEmplSkill(value, employeeSkill))
                 .map(value -> employeeSkillRepository.save(value));
     }
 
@@ -57,11 +57,6 @@ public class EmployeeSkillService {
 
     public void deleteAllEmployeeSkills() {
         employeeSkillRepository.deleteAll();
-    }
-
-    private boolean paramsExist(EmployeeSkill employeeSkill) {
-        return employeeRepository.findById(employeeSkill.getEmployeeId()).isPresent() &&
-                skillRepository.findById(employeeSkill.getSkillId()).isPresent();
     }
 
     private EmployeeSkill mergeEmplSkill(EmployeeSkill value, EmployeeSkill employeeSkill) {

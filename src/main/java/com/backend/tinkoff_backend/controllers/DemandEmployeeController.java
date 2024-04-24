@@ -1,14 +1,16 @@
 package com.backend.tinkoff_backend.controllers;
 
 import com.backend.tinkoff_backend.entities.DemandEmployee;
+import com.backend.tinkoff_backend.exceptions.MyInvalidArgumentException;
+import com.backend.tinkoff_backend.exceptions.MyRetrievalFailureException;
 import com.backend.tinkoff_backend.services.DemandEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -18,70 +20,58 @@ public class DemandEmployeeController {
     DemandEmployeeService demandEmployeeService;
 
     @PostMapping("/demandEmployees")
-    public ResponseEntity<DemandEmployee> createDemandEmployee(@RequestBody DemandEmployee demandEmployee) {
-        demandEmployeeService.createDemandEmployee(demandEmployee);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Long> createDemandEmployee(@RequestBody DemandEmployee demandEmployee) {
+        Optional<Long> opt = demandEmployeeService.createDemandEmployee(demandEmployee);
+        if (opt.isPresent()) {
+            return new ResponseEntity<>(opt.get(), HttpStatus.CREATED);
+        }
+        throw new MyInvalidArgumentException("DemandEmployee creation error");
     }
 
     @GetMapping("/demandEmployees/{id}")
     public ResponseEntity<DemandEmployee> getDemandEmployeeById(@PathVariable("id") long demandEmployeeId) {
-        try {
-            return new ResponseEntity<>(demandEmployeeService.getDemandEmployeeById(demandEmployeeId), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<DemandEmployee> opt = demandEmployeeService.getDemandEmployeeById(demandEmployeeId);
+        if (opt.isPresent()) {
+            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
         }
+        throw new MyRetrievalFailureException("DemandEmployee getting by id error");
     }
 
     @GetMapping("/demandEmployees/{employeeId}")
     public ResponseEntity<List<DemandEmployee>> getDemandEmployeesByEmployeeId(@PathVariable("employeeId")
-                                                                            long employeeId) {
-        try {
-            return new ResponseEntity<>(demandEmployeeService.getDemandEmployeesByEmployeeId(employeeId),
-                    HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+                                                                               long employeeId) {
+        return new ResponseEntity<>(demandEmployeeService.getDemandEmployeesByEmployeeId(employeeId),
+                HttpStatus.OK);
     }
 
     @GetMapping("/demandEmployees/{demandId}")
     public ResponseEntity<List<DemandEmployee>> getDemandEmployeesByDemandId(@PathVariable("demandId")
                                                                              long demandId) {
-        try {
-            return new ResponseEntity<>(demandEmployeeService.getDemandEmployeeByDemandId(demandId),
-                    HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(demandEmployeeService.getDemandEmployeeByDemandId(demandId),
+                HttpStatus.OK);
     }
 
     @GetMapping("/demandEmployees")
     public ResponseEntity<List<DemandEmployee>> getAllDemandEmployees() {
-        try {
-            return new ResponseEntity<>(demandEmployeeService.getAllDemandEmployees(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(demandEmployeeService.getAllDemandEmployees(), HttpStatus.OK);
     }
 
     @PutMapping("/demandEmployees/{id}")
     public ResponseEntity<DemandEmployee> updateDemandEmployee(@PathVariable("id") long demandEmployeeId,
                                                                DemandEmployee demandEmployee) {
-        try {
-            return new ResponseEntity<>(demandEmployeeService.updateDemandEmployee(demandEmployeeId,
-                    demandEmployee), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Optional<DemandEmployee> opt = demandEmployeeService.updateDemandEmployee(demandEmployeeId,
+                demandEmployee);
+        if(opt.isPresent()) {
+            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
+        } throw new MyRetrievalFailureException("DemandEmployee updating error");
     }
 
     @DeleteMapping("/demandEmployees/{id}")
     public ResponseEntity<DemandEmployee> deleteDemandEmployee(@PathVariable("id") long demandEmployeeId) {
-        try {
-            demandEmployeeService.deleteDemandEmployee(demandEmployeeId);
+        Optional<DemandEmployee> opt = demandEmployeeService.deleteDemandEmployee(demandEmployeeId);
+        if (opt.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        } throw new MyRetrievalFailureException("DemandEmployee deletion error");
     }
 
     @DeleteMapping("/demandEmployees")

@@ -2,7 +2,6 @@ package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.Demand;
 import com.backend.tinkoff_backend.repositories.DemandRepository;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,60 +14,57 @@ public class DemandService {
     @Autowired
     DemandRepository demandRepository;
 
-    public void creatDemand(Demand demand) {
-            demandRepository.save(new Demand(demand.getProjectId(), demand.getTimeConsumption(),
-                    demand.getDeadline(), demand.getSpecialization(), demand.getQualification()));
+    public Optional<Long> creatDemand(Demand demand) {
+        return Optional.of(
+                demandRepository.save(new Demand(
+                        demand.getProjectId(),
+                        demand.getTimeConsumption(),
+                        demand.getDeadline(),
+                        demand.getSpecialization(),
+                        demand.getQualification())).getId()
+        );
     }
 
-    public Demand getDemandById(long demandId) throws ServiceException {
-        Optional<Demand> demandData = demandRepository.findById(demandId);
-
-        if (demandData.isPresent())
-            return demandData.get();
-        throw new ServiceException("No such demand");
+    public Optional<Demand> getDemandById(long demandId) {
+        return demandRepository.findById(demandId);
     }
 
-    public List<Demand> getDemandsByProjectId(long projectId) throws ServiceException {
-        List<Demand> demands = demandRepository.findAllByProjectId(projectId);
-
-        if (demands.isEmpty())
-            throw new ServiceException("No demands in that project");
-        return demands;
+    public List<Demand> getDemandsByProjectId(long projectId) {
+        return demandRepository.findAllByProjectId(projectId);
     }
 
-    public List<Demand> getAllDemands() throws ServiceException {
-        List<Demand> demands = demandRepository.findAll();
-
-        if (demands.isEmpty())
-            throw new ServiceException("No demands");
-        return demands;
+    public List<Demand> getAllDemands() {
+        return demandRepository.findAll();
     }
 
-    public Demand updateDemand(long demandId, Demand demand) throws ServiceException {
-        Optional<Demand> demandData = demandRepository.findById(demandId);
+    public Optional<Demand> updateDemand(long demandId, Demand demand) {
+        Optional<Demand> opt = demandRepository.findById(demandId);
 
-        if (demandData.isPresent()) {
-            Demand _demand = demandData.get();
-            _demand.setTimeConsumption(demand.getTimeConsumption());
-            _demand.setDeadline(demand.getDeadline());
-            _demand.setSpecialization(demand.getSpecialization());
-            _demand.setQualification(demand.getQualification());
-            return demandRepository.save(_demand);
-        }
-        throw new ServiceException("No such demand");
+        return opt
+                .map(d -> merdgeDemand(d, demand))
+                .map(d -> demandRepository.save(d));
     }
 
-    public void deleteDemand(long demandId) throws ServiceException {
-        Optional<Demand> demandData = demandRepository.findById(demandId);
+    public Optional<Demand> deleteDemand(long demandId) {
+        Optional<Demand> opt = demandRepository.findById(demandId);
 
-        if (demandData.isPresent()) {
-            demandRepository.deleteById(demandId);
-            return;
-        }
-        throw new ServiceException("No such demand");
+        return opt
+                .map(d -> {
+                    demandRepository.deleteById(demandId);
+                    return d;
+                });
     }
 
     public void deleteAllDemands() {
         demandRepository.deleteAll();
+    }
+
+    private Demand merdgeDemand(Demand d, Demand demand) {
+        d.setDeadline(demand.getDeadline());
+        d.setQualification(demand.getQualification());
+        d.setSpecialization(demand.getSpecialization());
+        d.setTimeConsumption(demand.getTimeConsumption());
+        d.setProjectId(demand.getProjectId());
+        return d;
     }
 }

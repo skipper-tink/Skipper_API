@@ -35,6 +35,11 @@ public class SkillController {
         } throw new MyRetrievalFailureException("Skill getting by id error");
     }
 
+    @GetMapping("/skills/{specialization}")
+    public ResponseEntity<List<Skill>> getSkillsBySpecialization(@PathVariable("specialization") String specialization) {
+        return new ResponseEntity<>(skillService.getAllSkillsBySpecialization(specialization), HttpStatus.OK);
+    }
+
     @GetMapping("/skills")
     public ResponseEntity<List<Skill>> getAllSkills() {
         return new ResponseEntity<>(skillService.getAllSkills(), HttpStatus.OK);

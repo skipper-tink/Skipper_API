@@ -27,6 +27,10 @@ public class SkillService {
         return skillRepository.findById(skillId);
     }
 
+    public List<Skill> getAllSkillsBySpecialization(String specialization) {
+        return skillRepository.findAllBySpecialization(specialization);
+    }
+
     public List<Skill> getAllSkills() {
         return skillRepository.findAll();
     }

@@ -13,10 +13,8 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @JoinColumn(name = "user_id",
-            referencedColumnName = "id",
-            nullable = false)
-    private long userId;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Column(name = "free_time_per_week")
     private long freeTimePerWeek;
@@ -30,17 +28,33 @@ public class Employee {
     @Column(name = "qualification")
     private String qualification;
 
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
+
     public Employee(){
     }
 
-    public Employee(long userId,
-                    long freeTimePerWeek,
-                    Date freeTimeUntilDate, String specialization, String qualification) {
-        this.userId = userId;
+    public Employee(String name, long freeTimePerWeek, Date freeTimeUntilDate, String specialization, String qualification, String email, String phoneNumber) {
+        this.name = name;
         this.freeTimePerWeek = freeTimePerWeek;
         this.freeTimeUntilDate = freeTimeUntilDate;
         this.specialization = specialization;
         this.qualification = qualification;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Employee(Employee employee) {
+        this.name = employee.getName();
+        this.freeTimePerWeek = employee.getFreeTimePerWeek();
+        this.freeTimeUntilDate = employee.getFreeTimeUntilDate();
+        this.specialization = employee.getSpecialization();
+        this.qualification = employee.getQualification();
+        this.email = employee.getEmail();
+        this.phoneNumber = employee.getPhoneNumber();
     }
 
     public long getId() {
@@ -51,12 +65,12 @@ public class Employee {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long getFreeTimePerWeek() {
@@ -79,27 +93,31 @@ public class Employee {
         return specialization;
     }
 
-    public String getQualification() {
-        return qualification;
-    }
-
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public String getQualification() {
+        return qualification;
     }
 
     public void setQualification(String qualification) {
         this.qualification = qualification;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", userId='" + userId + '\'' +
-                ", freeTimePerWeek=" + freeTimePerWeek +
-                ", freeTimeUntilDate=" + freeTimeUntilDate +
-                ", specialization=" + specialization +
-                ", qualification" + qualification +
-                '}';
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

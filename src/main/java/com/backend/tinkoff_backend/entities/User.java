@@ -17,27 +17,26 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @JoinColumn(name = "employer_id", referencedColumnName = "id",unique = true)
+    private long employer_id;
 
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "phone_number", nullable = false)
-    private String phoneNumber;
+    @JoinColumn(name = "employee_id", referencedColumnName = "id",unique = true)
+    private long employee_id;
 
     public User(){}
 
-    public User(String login,
-                String password,
-                String name,
-                String email,
-                String phoneNumber) {
+    public User(String login, String password, long employer_id, long employee_id) {
         this.login = login;
         this.password = password;
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.employer_id = employer_id;
+        this.employee_id = employee_id;
+    }
+
+    public User(User user) {
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.employer_id = user.getEmployer_id();
+        this.employee_id = user.getEmployee_id();
     }
 
     public long getId() {
@@ -64,39 +63,30 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public long getEmployer_id() {
+        return employer_id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmployer_id(long employer_id) {
+        this.employer_id = employer_id;
     }
 
-    public String getEmail() {
-        return email;
+    public long getEmployee_id() {
+        return employee_id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setEmployee_id(long employee_id) {
+        this.employee_id = employee_id;
     }
 
     @Override
     public String toString() {
-        return "user{" +
-                "id=" + id + '\'' +
-                "login='" + login + '\'' +
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", employer_id=" + employer_id +
+                ", employee_id=" + employee_id +
                 '}';
     }
 }

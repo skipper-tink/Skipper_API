@@ -20,6 +20,11 @@ public class Skill {
     public Skill() {
     }
 
+    public Skill(Skill skill) {
+        this.name = skill.getName();
+        this.specialization = skill.getSpecialization();
+    }
+
     public Skill(String name, String specialization) {
         this.name = name;
         this.specialization = specialization;

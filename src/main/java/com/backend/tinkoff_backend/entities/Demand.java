@@ -13,7 +13,8 @@ public class Demand {
     private long id;
 
     @JoinColumn(name = "project_id",
-            referencedColumnName = "id", nullable = false)
+            referencedColumnName = "id",
+            nullable = false)
     private long projectId;
 
     @Column(name = "time_consumption", nullable = false)

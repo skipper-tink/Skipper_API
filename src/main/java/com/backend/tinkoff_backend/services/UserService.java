@@ -1,7 +1,7 @@
 package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.User;
-import com.backend.tinkoff_backend.repositories.UserRepository;
+import com.backend.tinkoff_backend.repositories.jpaRepositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class UserService {
 
     public Optional<Long> createUser(User user) {
         return Optional.of(user)
-                .map(u -> mergeUsers(new User(), u))
+                .map(u -> new User(user))
                 .map(u -> userRepository.save(u))
                 .map(User::getId);
     }
@@ -34,21 +34,15 @@ public class UserService {
     }
 
     public Optional<User> updateUser(long id, User user) {
-        Optional<User> userData = userRepository.findById(id);
-
-        return userData
+        return userRepository.findById(id)
                 .map(u -> mergeUsers(u, user))
                 .map(u -> userRepository.save(u));
     }
 
     public Optional<User> deleteUser(long id) {
-        Optional<User> userData = userRepository.findById(id);
-
-        return userData
-                .map(u -> {
-                    userRepository.deleteById(id);
-                    return u;
-                });
+        return userRepository.findById(id).stream()
+                .peek(user -> userRepository.deleteById(user.getId()))
+                .findAny();
     }
 
     public void deleteAllUsers() {
@@ -58,9 +52,8 @@ public class UserService {
     private User mergeUsers(User u, User user) {
         u.setLogin(user.getLogin());
         u.setPassword(user.getPassword());
-        u.setName(user.getName());
-        u.setEmail(user.getEmail());
-        u.setPhoneNumber(user.getPhoneNumber());
+        u.setEmployee_id(user.getEmployee_id());
+        u.setEmployer_id(user.getEmployer_id());
         return u;
     }
 }

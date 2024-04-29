@@ -11,16 +11,28 @@ public class Employer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @JoinColumn(name = "user_id",
-            referencedColumnName = "id",
-            nullable = false)
-    private long userId;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    public Employer(){
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
+
+    public Employer() {
     }
 
-    public Employer( long userId) {
-        this.userId = userId;
+    public Employer(String name, String email, String phoneNumber) {
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Employer(Employer employer) {
+        this.name = employer.getName();
+        this.email = employer.getEmail();
+        this.phoneNumber = employer.getPhoneNumber();
     }
 
     public long getId() {
@@ -31,19 +43,37 @@ public class Employer {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
     public String toString() {
         return "Employer{" +
                 "id=" + id +
-                ", userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

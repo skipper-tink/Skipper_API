@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -20,20 +19,16 @@ public class ProjectController {
 
     @PostMapping("/projects")
     public ResponseEntity<Long> createProject(@RequestBody Project project) {
-        Optional<Long> opt = projectService.createProject(project);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.CREATED);
-        }
-        throw new IllegalArgumentException("Project creation error");
+        return projectService.createProject(project)
+                .map(id -> new ResponseEntity<>(id, HttpStatus.CREATED))
+                .orElseThrow(() -> new IllegalArgumentException("Project creation error"));
     }
 
     @GetMapping("/projects/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable("id") long projectId) {
-        Optional<Project> opt = projectService.getProjectById(projectId);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        }
-        throw new MyRetrievalFailureException("Project getting by id error");
+        return projectService.getProjectById(projectId)
+                .map(p -> new ResponseEntity<>(p, HttpStatus.OK))
+                .orElseThrow(() -> new MyRetrievalFailureException("Project getting by id error"));
     }
 
     @GetMapping("/projects/{employerId}")
@@ -48,18 +43,16 @@ public class ProjectController {
 
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable("id") long projectId, @RequestBody Project project) {
-        Optional<Project> opt = projectService.updateProject(projectId, project);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        } throw new MyRetrievalFailureException("Project updating error");
+        return projectService.updateProject(projectId, project)
+                .map(p -> new ResponseEntity<>(p, HttpStatus.OK))
+                .orElseThrow(() -> new MyRetrievalFailureException("Project updating error"));
     }
 
     @DeleteMapping("/projects/{id}")
     public ResponseEntity<Project> deleteProject(@PathVariable("id") long projectId) {
-        Optional<Project> opt = projectService.deleteProject(projectId);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } throw new MyRetrievalFailureException("Project deletion error");
+        return projectService.deleteProject(projectId)
+                .map(p -> new ResponseEntity<>(p, HttpStatus.NO_CONTENT))
+                .orElseThrow(() -> new MyRetrievalFailureException("Project deletion error"));
     }
 
     @DeleteMapping("/projects")

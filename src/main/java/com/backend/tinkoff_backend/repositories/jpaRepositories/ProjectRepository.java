@@ -1,4 +1,4 @@
-package com.backend.tinkoff_backend.repositories;
+package com.backend.tinkoff_backend.repositories.jpaRepositories;
 
 import com.backend.tinkoff_backend.entities.Project;
 import org.springframework.data.jpa.repository.JpaRepository;

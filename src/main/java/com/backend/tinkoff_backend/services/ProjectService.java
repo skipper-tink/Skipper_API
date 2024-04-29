@@ -1,7 +1,7 @@
 package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.Project;
-import com.backend.tinkoff_backend.repositories.ProjectRepository;
+import com.backend.tinkoff_backend.repositories.jpaRepositories.ProjectRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,7 @@ public class ProjectService {
     ProjectRepository projectRepository;
 
     public Optional<Long> createProject(Project project) {
-        Optional<Project> opt = projectRepository.findByEmployerIdAndName(project.getEmployerId(), project.getName());
-
-        return Optional.empty()
-                .map(p -> opt.isEmpty()
-                        ? null
-                        : mergeProject(new Project(), project))
+        return Optional.of(new Project(project))
                 .map(p -> projectRepository.save(p).getId());
     }
 
@@ -38,26 +33,15 @@ public class ProjectService {
     }
 
     public Optional<Project> updateProject(long projectId, Project project) {
-        Optional<Project> opt = projectRepository.findById(projectId);
-
-        //Check if new p.Name is the same as the previous
-        //if it isn't, we'll check if this employer can have such a project
-        return opt
-                .map(p -> p.getName().equals(project.getName())
-                        ? mergeProject(p, project)
-                        : (projectRepository.findByEmployerIdAndName(p.getEmployerId(), project.getName()).isPresent()
-                            ? null
-                            : mergeProject(p, project)))
+        return projectRepository.findById(projectId)
+                .map(p -> mergeProject(p, project))
                 .map(p -> projectRepository.save(p));
     }
 
     public Optional<Project> deleteProject(long projectId) throws ServiceException {
-        Optional<Project> opt = projectRepository.findById(projectId);
-        return opt
-                .map(p -> {
-                    projectRepository.deleteById(projectId);
-                    return p;
-                });
+        return projectRepository.findById(projectId).stream()
+                .peek(p -> projectRepository.deleteById(projectId))
+                .findAny();
     }
 
     public void deleteAllProjects() {

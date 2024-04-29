@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -20,20 +19,16 @@ public class FeedbackController {
 
     @PostMapping("/feedbacks")
     public ResponseEntity<Long> createFeedback(@RequestBody Feedback feedback) {
-        Optional<Long> opt = feedbackService.createFeedback(feedback);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.CREATED);
-        }
-        throw new MyRetrievalFailureException("Feedback creating error");
+        return feedbackService.createFeedback(feedback)
+                .map(id -> new ResponseEntity<>(id, HttpStatus.CREATED))
+                .orElseThrow(() -> new MyRetrievalFailureException("Feedback creating error"));
     }
 
     @GetMapping("/feedbacks/{id}")
     public ResponseEntity<Feedback> getFeedbackById(@PathVariable("id") long feedbackId) {
-        Optional<Feedback> opt = feedbackService.getFeedbackById(feedbackId);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        }
-        throw new MyRetrievalFailureException("Feedback getting by id error");
+        return feedbackService.getFeedbackById(feedbackId)
+                .map(f -> new ResponseEntity<>(f, HttpStatus.OK))
+                .orElseThrow(() -> new MyRetrievalFailureException("Feedback getting by id error"));
     }
 
     @GetMapping("/feedbacks/{demandEmployeeId}")
@@ -50,18 +45,16 @@ public class FeedbackController {
     //Won't work if you try to update demandEmployeeId
     @PutMapping("/feedbacks/{id}")
     public ResponseEntity<Feedback> updateFeedback(@PathVariable("id") long feedbackId, @RequestBody Feedback feedback) {
-        Optional<Feedback> opt = feedbackService.updateFeedback(feedbackId, feedback);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        } throw new MyRetrievalFailureException("Feedback updating error");
+        return feedbackService.updateFeedback(feedbackId, feedback)
+                .map(f -> new ResponseEntity<>(f, HttpStatus.OK))
+                .orElseThrow(() -> new MyRetrievalFailureException("Feedback updating error"));
     }
 
     @DeleteMapping("/feedbacks/{id}")
     public ResponseEntity<Feedback> deleteFeedback(@PathVariable("id") long feedbackId) {
-        Optional<Feedback> opt = feedbackService.deleteFeedback(feedbackId);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } throw new MyRetrievalFailureException("Feedback deletion error");
+        return feedbackService.deleteFeedback(feedbackId)
+                .map(f -> new ResponseEntity<>(f, HttpStatus.NO_CONTENT))
+                .orElseThrow(() -> new MyRetrievalFailureException("Feedback deletion error"));
     }
 
     @DeleteMapping("/feedbacks")

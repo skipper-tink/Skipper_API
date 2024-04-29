@@ -28,6 +28,12 @@ public class Project {
     public Project(){
     }
 
+    public Project(Project project) {
+        this.name = project.getName();
+        this.description = project.getDescription();
+        this.status = project.getStatus();
+        this.employerId = project.getEmployerId();
+    }
     public Project(String projectName,
                    String description,
                    String status,

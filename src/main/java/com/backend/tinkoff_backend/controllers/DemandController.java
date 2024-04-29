@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -20,20 +19,16 @@ public class DemandController {
 
     @PostMapping("/demands")
     public ResponseEntity<Long> createDemand(@RequestBody Demand demand) {
-        Optional<Long> opt = demandService.creatDemand(demand);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.CREATED);
-        }
-        throw new MyRetrievalFailureException("Demand creation error;");
+        return demandService.creatDemand(demand)
+                .map(d -> new ResponseEntity<>(d, HttpStatus.CREATED))
+                .orElseThrow(() -> new MyRetrievalFailureException("Demand creation error"));
     }
 
     @GetMapping("/demands/{id}")
     public ResponseEntity<Demand> getDemandById(@PathVariable("id") long demandId) {
-        Optional<Demand> opt = demandService.getDemandById(demandId);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        }
-        throw new MyRetrievalFailureException("Demand getting by id error");
+        return demandService.getDemandById(demandId)
+                .map(d -> new ResponseEntity<>(d, HttpStatus.OK))
+                .orElseThrow(() -> new MyRetrievalFailureException("Demand getting by id error"));
     }
 
     @GetMapping("/demands/{projectId}")
@@ -49,18 +44,16 @@ public class DemandController {
     @PutMapping("/demands/{id}")
     public ResponseEntity<Demand> updateDemand(@PathVariable("id") long demandId,
                                                @RequestBody Demand demand) {
-        Optional<Demand> opt = demandService.updateDemand(demandId, demand);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        } throw new MyRetrievalFailureException("Demand updating error");
+        return demandService.updateDemand(demandId, demand)
+                .map(d -> new ResponseEntity<>(d, HttpStatus.OK))
+                .orElseThrow(() -> new MyRetrievalFailureException("Demand updating error"));
     }
 
     @DeleteMapping("/demands/{id}")
     public ResponseEntity<Demand> deleteDemand(@PathVariable("id") long demandId) {
-        Optional<Demand> opt = demandService.deleteDemand(demandId);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } throw new MyRetrievalFailureException("Demand deletion error");
+        return demandService.deleteDemand(demandId)
+                .map(d -> new ResponseEntity<>(d, HttpStatus.NO_CONTENT))
+                .orElseThrow(() -> new MyRetrievalFailureException("Demand deletion error"));
     }
 
     @DeleteMapping("/demands")

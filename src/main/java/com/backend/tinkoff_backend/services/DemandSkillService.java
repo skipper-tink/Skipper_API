@@ -1,7 +1,7 @@
 package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.DemandSkill;
-import com.backend.tinkoff_backend.repositories.DemandSkillRepository;
+import com.backend.tinkoff_backend.repositories.jpaRepositories.DemandSkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

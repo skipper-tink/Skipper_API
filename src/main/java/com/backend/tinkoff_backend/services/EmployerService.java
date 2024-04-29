@@ -1,9 +1,9 @@
 package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.Employer;
-import com.backend.tinkoff_backend.repositories.EmployeeRepository;
-import com.backend.tinkoff_backend.repositories.EmployerRepository;
-import com.backend.tinkoff_backend.repositories.UserRepository;
+import com.backend.tinkoff_backend.repositories.jpaRepositories.EmployeeRepository;
+import com.backend.tinkoff_backend.repositories.jpaRepositories.EmployerRepository;
+import com.backend.tinkoff_backend.repositories.jpaRepositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,20 +21,13 @@ public class EmployerService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public Optional<Long> createEmployer(long userId) {
-        return userRepository.findById(userId)
-                .map(value -> isAlreadyEmpl(userId)
-                        ? new Employer(userId)
-                        : null)
-                .map(value -> employerRepository.save(value).getUserId());
+    public Optional<Long> createEmployer(Employer employer) {
+        return Optional.of(new Employer(employer))
+                .map(e -> employerRepository.save(e).getId());
     }
 
     public Optional<Employer> getEmployerById(long employerId) {
         return employerRepository.findById(employerId);
-    }
-
-    public Optional<Employer> getEmployerByUserId(long userId) {
-        return employerRepository.findByUserId(userId);
     }
 
     public List<Employer> getAllEmployers() {
@@ -42,22 +35,15 @@ public class EmployerService {
     }
 
     public Optional<Employer> updateEmployer(long employerId, Employer employer) {
-        Optional<Employer> opt = employerRepository.findById(employerId);
-
-        return opt
-                .map(e -> isAlreadyExist(employer)
-                        ? null
-                        : mergeEmployer(e, employer))
+        return employerRepository.findById(employerId)
+                .map(e -> mergeEmployer(e, employer))
                 .map(e -> employerRepository.save(e));
     }
 
     public Optional<Employer> deleteEmployer(long employerId) {
-        Optional<Employer> opt = employerRepository.findById(employerId);
-        return opt
-                .map(e -> {
-                    employerRepository.deleteById(employerId);
-                    return e;
-                });
+        return employerRepository.findById(employerId).stream()
+                .peek(e -> employerRepository.deleteById(employerId))
+                .findAny();
     }
 
     public void deleteAllEmployers() {
@@ -65,15 +51,9 @@ public class EmployerService {
     }
 
     private Employer mergeEmployer(Employer e, Employer employer) {
-        e.setUserId(employer.getUserId());
+        e.setEmail(employer.getEmail());
+        e.setName(employer.getName());
+        e.setPhoneNumber(employer.getPhoneNumber());
         return e;
-    }
-
-    private boolean isAlreadyExist(Employer employer) {
-        return employerRepository.findByUserId(employer.getUserId()).isPresent();
-    }
-
-    private boolean isAlreadyEmpl(long id) {
-        return employeeRepository.findByUserId(id).isEmpty() && employerRepository.findByUserId(id).isEmpty();
     }
 }

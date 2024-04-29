@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -21,18 +20,16 @@ public class SkillController {
 
     @PostMapping("/skills")
     public ResponseEntity<Long> createSkill(@RequestBody Skill skill) {
-        Optional<Long> opt = skillService.createSkill(skill);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.CREATED);
-        } throw new MyInvalidArgumentException("Skill creation error");
+        return skillService.createSkill(skill)
+                .map(id -> new ResponseEntity<>(id, HttpStatus.CREATED))
+                .orElseThrow(() -> new MyInvalidArgumentException("Skill creation error"));
     }
 
     @GetMapping("/skills/{id}")
     public ResponseEntity<Skill> getSkillById(@PathVariable("id") long skillId) {
-        Optional<Skill> opt = skillService.getSkillById(skillId);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        } throw new MyRetrievalFailureException("Skill getting by id error");
+        return skillService.getSkillById(skillId)
+                .map(s -> new ResponseEntity<>(s, HttpStatus.OK))
+                .orElseThrow(() -> new MyRetrievalFailureException("Skill getting by id error"));
     }
 
     @GetMapping("/skills/{specialization}")
@@ -47,18 +44,16 @@ public class SkillController {
 
     @PutMapping("/skills/{id}")
     public ResponseEntity<Skill> updateSkill(@PathVariable("id") long skillId, @RequestBody Skill skill) {
-        Optional<Skill> opt = skillService.updateSkill(skillId, skill);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
-        } throw new MyRetrievalFailureException("Skill updating error");
+        return skillService.updateSkill(skillId, skill)
+                .map(s -> new ResponseEntity<>(s, HttpStatus.OK))
+                .orElseThrow(() -> new MyRetrievalFailureException("Skill updating error"));
     }
 
     @DeleteMapping("/skills/{id}")
     public ResponseEntity<Skill> deleteSkill(@PathVariable("id") long skillId) {
-        Optional<Skill> opt = skillService.deleteSkill(skillId);
-        if (opt.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } throw new MyRetrievalFailureException("Skill deletion error");
+        return skillService.deleteSkill(skillId)
+                .map(s -> new ResponseEntity<>(s, HttpStatus.NO_CONTENT))
+                .orElseThrow(() -> new MyRetrievalFailureException("Skill deletion error"));
     }
 
     @DeleteMapping("/skills")

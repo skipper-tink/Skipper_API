@@ -1,7 +1,7 @@
 package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.Demand;
-import com.backend.tinkoff_backend.repositories.DemandRepository;
+import com.backend.tinkoff_backend.repositories.jpaRepositories.DemandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,21 +38,15 @@ public class DemandService {
     }
 
     public Optional<Demand> updateDemand(long demandId, Demand demand) {
-        Optional<Demand> opt = demandRepository.findById(demandId);
-
-        return opt
+        return demandRepository.findById(demandId)
                 .map(d -> merdgeDemand(d, demand))
                 .map(d -> demandRepository.save(d));
     }
 
     public Optional<Demand> deleteDemand(long demandId) {
-        Optional<Demand> opt = demandRepository.findById(demandId);
-
-        return opt
-                .map(d -> {
-                    demandRepository.deleteById(demandId);
-                    return d;
-                });
+        return demandRepository.findById(demandId).stream()
+                .peek(d -> demandRepository.deleteById(demandId))
+                .findAny();
     }
 
     public void deleteAllDemands() {

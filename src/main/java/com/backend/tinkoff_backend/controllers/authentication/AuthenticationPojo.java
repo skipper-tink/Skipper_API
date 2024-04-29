@@ -1,4 +1,4 @@
-package com.backend.tinkoff_backend.entities.pojo;
+package com.backend.tinkoff_backend.controllers.authentication;
 
 public class AuthenticationPojo {
     private String login;

@@ -1,9 +1,9 @@
 package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.EmployeeSkill;
-import com.backend.tinkoff_backend.repositories.EmployeeRepository;
-import com.backend.tinkoff_backend.repositories.EmployeeSkillRepository;
-import com.backend.tinkoff_backend.repositories.SkillRepository;
+import com.backend.tinkoff_backend.repositories.jpaRepositories.EmployeeRepository;
+import com.backend.tinkoff_backend.repositories.jpaRepositories.EmployeeSkillRepository;
+import com.backend.tinkoff_backend.repositories.jpaRepositories.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

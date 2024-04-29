@@ -27,6 +27,13 @@ public class Feedback {
     public Feedback() {
     }
 
+    public Feedback(Feedback feedback) {
+        this.rating = feedback.getRating();
+        this.comment = feedback.getComment();
+        this.demandEmployeeId = feedback.getDemandEmployeeId();
+        this.reviewerName = feedback.getReviewerName();
+    }
+
     public Feedback(int rating,
                     String comment,
                     long demandEmployeeId,

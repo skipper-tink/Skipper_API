@@ -1,7 +1,6 @@
 package com.backend.tinkoff_backend.controllers.demandEmployee;
 
 import com.backend.tinkoff_backend.entities.Demand;
-import com.backend.tinkoff_backend.entities.DemandEmployee;
 import com.backend.tinkoff_backend.entities.Employee;
 import com.backend.tinkoff_backend.exceptions.MyInvalidArgumentException;
 import com.backend.tinkoff_backend.services.DemandEmployeeService;
@@ -37,7 +36,7 @@ public class DemandEmployeeController {
     }
 
     @DeleteMapping("/demand/{demandId}/employees")
-    public ResponseEntity<DemandEmployee> deleteAllEmployeesOnDemand(@PathVariable("demandId") long demandId) {
+    public ResponseEntity deleteAllEmployeesOnDemand(@PathVariable("demandId") long demandId) {
         demandEmployeeService.deleteAllEmployeesOnDemand(demandId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

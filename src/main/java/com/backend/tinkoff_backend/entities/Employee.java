@@ -34,10 +34,19 @@ public class Employee {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
+    @Column(name = "description", length = 300)
+    private String description;
+
+    @Column(name = "rating")
+    private double rating;
+
+    @Column(name = "feedbacks_count")
+    private int feedbacksCount;
+
     public Employee(){
     }
 
-    public Employee(String name, long freeTimePerWeek, Date freeTimeUntilDate, String specialization, String qualification, String email, String phoneNumber) {
+    public Employee(String name, long freeTimePerWeek, Date freeTimeUntilDate, String specialization, String qualification, String email, String phoneNumber, String description, double rating, int feedbacksCount) {
         this.name = name;
         this.freeTimePerWeek = freeTimePerWeek;
         this.freeTimeUntilDate = freeTimeUntilDate;
@@ -45,6 +54,9 @@ public class Employee {
         this.qualification = qualification;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.description = description;
+        this.rating = rating;
+        this.feedbacksCount = feedbacksCount;
     }
 
     public Employee(Employee employee) {
@@ -55,6 +67,9 @@ public class Employee {
         this.qualification = employee.getQualification();
         this.email = employee.getEmail();
         this.phoneNumber = employee.getPhoneNumber();
+        this.description = employee.getDescription();
+        this.rating = employee.getRating();
+        this.feedbacksCount = employee.getFeedbacksCount();
     }
 
     public long getId() {
@@ -119,5 +134,29 @@ public class Employee {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public int getFeedbacksCount() {
+        return feedbacksCount;
+    }
+
+    public void setFeedbacksCount(int feedbacksCount) {
+        this.feedbacksCount = feedbacksCount;
     }
 }

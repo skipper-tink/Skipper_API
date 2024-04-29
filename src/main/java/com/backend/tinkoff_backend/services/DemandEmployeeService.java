@@ -5,6 +5,7 @@ import com.backend.tinkoff_backend.entities.Demand;
 import com.backend.tinkoff_backend.entities.DemandEmployee;
 import com.backend.tinkoff_backend.entities.Employee;
 import com.backend.tinkoff_backend.repositories.jdbcTemplateRepositories.JdbcDemandRepository;
+import com.backend.tinkoff_backend.repositories.jdbcTemplateRepositories.JdbcEmployeeRepository;
 import com.backend.tinkoff_backend.repositories.jpaRepositories.DemandEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class DemandEmployeeService {
     DemandEmployeeRepository demandEmployeeRepository;
     @Autowired
     JdbcDemandRepository jdbcDemandRepository;
+    @Autowired
+    JdbcEmployeeRepository jdbcEmployeeRepository;
 
     public Optional<Long> createEmployeeOnDemand(DemandAndEmployeeIdPojo pojo) {
         return Optional.of(new DemandEmployee(pojo.getDemandId(), pojo.getEmployeeId()))
@@ -26,7 +29,7 @@ public class DemandEmployeeService {
     }
 
     public List<Employee> getEmployeesByDemandId(long demandId) {
-        return jdbcDemandRepository.getEmployeesByDemandId(demandId);
+        return jdbcEmployeeRepository.getEmployeesByDemandId(demandId);
     }
 
     public List<Demand> getDemandsByEmployeesId(long employeeId) {

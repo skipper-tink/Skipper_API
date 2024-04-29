@@ -57,7 +57,7 @@ public class SkillController {
     }
 
     @DeleteMapping("/skills")
-    public ResponseEntity<Skill> deleteAllSkills() {
+    public ResponseEntity deleteAllSkills() {
         skillService.deleteAllSkills();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

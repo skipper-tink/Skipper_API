@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users")
-    public ResponseEntity<User> deleteAllUsers() {
+    public ResponseEntity deleteAllUsers() {
         userService.deleteAllUsers();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

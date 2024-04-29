@@ -1,4 +1,4 @@
-package com.backend.tinkoff_backend.controllers.profile;
+package com.backend.tinkoff_backend.unused.profile;
 
 import com.backend.tinkoff_backend.entities.Employee;
 import com.backend.tinkoff_backend.entities.Skill;

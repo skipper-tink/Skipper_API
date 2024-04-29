@@ -1,6 +1,8 @@
 package com.backend.tinkoff_backend.services;
 
 import com.backend.tinkoff_backend.entities.Employee;
+import com.backend.tinkoff_backend.entities.Feedback;
+import com.backend.tinkoff_backend.repositories.jdbcTemplateRepositories.JdbcEmployeeRepository;
 import com.backend.tinkoff_backend.repositories.jpaRepositories.EmployeeRepository;
 import com.backend.tinkoff_backend.repositories.jpaRepositories.EmployerRepository;
 import com.backend.tinkoff_backend.repositories.jpaRepositories.UserRepository;
@@ -16,6 +18,8 @@ public class EmployeeService {
 
     @Autowired
     EmployeeRepository employeeRepository;
+    @Autowired
+    JdbcEmployeeRepository jdbcEmployeeRepository;
     @Autowired
     EmployerRepository employerRepository;
     @Autowired
@@ -44,6 +48,14 @@ public class EmployeeService {
                 .map(e -> employeeRepository.save(e));
     }
 
+    public void updateEmployeeFeedback(Feedback feedback) {
+        jdbcEmployeeRepository.updateEmployeeFeedback(feedback);
+    }
+
+    public void updateEmployeeOldFeedback(Feedback newFeedback, double oldRating) {
+        jdbcEmployeeRepository.updateEmployeeOldFeedback(newFeedback, oldRating);
+    }
+
     public Optional<Employee> deleteEmployee(long employeeId) {
         return employeeRepository.findById(employeeId).stream()
                 .peek(e -> employeeRepository.deleteById(employeeId))
@@ -63,6 +75,9 @@ public class EmployeeService {
         employee.setSpecialization(value.getSpecialization());
         employee.setEmail(employee.getEmail());
         employee.setPhoneNumber(employee.getPhoneNumber());
+        employee.setDescription(employee.getDescription());
+        employee.setRating(employee.getRating());
+        employee.setFeedbacksCount(employee.getFeedbacksCount());
         return employee;
     }
 }

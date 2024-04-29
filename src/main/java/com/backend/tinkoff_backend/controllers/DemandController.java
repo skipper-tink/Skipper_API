@@ -57,7 +57,7 @@ public class DemandController {
     }
 
     @DeleteMapping("/demands")
-    public ResponseEntity<Demand> deleteAllDemands() {
+    public ResponseEntity deleteAllDemands() {
         demandService.deleteAllDemands();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

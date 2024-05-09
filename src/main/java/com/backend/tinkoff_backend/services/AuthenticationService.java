@@ -4,7 +4,10 @@ import com.backend.tinkoff_backend.controllers.authentication.AuthenticationRequ
 import com.backend.tinkoff_backend.entities.User;
 import com.backend.tinkoff_backend.controllers.authentication.AuthenticationPojo;
 import com.backend.tinkoff_backend.repositories.jpaRepositories.UserRepository;
+import com.backend.tinkoff_backend.services.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,14 +15,24 @@ import java.util.Optional;
 @Service
 public class AuthenticationService {
 
+    private final UserService userService;
+    private final EmployeeService employeeService;
+    private final EmployerService employerService;
+    private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    UserService userService;
-    @Autowired
-    EmployeeService employeeService;
-    @Autowired
-    EmployerService employerService;
-    @Autowired
-    UserRepository userRepository;
+    public AuthenticationService(UserService userService, EmployeeService employeeService, EmployerService employerService, UserRepository userRepository, AuthenticationManager authenticationManager, JwtService jwtService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.employeeService = employeeService;
+        this.employerService = employerService;
+        this.userRepository = userRepository;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public Optional<AuthenticationRequestPojo> authenticate(AuthenticationPojo pojo) {
         return userRepository.findByLogin(pojo.getLogin())

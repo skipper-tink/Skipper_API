@@ -3,6 +3,8 @@ package com.backend.tinkoff_backend.services;
 import com.backend.tinkoff_backend.entities.User;
 import com.backend.tinkoff_backend.repositories.jpaRepositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,19 @@ public class UserService {
         return userRepository.findByLogin(login);
     }
 
+    public User getByUsername(String username) {
+        return userRepository.findByLogin(username)
+    }
+
+    public UserDetailsService userDetailsService() {
+        return this::getByUsername;
+    }
+
+    public User getCurrentUser() {
+        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return getByUsername(username);
+    }
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -50,7 +65,7 @@ public class UserService {
     }
 
     private User mergeUsers(User u, User user) {
-        u.setLogin(user.getLogin());
+        u.setUsername(user.getUsername());
         u.setPassword(user.getPassword());
         u.setEmployee_id(user.getEmployee_id());
         u.setEmployer_id(user.getEmployer_id());

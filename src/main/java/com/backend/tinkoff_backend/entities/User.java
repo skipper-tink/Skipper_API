@@ -1,10 +1,16 @@
 package com.backend.tinkoff_backend.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "spr_user")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @Column(name = "id", nullable = false, unique = true)
@@ -12,7 +18,7 @@ public class User {
     private long id;
 
     @Column(name = "login", nullable = false, unique = true)
-    private String login;
+    private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -25,15 +31,15 @@ public class User {
 
     public User(){}
 
-    public User(String login, String password, long employer_id, long employee_id) {
-        this.login = login;
+    public User(String username, String password, long employer_id, long employee_id) {
+        this.username = username;
         this.password = password;
         this.employer_id = employer_id;
         this.employee_id = employee_id;
     }
 
     public User(User user) {
-        this.login = user.getLogin();
+        this.username = user.getUsername();
         this.password = user.getPassword();
         this.employer_id = user.getEmployer_id();
         this.employee_id = user.getEmployee_id();
@@ -47,12 +53,32 @@ public class User {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public void setUsername(String login) {
+        this.username = login;
     }
 
     public String getPassword() {
@@ -79,11 +105,15 @@ public class User {
         this.employee_id = employee_id;
     }
 
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("user"));
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
+                ", login='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", employer_id=" + employer_id +
                 ", employee_id=" + employee_id +

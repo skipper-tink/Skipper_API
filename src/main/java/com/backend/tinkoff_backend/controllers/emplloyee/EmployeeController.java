@@ -60,7 +60,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employees")
-    public ResponseEntity<Employee> deleteAllEmployees() {
+    public ResponseEntity deleteAllEmployees() {
         employeeService.deleteAllEmployees();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -53,7 +53,7 @@ public class EmployerController {
     }
 
     @DeleteMapping("/employers")
-    public ResponseEntity<Employer> deleteAllEmployers() {
+    public ResponseEntity deleteAllEmployers() {
         employerService.deleteAllEmployers();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

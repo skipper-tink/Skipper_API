@@ -18,6 +18,9 @@ public class EmployeeMapper implements RowMapper<Employee> {
         employee.setQualification(resultSet.getString("qualification"));
         employee.setEmail(resultSet.getString("email"));
         employee.setPhoneNumber(resultSet.getString("phone_number"));
+        employee.setDescription(resultSet.getString("description"));
+        employee.setRating(resultSet.getDouble("rating"));
+        employee.setFeedbacksCount(resultSet.getInt("feedbacks_count"));
         return employee;
     }
 }

@@ -26,11 +26,11 @@ public class AuthenticationController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/authentication")
+    @PostMapping("/authentication")
     public ResponseEntity<AuthenticationRequestPojo> authentication(@RequestBody AuthenticationPojo pojo) {
         return authenticationService.authenticate(pojo)
                 .map(p -> new ResponseEntity<>(p, HttpStatus.OK))
-                .orElseThrow(() -> new IllegalArgumentException("Authentication error"));
+                .orElseThrow(() -> new MyRetrievalFailureException("Authentication error"));
     }
 
     @PostMapping("/registration/user")

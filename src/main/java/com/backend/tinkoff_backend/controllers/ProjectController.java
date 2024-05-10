@@ -56,7 +56,7 @@ public class ProjectController {
     }
 
     @DeleteMapping("/projects")
-    public ResponseEntity<Project> deleteAllProjects() {
+    public ResponseEntity deleteAllProjects() {
         projectService.deleteAllProjects();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -31,6 +31,20 @@ services:
       - app-network
     restart: unless-stopped
 
+  skipper-frontend:
+    build:
+      context: ../skipper-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ~/skipper/skipper-frontend:/app
+    networks:
+      - app-network
+    links:
+      - skipper-backend
+      - service-db
+
 networks:
   app-network:
     driver: bridge

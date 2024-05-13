@@ -19,8 +19,13 @@ public class TinkoffBackendApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8000")
-                        .allowedOrigins("http://localhost:3000");
+                        .allowedOrigins(
+                                "http://localhost:8000",
+                                "http://localhost:3000",
+                                "https://skipper-frontend:3000",
+                                "https://skipper-frontend:8000"
+                        );
+
             }
         };
     }

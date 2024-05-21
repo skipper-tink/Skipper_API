@@ -32,9 +32,9 @@ public class EmployeeController {
                 .orElseThrow(() -> new MyRetrievalFailureException("Employee getting by id error"));
     }
 
-    @GetMapping("/employees/{specializationAndQualification}")
+    @GetMapping("/employees/specialization-and-qualification")
     public ResponseEntity<List<Employee>> getEmployeeBySpecializationAndQualification
-            (@PathVariable("specializationAndQualification") SpecializationAndQualificationPojo saq) {
+            (@RequestBody SpecializationAndQualificationPojo saq) {
         return new ResponseEntity<>(employeeService.getEmployeesBySpecializationAndQualification(
                 saq.getSpecialization(),
                 saq.getQualification()), HttpStatus.OK);
